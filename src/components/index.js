@@ -1,0 +1,1 @@
+export {default as Acasa} from './acasa/acasa';
