@@ -1,10 +1,10 @@
 function Navbar(){
-    return <div>
+    return <div id='T'>
         <a href="/">Acasa</a>
         <a href="/abonamente">Abonamente</a>
-        <a href="/rezervări">Rezervări online</a>
+        <a href="/rezervari">Rezervări online</a>
         <a href="/servicii">Servicii</a>
-        <a href="/orar">Orar clase</a>
+        <a href="/orar-clase">Orar clase</a>
         <a href="/blog">Blog</a>
         <a href="/galerie">Galerie foto</a>
         <a href="/salidefitness">Săli fitness</a>

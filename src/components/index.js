@@ -1,2 +1,10 @@
 export {default as Acasa} from './acasa/acasa';
+export {default as Abonamente} from './abonamente/abonamente';
+export {default as Contact} from './contact/contact';
+export {default as OrarClase} from './orarClase/orarClase';
+export {default as Servicii} from './servicii/servicii';
+export {default as Rezervari} from './rezervari/rezervari';
+export {default as Blog} from './blog/blog';
+export {default as Galerie} from './galerieFoto/galerieFoto';
+export {default as SaliDeFitness} from './saliDeFitness/saliDeFitness';
 export {default as Navbar} from './navbar/navbar';
