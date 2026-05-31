@@ -21,6 +21,10 @@ function Navbar(){
         <NavLink to="/galerie" className={buttonClass}>Galerie foto</NavLink>
         <NavLink to="/salidefitness" className={buttonClass}>Săli fitness</NavLink>
         <NavLink to="/contact" className={buttonClass}>Contact</NavLink>
+        <div>
+        <a href="https://www.instagram.com/burnfitnesscluj/" target='_blank'><FontAwesomeIcon icon={faInstagramSquare} className='text-[#E06397] hover:text-[#DB2777] duration-150 text-3xl'/></a>
+        <a href="https://www.facebook.com/BurnFitnessCluj" target='_blank'><FontAwesomeIcon icon={faFacebookSquare} className='text-[#6096D6] hover:text-[#1877F2] duration-150 text-3xl'/></a>
+        </div>
     </div>
 
     {/* mobile navbar */}
