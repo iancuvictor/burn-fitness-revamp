@@ -6,6 +6,10 @@
   --animate-fade-out: fadeOut 0.1 ease-out;
 }
 
+body{
+  height: 100%;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0%;

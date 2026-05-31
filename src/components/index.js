@@ -8,3 +8,4 @@ export {default as Blog} from './blog/blog';
 export {default as Galerie} from './galerieFoto/galerieFoto';
 export {default as SaliDeFitness} from './saliDeFitness/saliDeFitness';
 export {default as Navbar} from './navbar/navbar';
+export {default as Footer} from './footer/footer';

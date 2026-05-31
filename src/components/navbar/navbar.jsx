@@ -1,12 +1,10 @@
 import { NavLink } from 'react-router';
 import BurnLogo from './assets/burnLogo.svg';
-import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { faFacebookSquare, faInstagramSquare } from '@fortawesome/free-brands-svg-icons';
 
-function Navbar(){
-    const [menuState, setMenuState] = useState(false);
+function Navbar({menuState, setMenuState}){
     const buttonClass = ({isActive}) => isActive ? 'z-1 text-white underline underline-offset-5' : 'hover:text-white hover:underline underline-offset-5 duration-150'
 
     return <>
