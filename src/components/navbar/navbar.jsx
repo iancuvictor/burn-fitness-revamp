@@ -10,8 +10,9 @@ function Navbar(){
     const buttonClass = ({isActive}) => isActive ? 'z-1 text-white underline underline-offset-5' : 'hover:text-white hover:underline underline-offset-5 duration-150'
 
     return <>
-    <div id='navbar' className='hidden md:flex h-20 bg-black text-gray-500 text-[16px] gap-10 items-center justify-center'>
-        <img src={BurnLogo} alt="burn fitness logo" className='w-50'/>
+    <div id='navbar' className='hidden md:flex h-20 gap-5 bg-black items-center md:justify-between xl:justify-evenly'>
+        <img src={BurnLogo} alt="burn fitness logo" className='w-50 md:pl-[20px]'/>
+        <div className='hidden md:flex flex-wrap text-gray-500 text-[16px] gap-2.5 xl:gap-5 items-center justify-end md:pr-[20px]'>
         <NavLink to="/" className={buttonClass}>Acasa</NavLink>
         <NavLink to="/abonamente" className={buttonClass}>Abonamente</NavLink>
         <NavLink to="/rezervari" className={buttonClass}>Rezervări online</NavLink>
@@ -21,9 +22,10 @@ function Navbar(){
         <NavLink to="/galerie" className={buttonClass}>Galerie foto</NavLink>
         <NavLink to="/salidefitness" className={buttonClass}>Săli fitness</NavLink>
         <NavLink to="/contact" className={buttonClass}>Contact</NavLink>
-        <div>
-        <a href="https://www.instagram.com/burnfitnesscluj/" target='_blank'><FontAwesomeIcon icon={faInstagramSquare} className='text-[#E06397] hover:text-[#DB2777] duration-150 text-3xl'/></a>
-        <a href="https://www.facebook.com/BurnFitnessCluj" target='_blank'><FontAwesomeIcon icon={faFacebookSquare} className='text-[#6096D6] hover:text-[#1877F2] duration-150 text-3xl'/></a>
+        <div className='lg:flex md:hidden'>
+        <a href="https://www.instagram.com/burnfitnesscluj/" target='_blank'><FontAwesomeIcon icon={faInstagramSquare} className='text-[#E06397] hover:text-[#DB2777] duration-150 text-[30px]'/></a>
+        <a href="https://www.facebook.com/BurnFitnessCluj" target='_blank'><FontAwesomeIcon icon={faFacebookSquare} className='text-[#6096D6] hover:text-[#1877F2] duration-150 text-[30px]'/></a>
+        </div>
         </div>
     </div>
 
