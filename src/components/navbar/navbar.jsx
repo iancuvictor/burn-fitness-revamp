@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router';
 import BurnLogo from './assets/burnLogo.svg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faCircleUser } from '@fortawesome/free-solid-svg-icons';
 import { faFacebookSquare, faInstagramSquare } from '@fortawesome/free-brands-svg-icons';
 
 function Navbar({menuState, setMenuState}){
@@ -11,20 +11,21 @@ function Navbar({menuState, setMenuState}){
     <div id='navbar' className='z-2 sticky top-0 w-full hidden md:flex h-20 gap-5 bg-black/95 items-center md:justify-between xl:justify-evenly font-[600]'>
         <NavLink to="/" className={buttonClass}><img src={BurnLogo} alt="burn fitness logo" className='w-50 md:pl-[20px] select-none'/></NavLink>
         <div className='hidden md:flex flex-wrap text-gray-500 text-[16px] gap-2.5 xl:gap-5 items-center justify-end md:pr-[20px]'>
-        <NavLink to="/" className={buttonClass}>Acasa</NavLink>
-        <NavLink to="/abonamente" className={buttonClass}>Abonamente</NavLink>
-        <NavLink to="/rezervari" className={buttonClass}>Rezervări online</NavLink>
-        <NavLink to="/servicii" className={buttonClass}>Servicii</NavLink>
-        <NavLink to="/orar-clase" className={buttonClass}>Orar clase</NavLink>
-        <NavLink to="/blog" className={buttonClass}>Blog</NavLink>
-        <NavLink to="/galerie" className={buttonClass}>Galerie foto</NavLink>
-        <NavLink to="/salidefitness" className={buttonClass}>Săli fitness</NavLink>
-        <NavLink to="/contact" className={buttonClass}>Contact</NavLink>
-        <div className='lg:flex md:hidden'>
-        <a href="https://www.instagram.com/burnfitnesscluj/" target='_blank'><FontAwesomeIcon icon={faInstagramSquare} className='text-[#E06397] hover:text-[#DB2777] duration-150 text-[30px]'/></a>
-        <a href="https://www.facebook.com/BurnFitnessCluj" target='_blank'><FontAwesomeIcon icon={faFacebookSquare} className='text-[#6096D6] hover:text-[#1877F2] duration-150 text-[30px]'/></a>
+            <NavLink to="/" className={buttonClass}>Acasa</NavLink>
+            <NavLink to="/abonamente" className={buttonClass}>Abonamente</NavLink>
+            <NavLink to="/rezervari" className={buttonClass}>Rezervări online</NavLink>
+            <NavLink to="/servicii" className={buttonClass}>Servicii</NavLink>
+            <NavLink to="/orar-clase" className={buttonClass}>Orar clase</NavLink>
+            <NavLink to="/blog" className={buttonClass}>Blog</NavLink>
+            <NavLink to="/galerie" className={buttonClass}>Galerie foto</NavLink>
+            <NavLink to="/salidefitness" className={buttonClass}>Săli fitness</NavLink>
+            <NavLink to="/contact" className={buttonClass}>Contact</NavLink>
+            <div className='lg:flex md:hidden'>
+                <a href="https://www.instagram.com/burnfitnesscluj/" target='_blank'><FontAwesomeIcon icon={faInstagramSquare} className='text-[#E06397] hover:text-[#DB2777] duration-150 text-[30px]'/></a>
+                <a href="https://www.facebook.com/BurnFitnessCluj" target='_blank'><FontAwesomeIcon icon={faFacebookSquare} className='text-[#6096D6] hover:text-[#1877F2] duration-150 text-[30px]'/></a>
+            </div>
         </div>
-        </div>
+        <NavLink to="/account" className='text-gray-500'><FontAwesomeIcon icon={faCircleUser} className='text-[30px] hover:text-white'/></NavLink>
     </div>
 
     {/* mobile navbar */}
