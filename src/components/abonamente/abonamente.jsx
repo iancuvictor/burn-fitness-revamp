@@ -81,7 +81,7 @@ function Abonamente() {
           pretDoi="430 Lei"
           optTrei="6 Lună"
           pretTrei="580 Lei"
-          imagine="https://www.burncluj.ro/wp-content/uploads/2023/02/thumbnail.jpeg"
+          imagine="https://www.burncluj.ro/wp-content/uploads/2023/02/bc8.jpeg"
         />
         <CardAbonament
           titlu="ONE BURN DAY"
