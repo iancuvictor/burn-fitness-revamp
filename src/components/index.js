@@ -9,3 +9,8 @@ export {default as Galerie} from './galerieFoto/galerieFoto';
 export {default as SaliDeFitness} from './saliDeFitness/saliDeFitness';
 export {default as Navbar} from './navbar/navbar';
 export {default as Footer} from './footer/footer';
+export {default as SalaFitnessZorilor} from './saliDeFitness/salaFitnessZorilor/salaFitnessZorilor';
+export {default as SalaFitnessSigma} from './saliDeFitness/salaFitnessSigma/salaFitnessSigma';
+export {default as SalaFitnessManastur} from './saliDeFitness/salaFitnessManastur/salaFitnessManastur';
+export {default as SalaFitnessFlora} from './saliDeFitness/salaFitnessFlora/salaFitnessFlora';
+export {default as SalaFitnessMarasti} from './saliDeFitness/salaFitnessMarasti/salaFitnessMarasti';

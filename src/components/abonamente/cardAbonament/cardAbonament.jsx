@@ -13,7 +13,7 @@ function CardAbonament(props) {
           alt=""
           className='w-full h-60 object-cover object-top select-none'
         />
-        <div class="absolute inset-0 bg-gradient-to-t from-black from-0% via-transparent via-70% to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black from-0% via-transparent via-70% to-transparent"></div>
       </div>
       <h1 className="font-bold text-[25px]">{props.titlu}</h1>
       <div className="w-full flex flex-wrap pl-[20px] pr-[20px] border-box">
