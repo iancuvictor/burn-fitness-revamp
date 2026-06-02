@@ -27,7 +27,7 @@ function App() {
     <BrowserRouter>
       <div
         id="appWrapper"
-        className="flex flex-col justify-between min-h-screen"
+        className="relative flex flex-col justify-between min-h-screen"
       >
         <Navbar menuState={menuState} setMenuState={setMenuState} />
         <Routes>
