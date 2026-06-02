@@ -2,21 +2,20 @@ import CardAbonament from "./cardAbonament/cardAbonament";
 
 function Abonamente() {
   return (
-    <div className="flex flex-col justify-center items-center w-full box-border">
-      <h1 className="text-[45px] font-finlandica font-bold text-[#E61932]">
-        Anunț important
-      </h1>
-      <p>
-        Toate abonamentele Burn Fitness se pot achiziționa atat din aplicația
-        noastră mobilă cat si de la recepție Clienții existenți își pot activa
-        contul la recepția oricărei locații Burn Fitness.
-      </p>
-      <p>ABONAMENTUL SILVER– ACCES IN TOATE LOCATIILE BURN FITNESS/AEROBIC</p>
-      <p>ABONAMENTUL GOLD-ACCES IN TOATE LOCATIILE BURN FITNESS+AEROBIC</p>
+    <div className="flex flex-col justify-center items-center w-full box-border pt-[50px]">
       <div
         id="listaAbonamente"
         className="relative w-full flex flex-row flex-wrap items-center justify-center gap-5"
       >
+        <CardAbonament
+          tier='premium'
+          type='GOLD'
+          titlu="FITNESS+AEROBIC"
+          desc='Acces în toate locațiile BURN Fitness/Aerobic'
+          optUnu="Lună"
+          pretUnu="225 Lei"
+          imagine="https://www.burncluj.ro/wp-content/uploads/2026/03/Burn-16.jpg"
+        />
         <CardAbonament
           titlu="FITNESS FULL"
           optUnu="1 Lună"
@@ -51,6 +50,15 @@ function Abonamente() {
           pretTrei="950 Lei"
           optPatru="12 Luni"
           pretPatru="1740 Lei"
+          imagine="https://www.burncluj.ro/wp-content/uploads/2026/03/Burn-16.jpg"
+        />
+        <CardAbonament
+        tier='premium'
+        type='SILVER'
+          titlu="FITNESS+AEROBIC"
+          desc='Acces în toate locațiile BURN Fitness+Aerobic'
+          optUnu="Lună"
+          pretUnu="195 Lei"
           imagine="https://www.burncluj.ro/wp-content/uploads/2026/03/Burn-16.jpg"
         />
         <CardAbonament
