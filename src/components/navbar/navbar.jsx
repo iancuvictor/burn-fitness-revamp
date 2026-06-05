@@ -35,7 +35,7 @@ function Navbar({menuState, setMenuState}){
     onClick={() => setMenuState(!menuState)}
     className={menuState ? 'hidden' : 'md:hidden cursor-pointer text-white text-[25px] pl-[px] pr-[20px]'}
     ><FontAwesomeIcon icon={faBars} /></button>
-    <div id='mobileBurger' className={menuState ? 'z-2 animate-fade-in flex flex-col fixed justify-center items-center gap-5 w-full h-full bg-black font-finlandica font-bold text-gray-500 text-[25px] md:hidden' : 'animate-fade-out hidden'}>
+    <div id='mobileBurger' className={menuState ? 'z-3 animate-fade-in flex flex-col fixed justify-center items-center gap-5 w-full h-full bg-black font-finlandica font-bold text-gray-500 text-[25px] md:hidden' : 'animate-fade-out hidden'}>
         <div onClick={() => setMenuState(!menuState)} className='fixed z-[-1] h-full w-full'></div>
         <img src={BurnLogo} alt="burn fitness logo" className='w-40 pb-[20px] box-border' onClick={() => setMenuState(!menuState)}/>
         <NavLink to="/" className={buttonClass} onClick={() => setMenuState(!menuState)}>Acasa</NavLink>

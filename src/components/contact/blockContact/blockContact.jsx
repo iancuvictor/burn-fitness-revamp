@@ -2,7 +2,7 @@ import { faCalendar, faLocationDot, faSquarePhone } from "@fortawesome/free-soli
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function BlockContact(props){
-    return <div className="flex flex-col gap-5 p-[20px] rounded-xl text-[18px] md:text-[16px] font-finlandica shadow-lg">
+    return <div className="flex flex-col gap-5 p-[20px] rounded-xl text-[18px] md:text-[16px] font-finlandica shadow-lg bg-white">
         <div>
         <h1><FontAwesomeIcon icon={faSquarePhone} className='text-[#000]'/><span className='font-[600]'>Telefon {props.locatie}</span>: <a href={'tel:+4'+ props.nrTel}>{props.nrTel}</a></h1>
         <h1><FontAwesomeIcon icon={faLocationDot} className='text-[#000]'/><span className='font-[600]'>Adresă {props.locatie}</span>: {props.adresa}</h1>

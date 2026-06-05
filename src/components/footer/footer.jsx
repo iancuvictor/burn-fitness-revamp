@@ -4,7 +4,7 @@ import { NavLink } from "react-router";
 
 function Footer() {
   return (
-    <div className=" w-full flex flex-col items-center p-[20px] border-box bg-black gap-2 mt-[50px]">
+    <div className=" w-full flex flex-col items-center p-[20px] border-box bg-black gap-2">
       <h1 className="text-white font-finlandica font-bold text-[24px]">
         Descarcă aplicația Burn
       </h1>

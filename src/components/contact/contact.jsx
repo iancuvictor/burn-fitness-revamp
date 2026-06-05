@@ -34,16 +34,15 @@ function Contact() {
   };
 
   return (
-    <>
-      <div className="flex flex-col items-center pl-[20px] pr-[20px] border-box">
+      <div className="h-full flex flex-col items-center pl-[20px] pr-[20px] border-box pb-[50px]">
         <h1 className="mt-[25px] mb-[25px] text-[35px] font-[700] font-finlandica">
           Contact
         </h1>
-        <div className="flex">
-          <div id="sendEmail" className="shadow-xl h-auto">
+        <div className="flex flex-col gap-5 md:flex md:flex-row">
+          <div id="sendEmail" className="shadow-xl h-fit md:w-[30%] bg-white content-box p-[20px] rounded-xl">
             <h1>
               Trimite un email (office@burncluj.ro)
-              <form action="">
+              <form action="" className="flex flex-col">
                 <input type="text" name="" id="" required placeholder="nume" />
                 <input type="text" name="" id="" required placeholder="email" />
                 <input
@@ -58,11 +57,11 @@ function Contact() {
               </form>
             </h1>
           </div>
-          <div>
+          <div className="md:w-[70%] md:overflow-y-auto md:h-[420px] flex flex-col gap-5">
             <input
               onChange={(e) => searchGym(e.target.value)}
               type="text"
-              className="xs:hidden w-full border-box pl-[20px] pb-[10px] pr-[20px] pt-[10px] rounded-xl shadow-lg"
+              className="xs:hidden w-full border-box pl-[20px] pb-[10px] pr-[20px] pt-[10px] rounded-xl shadow-lg bg-white"
               id=""
               placeholder="Caută sala după locație"
             />
@@ -141,7 +140,6 @@ function Contact() {
           </div>
         </div>
       </div>
-    </>
   );
 }
 
