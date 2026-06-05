@@ -14,3 +14,4 @@ export {default as SalaFitnessSigma} from './saliDeFitness/salaFitnessSigma/sala
 export {default as SalaFitnessManastur} from './saliDeFitness/salaFitnessManastur/salaFitnessManastur';
 export {default as SalaFitnessFlora} from './saliDeFitness/salaFitnessFlora/salaFitnessFlora';
 export {default as SalaFitnessMarasti} from './saliDeFitness/salaFitnessMarasti/salaFitnessMarasti';
+export {default as LoginScreen} from './loginScreen/loginScreen';
