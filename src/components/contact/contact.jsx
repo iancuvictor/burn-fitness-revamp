@@ -12,30 +12,33 @@ function Contact() {
   const [searchWord, setSearchWord] = useState("");
   const [results, setResults] = useState([]);
   const [formContent, setFormContent] = useState(obj);
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   const setFormData = (field, data) => {
     setFormContent({ ...formContent, [field]: data });
   };
 
   const sendEmail = () => {
-    emailjs
-      .send(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-        formContent,
-        {
-          publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
-        },
-      )
-      .then(
-        () => {
-          setFormContent(obj);
-          console.log("SUCCESS!");
-        },
-        (error) => {
-          console.log("FAILED...", error.text);
-        },
-      );
+    if (emailRegex.test(formContent.email)) {
+      emailjs
+        .send(
+          import.meta.env.VITE_EMAILJS_SERVICE_ID,
+          import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+          formContent,
+          {
+            publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
+          },
+        )
+        .then(
+          () => {
+            setFormContent(obj);
+            console.log("SUCCESS!");
+          },
+          (error) => {
+            console.log("FAILED...", error.text);
+          },
+        );
+    }
   };
 
   const searchGym = (word) => {
@@ -72,13 +75,13 @@ function Contact() {
       <div className="flex flex-col gap-5 md:flex md:flex-row">
         <div
           id="sendEmail"
-          className="flex flex-col shadow-xl h-fit md:w-[30%] bg-white content-box p-[20px] rounded-xl gap-5"
+          className="flex flex-col shadow-xl overflow-hidden h-fit md:w-[30%] bg-white content-box rounded-xl gap-2"
         >
-          <h1 className="font-[500]">
+          <h1 className="font-[500] pl-[20px] pt-[20px] pb-[20px]">
             Trimite un email{" "}
             <span className="font-[700]">(burnclujfake@gmail.com)</span>
           </h1>
-          <form action="" className="flex flex-col gap-2">
+          <form action="" className="flex flex-col gap-2 pl-[20px] pr-[20px] pb-[20px]">
             <input
               onChange={(e) => setFormData("nume", e.target.value)}
               type="text"
@@ -86,6 +89,7 @@ function Contact() {
               id=""
               required
               placeholder="Nume"
+              className="outline content-box h-10 w-full pl-[10px] pr-[10px]"
             />
             <input
               onChange={(e) => setFormData("email", e.target.value)}
@@ -94,6 +98,7 @@ function Contact() {
               id=""
               required
               placeholder="Email"
+              className="outline content-box h-10 w-full pl-[10px] pr-[10px]"
             />
             <input
               onChange={(e) => setFormData("nrTelefon", e.target.value)}
@@ -102,6 +107,7 @@ function Contact() {
               id=""
               required
               placeholder="Telefon"
+              className="outline content-box h-10 w-full pl-[10px] pr-[10px]"
             />
             <textarea
               onChange={(e) => setFormData("mesajClient", e.target.value)}
@@ -109,15 +115,16 @@ function Contact() {
               id=""
               required
               placeholder="Mesajul tău"
+              className="outline content-box h-10 w-full pl-[10px] pr-[10px]"
             ></textarea>
-            <button
-              type="button"
-              onClick={() => sendEmail()}
-              className="cursor-pointer"
-            >
-              Trimite Email
-            </button>
           </form>
+          <button
+            type="button"
+            onClick={() => sendEmail()}
+            className="cursor-pointer active:bg-[#DE264B] active:text-white hover:bg-[#DE264B] hover:text-white duration-150 ease-out rounded-md p-[10px]"
+          >
+            Trimite Email
+          </button>
         </div>
         <div className="md:w-[70%] md:overflow-y-auto md:h-[420px] flex flex-col gap-5">
           <input
