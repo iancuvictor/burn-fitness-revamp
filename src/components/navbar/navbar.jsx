@@ -13,12 +13,12 @@ function Navbar({menuState, setMenuState}){
         <div className='hidden md:flex flex-wrap text-gray-500 text-[16px] gap-2.5 xl:gap-5 items-center justify-end md:pr-[20px]'>
             <NavLink to="/" className={buttonClass}>Acasa</NavLink>
             <NavLink to="/abonamente" className={buttonClass}>Abonamente</NavLink>
-            <NavLink to="/rezervari" className={buttonClass}>Rezervări online</NavLink>
+            {/* <NavLink to="/rezervari" className={buttonClass}>Rezervări online</NavLink> */}
+            <NavLink to="/orar-clase" className={buttonClass}>Clase</NavLink>
             <NavLink to="/servicii" className={buttonClass}>Servicii</NavLink>
-            <NavLink to="/orar-clase" className={buttonClass}>Orar clase</NavLink>
+            <NavLink to="/salidefitness" className={buttonClass}>Săli fitness</NavLink>
             <NavLink to="/blog" className={buttonClass}>Blog</NavLink>
             <NavLink to="/galerie" className={buttonClass}>Galerie foto</NavLink>
-            <NavLink to="/salidefitness" className={buttonClass}>Săli fitness</NavLink>
             <NavLink to="/contact" className={buttonClass}>Contact</NavLink>
             <div className='lg:flex md:hidden'>
                 <a href="https://www.instagram.com/burnfitnesscluj/" target='_blank'><FontAwesomeIcon icon={faInstagramSquare} className='text-[#E06397] hover:text-[#DB2777] duration-150 text-[30px]'/></a>
@@ -40,12 +40,12 @@ function Navbar({menuState, setMenuState}){
         <img src={BurnLogo} alt="burn fitness logo" className='w-40 pb-[20px] box-border' onClick={() => setMenuState(!menuState)}/>
         <NavLink to="/" className={buttonClass} onClick={() => setMenuState(!menuState)}>Acasa</NavLink>
         <NavLink to="/abonamente" className={buttonClass} onClick={() => setMenuState(!menuState)}>Abonamente</NavLink>
-        <NavLink to="/rezervari" className={buttonClass} onClick={() => setMenuState(!menuState)}>Rezervări online</NavLink>
+        {/* <NavLink to="/rezervari" className={buttonClass} onClick={() => setMenuState(!menuState)}>Rezervări online</NavLink> */}
+        <NavLink to="/orar-clase" className={buttonClass} onClick={() => setMenuState(!menuState)}>Clase</NavLink>
         <NavLink to="/servicii" className={buttonClass} onClick={() => setMenuState(!menuState)}>Servicii</NavLink>
-        <NavLink to="/orar-clase" className={buttonClass} onClick={() => setMenuState(!menuState)}>Orar clase</NavLink>
+        <NavLink to="/salidefitness" className={buttonClass} onClick={() => setMenuState(!menuState)}>Săli fitness</NavLink>
         <NavLink to="/blog" className={buttonClass} onClick={() => setMenuState(!menuState)}>Blog</NavLink>
         <NavLink to="/galerie" className={buttonClass} onClick={() => setMenuState(!menuState)}>Galerie foto</NavLink>
-        <NavLink to="/salidefitness" className={buttonClass} onClick={() => setMenuState(!menuState)}>Săli fitness</NavLink>
         <NavLink to="/contact" className={buttonClass} onClick={() => setMenuState(!menuState)}>Contact</NavLink>
         <div>
         <a href="https://www.instagram.com/burnfitnesscluj/" target='_blank'><FontAwesomeIcon icon={faInstagramSquare} className='text-[#E06397] hover:text-[#DB2777] duration-150 text-3xl'/></a>

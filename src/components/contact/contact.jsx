@@ -81,7 +81,10 @@ function Contact() {
             Trimite un email{" "}
             <span className="font-[700]">(burnclujfake@gmail.com)</span>
           </h1>
-          <form action="" className="flex flex-col gap-2 pl-[20px] pr-[20px] pb-[20px]">
+          <form
+            action=""
+            className="flex flex-col gap-2 pl-[20px] pr-[20px] pb-[20px]"
+          >
             <input
               onChange={(e) => setFormData("nume", e.target.value)}
               type="text"
@@ -130,8 +133,10 @@ function Contact() {
           <input
             onChange={(e) => searchGym(e.target.value)}
             type="text"
-            className="xs:hidden w-full border-box pl-[20px] pb-[10px] pr-[20px] pt-[10px] rounded-xl shadow-lg bg-white"
+            className="outline-none xs:hidden w-full border-box pl-[20px] pb-[10px] pr-[20px] pt-[10px] rounded-xl shadow-lg bg-white"
             id=""
+            autoComplete="off"
+            inputMode="text"
             placeholder="Caută sala după locație"
           />
           <div className="flex flex-col gap-10 justify-center items-baseline md:flex-row md:flex-wrap">
