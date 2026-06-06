@@ -29,7 +29,7 @@ function CardAbonament(props) {
               return (
                 <div
                   key={index}
-                  className={`${perioadaArray.length === 1 ? "w-[100%]" : "w-[50%]"} flex 1 justify-center text-[15px] md:text-[17px]`}
+                  className={`${perioadaArray.length === 1 ? "w-[100%]" : "w-[50%]"} flex 1 justify-center text-[15px] md:text-[14px]`}
                 >
                   <span>
                     {preturiArray[index]} / {item}
