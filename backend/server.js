@@ -16,7 +16,8 @@ mongoose
   })
   .catch((err) => console.log(err));
 
-server.get("/index", (req, res) => {
-  console.log(req);
-  res.send("test");
+server.use(express.json())
+
+server.get("/api/users", (req, res) => {
+  res.send(users);
 });
