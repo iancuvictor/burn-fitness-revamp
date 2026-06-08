@@ -1,4 +1,9 @@
 function LoginScreen() {
+
+  const login = () => {
+
+  }
+
   return (
     <div className="w-full h-full flex justify-center items-center gap-10 rounded-xl">
       <div className="h-60 w-60 shadow-xl p-[20px] flex flex-col">
@@ -14,7 +19,7 @@ function LoginScreen() {
           <input type="text" name="" id="" placeholder="Nr. telefon" />
           <input type="text" name="" id="" placeholder="Parolă" />
           <input type="text" name="" id="" placeholder="Rescrie parola" />
-          <button className="cursor-pointer">Conectează-te</button>
+          <button onClick={() => login()} className="cursor-pointer">Conectează-te</button>
         </form>
       </div>
 

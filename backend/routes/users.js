@@ -30,7 +30,7 @@ router.post('/login', async (req, res) => {
             if(await bcrypt.compare(req.body.password, userFound.password)){
                 let signature = jwt.sign({username: userFound.username}, process.env.SIGN_KEY, { expiresIn: '30d' })
                 console.log(signature);
-                res.json(signature);
+                res.cookie('userToken', signature, {httpOnly: true, secure: process.env.NODE_ENV === 'production'});
             } else {
                 console.log('Wrong password');
                 res.json('Wrong password');
