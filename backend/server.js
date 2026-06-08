@@ -41,8 +41,9 @@ server.post('/api/users/register', async (req, res) => {
 });
 
 server.post('/api/users/login', async (req, res) => {
-    console.log(req.body);
+    // checks if user exists
     let userFound = await User.findOne({$or: [{username: req.body.username},{ email: req.body.email}]})
+    // try catch so it doesn't crash
     try {
         if(userFound !== null){
             if(await bcrypt.compare(req.body.password, userFound.password)){
