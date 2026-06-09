@@ -15,7 +15,8 @@ function LoginScreen() {
   const login = async (e) => {
     e.preventDefault()
     await axios.post("http://localhost:3000/api/users/login", loginForm)
-    .then(() => console.log('logged in')).catch((err) => console.log(err))
+    .then(() => {console.log('logged in') 
+      window.location.reload()}).catch((err) => console.log(err))
   };
 
   return (

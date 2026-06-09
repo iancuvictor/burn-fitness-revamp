@@ -23,7 +23,7 @@ router.post("/register", async (req, res) => {
 });
 
 router.get('/profile', protect, async (req, res) => {
-  let userData = await User.findOne({username: req.user.username})
+  let userData = await User.findOne({username: req.user.username}).select('-password')
   console.log(userData);
     res.json({status: 'authorised', userData});
 })
@@ -63,5 +63,10 @@ router.post("/login", async (req, res) => {
     res.json(err);
   }
 });
+
+router.post('/logout', protect, (req, res) => {
+  res.clearCookie('userToken')
+  res.json({ message: 'logged out' })
+})
 
 export default router;

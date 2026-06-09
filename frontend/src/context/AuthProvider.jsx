@@ -1,0 +1,36 @@
+import { useState } from "react";
+import { useEffect } from "react";
+import axios from 'axios';
+import { AuthContext } from './AuthContext'
+
+const API_URL = import.meta.env.VITE_BACKEND_URL
+
+function AuthProvider({children}){
+    const [user, setUser] = useState();
+    const [loggedIn, setLoggedIn] = useState(false);
+
+    useEffect(() => {
+        async function checkCookie(){
+            try {
+                let response = await axios.get(`${API_URL}/users/profile`, );
+                let userData = response.data.userData
+                let resStatus = response.data.status;
+                if(resStatus === 'authorised'){
+                    setLoggedIn(true);
+                    setUser(userData);
+                }
+            } catch {
+                console.log('Error');
+            }
+        }
+        checkCookie()
+    }, []);
+
+    return (
+        <AuthContext.Provider value={{loggedIn, setLoggedIn, user, setUser}}>
+            {children}
+        </AuthContext.Provider>
+    )
+}
+
+export default AuthProvider;

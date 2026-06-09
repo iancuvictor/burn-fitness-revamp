@@ -27,8 +27,8 @@ function SaliDeFitness(){
     return <div className='font-finlandica flex flex-col justify-center items-center pb-[50px]'>
         <h1 className='text-[20px] text-center md:text-[35px] font-[700] pb-[50px] pt-[50px]'>DESCOPERĂ LOCAȚIILE FITNESS <span className='underline underline-offset-5'>BURN CLUJ-NAPOCA</span></h1>
         <div className='relative flex flex-wrap gap-10 justify-center items-center pl-[20px] pr-[20px]'>
-        {data.map((sala) => {
-            return <NavLink className='w-full md:w-[30%]' to={'sala-fitness-' + sala.nume.normalize("NFD")
+        {data.map((sala, index) => {
+            return <NavLink key={index} className='w-full md:w-[30%]' to={'sala-fitness-' + sala.nume.normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "").toLowerCase()}><CardSala nume={sala.nume} img={sala.img}/></NavLink>
         })}
         </div>
