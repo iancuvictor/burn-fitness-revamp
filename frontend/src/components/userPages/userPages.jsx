@@ -10,13 +10,17 @@ function UserPages(){
 
     useEffect(() => {
         async function checkCookie(){
-            let res = await axios.get(`${API_URL}/users/profile`, );
-            res = res.data.status;
-            if(res === 'authorised'){
-                setLoggedIn(!loggedIn);
+            try {
+                let res = await axios.get(`${API_URL}/users/profile`, );
+                console.log(res);
+                res = res.data.status;
+                if(res === 'authorised'){
+                    setLoggedIn(true);
+                }
+            } catch {
+                console.log('Error');
             }
         }
-
         checkCookie()
     }, []);
 

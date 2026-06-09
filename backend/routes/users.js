@@ -22,9 +22,10 @@ router.post("/register", async (req, res) => {
   res.json({ message: "user created" });
 });
 
-router.get('/profile', protect, (req, res) => {
-    console.log(req.body);
-    res.json({status: 'authorised'});
+router.get('/profile', protect, async (req, res) => {
+  let userData = await User.findOne({username: req.user.username})
+  console.log(userData);
+    res.json({status: 'authorised', userData});
 })
 
 router.post("/login", async (req, res) => {
