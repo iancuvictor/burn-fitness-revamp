@@ -4,7 +4,6 @@ import {
   Footer,
   Acasa,
   Abonamente,
-  Rezervari,
   Servicii,
   OrarClase,
   Blog,
@@ -17,7 +16,7 @@ import {
   SalaFitnessManastur,
   SalaFitnessFlora,
   SalaFitnessMarasti,
-  LoginScreen
+  UserPages
 } from "./components";
 import "./App.css";
 
@@ -46,7 +45,7 @@ function App() {
           <Route path="/salidefitness/sala-fitness-flora" element={<SalaFitnessFlora />} />
           <Route path="/salidefitness/sala-fitness-marasti" element={<SalaFitnessMarasti />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/account-dashboard" element={<LoginScreen />} />
+          <Route path="/profile" element={<UserPages />} />
           {/* <Route path="/regulamentul-de-functionare-a-centrelor-de-fitness-burn" element={<Regulament />} /> */}
         </Routes>
         <Footer />

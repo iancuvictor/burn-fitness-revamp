@@ -25,7 +25,7 @@ function Navbar({menuState, setMenuState}){
                 <a href="https://www.facebook.com/BurnFitnessCluj" target='_blank'><FontAwesomeIcon icon={faFacebookSquare} className='text-[#6096D6] hover:text-[#1877F2] duration-150 text-[30px]'/></a>
             </div>
         </div>
-        <NavLink to="/account-dashboard" className='text-gray-500'><FontAwesomeIcon icon={faCircleUser} className='text-[30px] hover:text-white'/></NavLink>
+        <NavLink to="/profile" className='text-gray-500'><FontAwesomeIcon icon={faCircleUser} className='text-[30px] hover:text-white'/></NavLink>
     </div>
 
     {/* mobile navbar */}
