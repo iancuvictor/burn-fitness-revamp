@@ -6,33 +6,37 @@ import { protect } from "./auth.js";
 const router = express.Router();
 
 router.post("/register", async (req, res) => {
-  let userCheck = await User.findOne({username: req.body.username})
-  if(userCheck === null){
+  let userCheck = await User.findOne({ username: req.body.username });
+  if (userCheck === null) {
     let hashedPass = await bcrypt.hash(req.body.password, 10);
     try {
       await User.create({
-      username: req.body.username,
-      email: req.body.email,
-      phoneNumber: req.body.nrTel,
-      password: hashedPass,
-    });
-    console.log(`User with username: ${req.body.username} has registered now.`);
-  } catch (err) {
-    console.log(err);
-    res.json({ message: "error creating user" });
-  }
-  res.json({ message: "user created" });
+        username: req.body.username,
+        email: req.body.email,
+        phone: req.body.nrTel,
+        password: hashedPass,
+      });
+      console.log(
+        `User with username: ${req.body.username} has registered now.`,
+      );
+    } catch (err) {
+      console.log(err);
+      res.json({ message: "error creating user" });
+    }
+    res.json({ message: "user created" });
   } else {
-    res.json({message: 'User already exists.'})
-    console.log('user already exists');
+    res.json({ message: "User already exists." });
+    console.log("user already exists");
   }
 });
 
-router.get('/profile', protect, async (req, res) => {
-  let userData = await User.findOne({username: req.user.username}).select('-password')
+router.get("/profile", protect, async (req, res) => {
+  let userData = await User.findOne({ username: req.user.username }).select(
+    "-password",
+  );
   console.log(userData);
-    res.json({status: 'authorised', userData});
-})
+  res.json({ status: "authorised", userData });
+});
 
 router.post("/login", async (req, res) => {
   // checks if user exists
@@ -47,30 +51,30 @@ router.post("/login", async (req, res) => {
           process.env.SIGN_KEY,
           { expiresIn: "30d" },
         );
-        console.log('setting cookie')
+        console.log("setting cookie");
         res.cookie("userToken", signature, {
           httpOnly: true,
           secure: false,
-        //   secure: process.env.NODE_ENV === "production",
+          //   secure: process.env.NODE_ENV === "production",
           sameSite: "lax",
         });
         res.json({ message: "login successful" });
       } else {
         console.log("Wrong password");
-        res.json({message: "wrongPass"});
+        res.json({ message: "wrongPass" });
       }
     } else if (userFound === null) {
       console.log("no user with this name or email is associated");
-      res.status(401).json({status: 'userNotFound'});
+      res.status(401).json({ status: "userNotFound" });
     }
   } catch (err) {
     res.json(err);
   }
 });
 
-router.post('/logout', protect, (req, res) => {
-  res.clearCookie('userToken')
-  res.json({ message: 'logged out' })
-})
+router.post("/logout", protect, (req, res) => {
+  res.clearCookie("userToken");
+  res.json({ message: "logged out" });
+});
 
 export default router;

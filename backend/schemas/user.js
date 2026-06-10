@@ -7,12 +7,12 @@ const user = new Schema({
     password: {type: String, required: true},
     email: {type: String, required: true},
     isAdmin: { type: Boolean, default: false },
-    phone: Number,
-    profileImage: String,
+    phone: {type: Number, required: true},
+    profileImage: {type: String, required: false},
     activeSubscriptions: [
         {
-            quantity: Number,
-            subscriptionName: String
+            quantity: {type: Number, required: false},
+            subscriptionName: {type: String, required: false}
         }
     ]
 })
