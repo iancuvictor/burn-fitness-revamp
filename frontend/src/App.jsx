@@ -1,5 +1,6 @@
-import { BrowserRouter, Routes, Route } from "react-router";
-import { useState } from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router";
+import { useState, useContext } from "react";
+import { AuthContext } from "./context/AuthContext";
 import {
   Footer,
   Acasa,
@@ -16,9 +17,17 @@ import {
   SalaFitnessManastur,
   SalaFitnessFlora,
   SalaFitnessMarasti,
-  UserPages
+  UserPages,
+  AdminUsers,
+  AdminDashboard
 } from "./components";
 import "./App.css";
+
+function AdminRoute({children}){
+    const { isAdmin, loading } = useContext(AuthContext)
+    if(loading) return null;
+    return isAdmin ? children : <Navigate to="/" />
+}
 
 function App() {
   const [menuState, setMenuState] = useState(false);
@@ -46,6 +55,9 @@ function App() {
           <Route path="/salidefitness/sala-fitness-marasti" element={<SalaFitnessMarasti />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/profile" element={<UserPages />} />
+          <Route path="/admin" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
+          <Route path="/admin/clienti" element={<AdminRoute><AdminUsers /></AdminRoute>} />
+          {/* <Route path="/admin/subscriptions" element={<AdminRoute><AdminSubscriptions /></AdminRoute>} /> */}
           {/* <Route path="/regulamentul-de-functionare-a-centrelor-de-fitness-burn" element={<Regulament />} /> */}
         </Routes>
         <Footer />

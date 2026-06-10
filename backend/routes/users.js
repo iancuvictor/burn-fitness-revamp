@@ -2,7 +2,7 @@ import express from "express";
 import User from "../schemas/user.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { protect } from "./auth.js";
+import { protect, admin } from "./auth.js";
 const router = express.Router();
 
 router.post("/register", async (req, res) => {
@@ -35,7 +35,6 @@ router.get("/profile", protect, async (req, res) => {
   let userData = await User.findOne({ username: req.user.username }).select(
     "-password",
   );
-  console.log(userData);
   res.json({ status: "authorised", userData });
 });
 
@@ -76,6 +75,11 @@ router.post("/login", async (req, res) => {
 router.post("/logout", protect, (req, res) => {
   res.clearCookie("userToken");
   res.json({ message: "logged out" });
+});
+
+router.get('/', admin, async (req, res) => {
+  let userList = await User.find();
+  res.send(userList);
 });
 
 export default router;

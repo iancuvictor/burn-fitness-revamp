@@ -21,7 +21,7 @@ function ProfilePage() {
 
   return (
     <div className="min-h-screen pt-[50px] font-finlandica flex flex-col items-center">
-      <div className={`${alert.logOut ? "contents" : "hidden"}`}>
+      <div className={`${alert.logOut ? "z-4 fixed top-0 left-0" : "hidden"}`}>
         <PopUp
           type="alert"
           message="Ești sigur că vrei să te deconectezi?"

@@ -16,3 +16,5 @@ export {default as SalaFitnessFlora} from './saliDeFitness/salaFitnessFlora/sala
 export {default as SalaFitnessMarasti} from './saliDeFitness/salaFitnessMarasti/salaFitnessMarasti';
 export {default as UserPages} from './userPages/userPages.jsx';
 export {default as PopUp} from './popUps/popUp.jsx';
+export {default as AdminDashboard} from './userPages/components/AdminDashboard/adminDashboard.jsx';
+export {default as AdminUsers} from './userPages/components/AdminDashboard/adminUsers.jsx';
