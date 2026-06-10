@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import axios from 'axios';
 import { AuthContext } from './AuthContext'
 
-const API_URL = import.meta.env.VITE_BACKEND_URL
+const API_URL = import.meta.env.VITE_BACKEND_URL;
 
 function AuthProvider({children}){
     const [user, setUser] = useState();
@@ -12,8 +12,8 @@ function AuthProvider({children}){
     useEffect(() => {
         async function checkCookie(){
             try {
-                let response = await axios.get(`${API_URL}/users/profile`, );
-                let userData = response.data.userData
+                let response = await axios.get(`${API_URL}/users/profile`, { withCredentials: true });
+                let userData = response.data.userData;
                 let resStatus = response.data.status;
                 if(resStatus === 'authorised'){
                     setLoggedIn(true);

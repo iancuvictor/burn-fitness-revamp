@@ -15,3 +15,4 @@ export {default as SalaFitnessManastur} from './saliDeFitness/salaFitnessManastu
 export {default as SalaFitnessFlora} from './saliDeFitness/salaFitnessFlora/salaFitnessFlora';
 export {default as SalaFitnessMarasti} from './saliDeFitness/salaFitnessMarasti/salaFitnessMarasti';
 export {default as UserPages} from './userPages/userPages.jsx';
+export {default as PopUp} from './popUps/popUp.jsx';

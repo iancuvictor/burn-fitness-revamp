@@ -29,12 +29,15 @@ function Navbar({menuState, setMenuState}){
     </div>
 
     {/* mobile navbar */}
-    <div className='flex justify-between bg-black'>
-    <img src={BurnLogo} alt="burn fitness logo" className='md:hidden w-40 m-[10px]'/>
-    <button 
-    onClick={() => setMenuState(!menuState)}
-    className={menuState ? 'hidden' : 'md:hidden cursor-pointer text-white text-[25px] pl-[px] pr-[20px]'}
-    ><FontAwesomeIcon icon={faBars} /></button>
+    <div className='md:hidden flex justify-between bg-black'>
+    <NavLink to='/'><img src={BurnLogo} alt="burn fitness logo" className='md:hidden w-40 m-[10px]'/></NavLink>
+    <div className='justify-center items-center flex gap-3'>
+        <NavLink to="/profile" className='text-white'><FontAwesomeIcon icon={faCircleUser} className='text-[25px]'/></NavLink>
+        <button 
+        onClick={() => setMenuState(!menuState)}
+        className={menuState ? 'hidden' : 'md:hidden cursor-pointer text-white text-[25px] pl-[px] pr-[20px]'}
+        ><FontAwesomeIcon icon={faBars} /></button>
+    </div>
     <div id='mobileBurger' className={menuState ? 'z-3 animate-fade-in flex flex-col fixed justify-center items-center gap-5 w-full h-full bg-black font-finlandica font-bold text-gray-500 text-[25px] md:hidden' : 'animate-fade-out hidden'}>
         <div onClick={() => setMenuState(!menuState)} className='fixed z-[-1] h-full w-full'></div>
         <img src={BurnLogo} alt="burn fitness logo" className='w-40 pb-[20px] box-border' onClick={() => setMenuState(!menuState)}/>

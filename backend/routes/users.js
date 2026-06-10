@@ -6,6 +6,7 @@ import { protect } from "./auth.js";
 const router = express.Router();
 
 router.post("/register", async (req, res) => {
+  console.log('test');
   let userCheck = await User.findOne({ username: req.body.username });
   if (userCheck === null) {
     let hashedPass = await bcrypt.hash(req.body.password, 10);

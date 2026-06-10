@@ -8,6 +8,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import InputLogin from "./input";
 
+const API_URL = import.meta.env.VITE_BACKEND_URL
+
 function LoginScreen() {
   const loginObj = {
     username: "",
@@ -38,12 +40,10 @@ function LoginScreen() {
     e.preventDefault();
     if (loginForm.username !== "" && loginForm.password !== "") {
       try {
-        let response = await axios.post("http://localhost:3000/api/users/login", loginForm)
-        console.log(response);
+        let response = await axios.post(`${API_URL}/users/login`, loginForm)
         if(response.data.message !== 'wrongPass'){
           window.location.reload();
         } else if(response.data.message === 'wrongPass') {
-          console.log('wrong password')
           setError({...error, password: true});
         }
         // window.location.reload();
@@ -63,8 +63,8 @@ function LoginScreen() {
     e.preventDefault();
     try {
       if(signUpForm.password === signUpForm.passwordConfirm){
-        await axios.post("http://localhost:3000/api/users/register", signUpForm)
-        await axios.post("http://localhost:3000/api/users/login", {username: signUpForm.username,password: signUpForm.password});
+        await axios.post(`${API_URL}/users/register`, signUpForm)
+        await axios.post(`${API_URL}/users/login`, {username: signUpForm.username,password: signUpForm.password});
         window.location.reload();
       } else {
         setError({...error, passwordConfirm: true});
@@ -75,9 +75,9 @@ function LoginScreen() {
   };
 
   return (
-    <div className="min-h-screen h-full flex justify-center items-center gap-10font-finlandica pb-20">
+    <div className="relative h-[600px] md:min-h-screen flex justify-center items-center gap-10 font-finlandica md:pb-20">
       <div
-        className={`${userExists ? "flex" : "hidden"} h-fit w-100 shadow-xl p-[20px] flex flex-col gap-2 bg-white rounded-xl pb-[20px]`}
+        className={`${userExists ? "flex" : "hidden"} h-full md:h-fit w-full md:w-fit shadow-xl p-[20px] flex flex-col gap-6 bg-white rounded-xl pb-[20px]`}
       >
         <h1 className="text-[20px] font-[700]">Conectează-te</h1>
         <form action="" className="flex flex-col gap-5 w-full">
@@ -107,7 +107,8 @@ function LoginScreen() {
           </div>
           <button
             onClick={(e) => login(e)}
-            className="cursor-pointer md:bg-[#F06E87] md:hover:bg-[#DE264B] md:hover:text-white 
+            className="cursor-pointer bg-[#F06E87] active:bg-[#DE264B] active:text-white
+            md:hover:bg-[#DE264B] md:hover:text-white 
             pl-[10px] pt-[10px] pb-[10px] pr-[10px] 
             duration-150 ease-out rounded-md"
           >
@@ -123,7 +124,7 @@ function LoginScreen() {
       </div>
 
       <div
-        className={`${userExists ? "hidden" : "flex"} h-fit w-100 shadow-xl p-[20px] flex flex-col gap-2 bg-white rounded-xl pb-[20px]`}
+        className={`${userExists ? "hidden" : "flex"} h-full md:h-fit w-100 shadow-xl p-[20px] flex flex-col gap-6 bg-white rounded-xl pb-[20px]`}
       >
         <h1 className="text-[20px] font-[700]">Creează cont</h1>
         <form action="" className="flex flex-col gap-5 w-full">
@@ -184,7 +185,8 @@ function LoginScreen() {
           />
           <button
             onClick={(e) => signUp(e)}
-            className="cursor-pointer md:bg-[#F06E87] md:hover:bg-[#DE264B] md:hover:text-white 
+            className="cursor-pointer bg-[#F06E87] active:bg-[#DE264B] active:text-white
+            md:hover:bg-[#DE264B] md:hover:text-white 
             pl-[10px] pt-[10px] pb-[10px] pr-[10px] 
             duration-150 ease-out rounded-md"
           >

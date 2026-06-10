@@ -9,15 +9,10 @@ import cookieParser from "cookie-parser";
 
 const server = express();
 let port = process.env.PORT;
-server.use(cors({ origin: 'http://localhost:5173', credentials: true }))
+server.use(cors({ origin: ['http://localhost:5173', 'http://192.168.0.220:5173', 'http://192.168.0.220:3000'], credentials: true }))
 
 server.use(express.json())
 server.use(cookieParser())
-
-
-server.listen(port, () => {
-      console.log(`Server up and running on ${port}`);
-    });
 
 mongoose
   .connect(`${process.env.MONGO_URI}`)
@@ -27,3 +22,9 @@ mongoose
   .catch((err) => console.log(err));
 
 server.use('/api/users', userRoutes);
+
+server.listen(port, () => {
+      console.log(`Server up and running on ${port}`);
+    });
+
+    // in case of nodemon problems run: taskkill /f /im node.exe
