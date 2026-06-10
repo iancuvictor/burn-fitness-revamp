@@ -6,20 +6,26 @@ import { protect } from "./auth.js";
 const router = express.Router();
 
 router.post("/register", async (req, res) => {
-  console.log(req.body);
-  let hashedPass = await bcrypt.hash(req.body.password, 10);
-  try {
-    await User.create({
+  let userCheck = await User.findOne({username: req.body.username})
+  if(userCheck === null){
+    let hashedPass = await bcrypt.hash(req.body.password, 10);
+    try {
+      await User.create({
       username: req.body.username,
-      password: hashedPass,
       email: req.body.email,
+      phoneNumber: req.body.nrTel,
+      password: hashedPass,
     });
     console.log(`User with username: ${req.body.username} has registered now.`);
   } catch (err) {
     console.log(err);
-    return res.json({ message: "error creating user" });
+    res.json({ message: "error creating user" });
   }
   res.json({ message: "user created" });
+  } else {
+    res.json({message: 'User already exists.'})
+    console.log('user already exists');
+  }
 });
 
 router.get('/profile', protect, async (req, res) => {
@@ -31,9 +37,8 @@ router.get('/profile', protect, async (req, res) => {
 router.post("/login", async (req, res) => {
   // checks if user exists
   let userFound = await User.findOne({
-    $or: [{ username: req.body.username }, { email: req.body.email }],
+    $or: [{ username: req.body.username }, { email: req.body.username }],
   });
-  // try catch so it doesn't crash
   try {
     if (userFound !== null) {
       if (await bcrypt.compare(req.body.password, userFound.password)) {
@@ -52,14 +57,13 @@ router.post("/login", async (req, res) => {
         res.json({ message: "login successful" });
       } else {
         console.log("Wrong password");
-        res.json("Wrong password");
+        res.json({message: "wrongPass"});
       }
     } else if (userFound === null) {
       console.log("no user with this name or email is associated");
-      res.json("User not found");
+      res.status(401).json({status: 'userNotFound'});
     }
   } catch (err) {
-    // console.log(err);
     res.json(err);
   }
 });

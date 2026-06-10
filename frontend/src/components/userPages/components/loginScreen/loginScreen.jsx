@@ -1,73 +1,202 @@
 import axios from "axios";
 import { useState } from "react";
+import {
+  faAt,
+  faLock,
+  faPhone,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
+import InputLogin from "./input";
 
 function LoginScreen() {
   const loginObj = {
     username: "",
-    password: ""
+    password: "",
+  };
+
+  const signUpObj = {
+    username: "",
+    email: "",
+    nrTel: "",
+    password: "",
+    passwordConfirm: "",
   };
   const [loginForm, setLoginForm] = useState(loginObj);
+  const [signUpForm, setSignUpForm] = useState(signUpObj);
+  const [userExists, setUserExists] = useState(true);
+  const [error, setError] = useState({
+    username: false,
+    password: false,
+    passwordConfirm: false
+  });
 
   const updateForm = (field, data, formState, setFormState) => {
     setFormState({ ...formState, [field]: data });
   };
 
   const login = async (e) => {
-    e.preventDefault()
-    await axios.post("http://localhost:3000/api/users/login", loginForm)
-    .then(() => {console.log('logged in') 
-      window.location.reload()}).catch((err) => console.log(err))
+    e.preventDefault();
+    if (loginForm.username !== "" && loginForm.password !== "") {
+      try {
+        let response = await axios.post("http://localhost:3000/api/users/login", loginForm)
+        console.log(response);
+        if(response.data.message !== 'wrongPass'){
+          window.location.reload();
+        } else if(response.data.message === 'wrongPass') {
+          console.log('wrong password')
+          setError({...error, password: true});
+        }
+        // window.location.reload();
+      } catch (err) {
+        if (err.response.status) {
+          setError({ ...error, username: true });
+        }
+      }
+    } else if (loginForm.username === "") {
+      setError({ ...error, username: true });
+    } else if (loginForm.password === "") {
+      setError({ ...error, password: true });
+    }
+  };
+
+  const signUp = async (e) => {
+    e.preventDefault();
+    try {
+      if(signUpForm.password === signUpForm.passwordConfirm){
+        await axios.post("http://localhost:3000/api/users/register", signUpForm)
+        await axios.post("http://localhost:3000/api/users/login", {username: signUpForm.username,password: signUpForm.password});
+        window.location.reload();
+      } else {
+        setError({...error, passwordConfirm: true});
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
-    <div className="w-full h-full flex justify-center items-center gap-10 rounded-xl">
-      <div className="h-60 w-60 shadow-xl p-[20px] flex flex-col">
-        <h1>Conectează-te</h1>
-        <form action="" className="flex flex-col">
-          <input
-            onChange={(e) =>
-              updateForm(
-                "username",
-                e.target.value,
-                loginForm,
-                setLoginForm,
-              )
-            }
-            type="text"
-            name=""
-            id=""
-            placeholder="Nume utilizator sau email"
-          />
-          <input
-            onChange={(e) =>
-              updateForm(
-                "password",
-                e.target.value,
-                loginForm,
-                setLoginForm,
-              )
-            }
-            type="text"
-            name=""
-            id=""
-            placeholder="Parolă"
-          />
-          <button onClick={(e) => login(e)} className="cursor-pointer">
+    <div className="min-h-screen h-full flex justify-center items-center gap-10font-finlandica pb-20">
+      <div
+        className={`${userExists ? "flex" : "hidden"} h-fit w-100 shadow-xl p-[20px] flex flex-col gap-2 bg-white rounded-xl pb-[20px]`}
+      >
+        <h1 className="text-[20px] font-[700]">Conectează-te</h1>
+        <form action="" className="flex flex-col gap-5 w-full">
+          <div className="flex flex-col gap-3">
+            <InputLogin
+              updateForm={updateForm}
+              loginForm={loginForm}
+              setLoginForm={setLoginForm}
+              error={error}
+              setError={setError}
+              icon={faUser}
+              inputType="username"
+              fieldType="text"
+              placeholder="Nume utilizator sau email"
+            />
+            <InputLogin
+              updateForm={updateForm}
+              loginForm={loginForm}
+              setLoginForm={setLoginForm}
+              error={error}
+              setError={setError}
+              icon={faLock}
+              inputType="password"
+              fieldType="password"
+              placeholder="Parola"
+            />
+          </div>
+          <button
+            onClick={(e) => login(e)}
+            className="cursor-pointer md:bg-[#F06E87] md:hover:bg-[#DE264B] md:hover:text-white 
+            pl-[10px] pt-[10px] pb-[10px] pr-[10px] 
+            duration-150 ease-out rounded-md"
+          >
             Conectează-te
           </button>
         </form>
+        <button
+          className="cursor-pointer md:hover:text-[#3454E3] duration-150 ease-out text-left w-fit text-[16px]"
+          onClick={() => setUserExists(false)}
+        >
+          Nu ai cont? Creează unul
+        </button>
       </div>
 
-      <div className="h-60 w-60 shadow-xl p-[20px] flex flex-col rounded-xl">
-        <h1>Creează cont</h1>
-        <form action="" className="flex flex-col">
-          <input type="text" name="" id="" placeholder="Nume utilizator" />
-          <input type="text" name="" id="" placeholder="Email" />
-          <input type="text" name="" id="" placeholder="Nr. telefon" />
-          <input type="text" name="" id="" placeholder="Parolă" />
-          <input type="text" name="" id="" placeholder="Rescrie parola" />
-          <button className="cursor-pointer">Înregistrează-te</button>
+      <div
+        className={`${userExists ? "hidden" : "flex"} h-fit w-100 shadow-xl p-[20px] flex flex-col gap-2 bg-white rounded-xl pb-[20px]`}
+      >
+        <h1 className="text-[20px] font-[700]">Creează cont</h1>
+        <form action="" className="flex flex-col gap-5 w-full">
+          <InputLogin
+            updateForm={updateForm}
+            loginForm={signUpForm}
+            setLoginForm={setSignUpForm}
+            error={error}
+            setError={setError}
+            icon={faUser}
+            inputType="username"
+            fieldType="text"
+            placeholder="Nume utilizator"
+          />
+          <InputLogin
+            updateForm={updateForm}
+            loginForm={signUpForm}
+            setLoginForm={setSignUpForm}
+            error={error}
+            setError={setError}
+            icon={faAt}
+            inputType="email"
+            fieldType="text"
+            placeholder="Email"
+          />
+          <InputLogin
+            updateForm={updateForm}
+            loginForm={signUpForm}
+            setLoginForm={setSignUpForm}
+            error={error}
+            setError={setError}
+            icon={faPhone}
+            inputType="nrTel"
+            fieldType="text"
+            placeholder="Număr de telefon"
+          />
+          <InputLogin
+            updateForm={updateForm}
+            loginForm={signUpForm}
+            setLoginForm={setSignUpForm}
+            error={error}
+            setError={setError}
+            icon={faLock}
+            inputType="password"
+            fieldType="password"
+            placeholder="Parolă"
+          />
+          <InputLogin
+            updateForm={updateForm}
+            loginForm={signUpForm}
+            setLoginForm={setSignUpForm}
+            error={error}
+            setError={setError}
+            icon={faLock}
+            inputType="passwordConfirm"
+            fieldType="password"
+            placeholder="Rescrie parola"
+          />
+          <button
+            onClick={(e) => signUp(e)}
+            className="cursor-pointer md:bg-[#F06E87] md:hover:bg-[#DE264B] md:hover:text-white 
+            pl-[10px] pt-[10px] pb-[10px] pr-[10px] 
+            duration-150 ease-out rounded-md"
+          >
+            Înregistrează-te
+          </button>
         </form>
+        <button
+          className="cursor-pointer md:hover:text-[#3454E3] duration-150 ease-out text-left w-fit text-[16px]"
+          onClick={() => setUserExists(true)}
+        >
+          Ai cont deja? Conectează-te
+        </button>
       </div>
     </div>
   );

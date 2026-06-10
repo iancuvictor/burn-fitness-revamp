@@ -7,13 +7,13 @@ function UserPages(){
     const { loggedIn } = useContext(AuthContext)
 
     if(loggedIn === false){
-        return <>
+        return <div className="relative h-full w-full">
         <LoginScreen />
-        </>
+        </div>
     } else if(loggedIn === true) {
-        return <>
+        return <div className="relative h-full w-full">
         <ProfilePage/>
-        </>
+        </div>
     }
 }
 
