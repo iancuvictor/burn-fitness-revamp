@@ -2,7 +2,7 @@ import CardAbonament from "./cardAbonament/cardAbonament";
 
 function Abonamente() {
   return (
-    <div className="flex flex-col justify-center items-center w-full box-border font-finlandica pb-[50px]">
+    <div className="flex flex-col justify-center items-center min-h-screen w-full font-finlandica pb-[100px]">
       <h1 className="text-[20px] md:text-[35px] font-[700] pb-[30px] pt-[30px] text-center">
         ABONAMENTELE BURN FITNESS CLUJ-NAPOCA
       </h1>

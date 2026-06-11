@@ -3,6 +3,7 @@ dotenv.config();
 import express from "express";
 import mongoose from "mongoose";
 import userRoutes from './routes/users.js';
+import classesRoutes from './routes/classes.js';
 import cors from 'cors'
 import cookieParser from "cookie-parser";
 
@@ -22,6 +23,7 @@ mongoose
   .catch((err) => console.log(err));
 
 server.use('/api/users', userRoutes);
+server.use('/api/classes', classesRoutes);
 
 server.listen(port, () => {
       console.log(`Server up and running on ${port}`);

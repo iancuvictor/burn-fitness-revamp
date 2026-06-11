@@ -1,14 +1,18 @@
 import GoogleStore from "./assets/googleStore.svg";
 import AppleStore from "./assets/appleStore.svg";
+import { useContext } from "react";
 import { NavLink } from "react-router";
+import { AuthContext } from "../../context/AuthContext";
 
 function Footer() {
+  const { isAdmin } = useContext(AuthContext);
+
   return (
-    <div className=" w-full flex flex-col items-center p-[20px] border-box bg-black gap-2">
-      <h1 className="text-white font-finlandica font-bold text-[24px]">
+    <div className={`${isAdmin ? 'hidden' : 'flex' } absolute bottom-0 w-full flex-col items-center p-[20px] border-box bg-black gap-2`}>
+      <h1 className="block md:hidden text-white font-finlandica font-bold text-[24px]">
         Descarcă aplicația Burn
       </h1>
-      <div className="flex gap-2">
+      <div className="flex md:hidden gap-2">
         <a href="https://play.google.com/store/apps/details?id=com.wiseit.burnfitness&pli=1" target="_blank">
           <img src={GoogleStore} className="w-35 select-none" alt="google store app" />
         </a>

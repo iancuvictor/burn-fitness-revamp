@@ -6,10 +6,12 @@ import { protect, admin } from "./auth.js";
 const router = express.Router();
 
 router.post("/register", async (req, res) => {
-  console.log('test');
   let userCheck = await User.findOne({ username: req.body.username });
+  // check if user exists
   if (userCheck === null) {
+    // hash password BEFORE adding to the database
     let hashedPass = await bcrypt.hash(req.body.password, 10);
+    //try catch so no crash
     try {
       await User.create({
         username: req.body.username,
@@ -26,6 +28,7 @@ router.post("/register", async (req, res) => {
     }
     res.json({ message: "user created" });
   } else {
+    // user already exists
     res.json({ message: "User already exists." });
     console.log("user already exists");
   }

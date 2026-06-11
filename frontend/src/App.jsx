@@ -19,9 +19,11 @@ import {
   SalaFitnessMarasti,
   UserPages,
   AdminUsers,
-  AdminDashboard
+  AdminDashboard,
+  AdminOrar
 } from "./components";
 import "./App.css";
+import AdminLayout from "./components/AdminDashboard/adminLayout";
 
 function AdminRoute({children}){
     const { isAdmin, loading } = useContext(AuthContext)
@@ -55,9 +57,11 @@ function App() {
           <Route path="/salidefitness/sala-fitness-marasti" element={<SalaFitnessMarasti />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/profile" element={<UserPages />} />
-          <Route path="/admin" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
-          <Route path="/admin/clienti" element={<AdminRoute><AdminUsers /></AdminRoute>} />
-          {/* <Route path="/admin/subscriptions" element={<AdminRoute><AdminSubscriptions /></AdminRoute>} /> */}
+          <Route path="/admin" element={<AdminRoute><AdminLayout /></AdminRoute>}>
+              <Route index element={<AdminDashboard />} />
+              <Route path="clienti" element={<AdminRoute><AdminUsers /></AdminRoute>} />
+              <Route path="orar" element={<AdminRoute><AdminOrar /></AdminRoute>} />
+          </Route>
           {/* <Route path="/regulamentul-de-functionare-a-centrelor-de-fitness-burn" element={<Regulament />} /> */}
         </Routes>
         <Footer />

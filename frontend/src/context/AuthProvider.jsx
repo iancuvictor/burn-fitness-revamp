@@ -21,7 +21,8 @@ function AuthProvider({children}){
                     setLoggedIn(true);
                     setUser(userData);
                 } else if(resStatus === 'authorised' && userData.isAdmin === true){
-                    setLoggedIn(true)
+                    setLoggedIn(true);
+                    setUser(userData);
                     setIsAdmin(true);
                 }
                 setLoading(false);

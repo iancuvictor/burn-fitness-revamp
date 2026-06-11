@@ -1,6 +1,7 @@
-import { LoginScreen, ProfilePage, AdminDashboard } from "./components";
+import { LoginScreen, ProfilePage } from "./components";
 import { useContext } from 'react'
 import { AuthContext } from '../../context/AuthContext';
+import { Navigate } from "react-router";
 
 
 function UserPages(){
@@ -15,9 +16,7 @@ function UserPages(){
         <ProfilePage/>
         </div>
     } else if(isAdmin === true){
-        return <div className="relative h-full w-full">
-            <AdminDashboard/>
-        </div>
+        return <Navigate to='/admin'/>
     }
 }
 
