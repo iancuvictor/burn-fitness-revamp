@@ -8,13 +8,13 @@ function SalaFitnessZorilor(){
 
     useEffect(() => {
         async function getOrar(){
-            let response = await axios.get(`${API_URL}/classes/orarClase`);
+            let response = await axios.get(`${API_URL}/classes/orarClase?locatie=zorilor`);
             console.log(response.data);
             setDataOrar(response.data);
         }
 
         getOrar();
-    });
+    }, []);
 
 
     return <div className="min-h-screen">

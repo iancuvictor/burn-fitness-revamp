@@ -15,10 +15,16 @@ function AdminUsers(){
         getUsers();
     }, []);
 
+    const fetchUsers = async () => {
+            let response = await axios.get(`${API_URL}/users`, { withCredentials: true });
+            let userArray = response.data;
+            setUserList(userArray)
+    }
+
     console.log(userList);
 
 
-    return <div className="flex flex-col items-center ">
+    return <div className="flex flex-col items-center w-full">
         <h1>Listă clienți</h1>
         <div>
 
@@ -33,6 +39,8 @@ function AdminUsers(){
                 }
             })}
         </div>
+
+        <button onClick={() => fetchUsers()} className="cursor-pointer bg-red-300">Refresh</button>
             </div>
     </div>
 }

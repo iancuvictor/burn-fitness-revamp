@@ -5,7 +5,8 @@ const orar = new Schema({
             zi: {type: String, required: true},
             ora: {type: String, required: true},
             denumire: {type: String, required: true},
-            antrenor: {type: String, required: true}
+            antrenor: {type: String, required: true},
+            capacitate: {type: Number, required: true}
 })
 
 
