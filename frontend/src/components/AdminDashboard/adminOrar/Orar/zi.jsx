@@ -25,8 +25,7 @@ function Zi({locatie, dataOrar, zi, getOrar}) {
     let ziCheck = zi.toLowerCase().normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
 
-  return (
-    <div className="flex flex-col h-fit pr-[20px] font-finlandica gap-5">
+  return <div className="w-full flex flex-col h-fit p-[20px] font-finlandica gap-5 shadow-xl">
         <div className={`${displayedMenus.popUpAddClasa ? 'flex' : 'hidden'} fixed`}>
         <PopUpAddClasa locatie={locatie} zi={zi} displayedMenus={displayedMenus} setDisplayedMenus={setDisplayedMenus} getOrar={getOrar}/>
         </div>
@@ -36,22 +35,20 @@ function Zi({locatie, dataOrar, zi, getOrar}) {
       bg-[#6E7DFF] hover:bg-[#6E7DFF] md:hover:text-white rounded-md duration-150 ease-out"><FontAwesomeIcon icon={faCalendarPlus}/></button>
         </div>
       <div className='flex flex-col gap-1'>
-        {dataOrar.map((clasa, index) => {
-          if (clasa.zi === ziCheck) {
+        {dataOrar.filter((clasa) => clasa.zi === ziCheck).sort((a, b) => a.ora.localeCompare(b.ora)).map((clasa, index) => {
             return (
-              <div key={index} className="flex w-full gap-2 text-[16px]">
+              <div key={index} className="flex w-full gap-2 text-[16px] h-10">
                 <span className="w-[20%]">{clasa.ora}</span>
-                <span className="w-[40%]">{clasa.denumire}</span>
-                <span className="w-[30%]">{clasa.antrenor}</span>
+                <span className="w-[30%]">{clasa.denumire}</span>
+                <span className="w-[20%]">{clasa.antrenor}</span>
+                <span className="w-[20%]">{clasa.capacitate}</span>
                 <button onClick={() => removeClass(clasa)} className="w-[10%] shadow-md hover:shadow-xl cursor-pointer bg-[#F06E87]
                 hover:bg-[#DE264B] md:hover:text-white pt-[2px] pb-[2px] rounded-md duration-150 ease-out"><FontAwesomeIcon icon={faTrashCan}/></button>
               </div>
             );
-          }
         })}
       </div>
     </div>
-  );
 }
 
 export default Zi;

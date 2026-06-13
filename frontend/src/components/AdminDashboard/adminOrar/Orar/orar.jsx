@@ -2,8 +2,8 @@ import Zi from "./zi";
 
 function Orar({ locatie, dataOrar, getOrar }) {
   return (
-    <div className="flex w-full font-finlandica bg-white">
-      <div className="relative w-full grid grid-cols-3 p-[20px] gap-4 w-full">
+    <div className="flex  font-finlandica bg-white">
+      <div className="relative w-full grid grid-cols-2 p-[20px] gap-4 w-full">
         <Zi zi="Luni" locatie={locatie} dataOrar={dataOrar} getOrar={getOrar}/>
         <Zi zi="Marți" locatie={locatie} dataOrar={dataOrar} getOrar={getOrar}/>
         <Zi zi="Miercuri" locatie={locatie} dataOrar={dataOrar} getOrar={getOrar}/>

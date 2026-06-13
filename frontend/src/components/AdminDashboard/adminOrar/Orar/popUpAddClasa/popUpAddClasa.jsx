@@ -22,11 +22,11 @@ function PopUpAddClasa({locatie, zi, displayedMenus, setDisplayedMenus, getOrar}
         antrenor: formData.antrenor,
         capacitate: +formData.capacitate
     }
-
     try{
         let response = await axios.post(`${API_URL}/classes/orarClase`, reqBody)
         console.log(response); 
         getOrar(locatie.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
+        setFormData(defaultFormData);
         setDisplayedMenus({...displayedMenus, popUpAddClasa: false});
     } catch(err) {
         console.log(err);
@@ -44,10 +44,10 @@ function PopUpAddClasa({locatie, zi, displayedMenus, setDisplayedMenus, getOrar}
       <h1 className="text-[20px]">Adaugă clasă: <span className="font-[500]">{zi}</span></h1>
       <form action="">
         <div>
-        <input onChange={(e) => updateForm('ora', e.target.value)} type="time" name="" id="" placeholder="Ora"/>
-        <input onChange={(e) => updateForm('denumire', e.target.value)} type="text" name="" id="" placeholder="Denumire"/>
-        <input onChange={(e) => updateForm('antrenor', e.target.value)} type="text" name="" id="" placeholder="Antrenor"/>
-        <input onChange={(e) => updateForm('capacitate', e.target.value)} type="text" name="" id="" placeholder="Capacitate"/>
+        <input onChange={(e) => updateForm('ora', e.target.value)} type="time" value={formData.ora} placeholder="Ora"/>
+        <input onChange={(e) => updateForm('denumire', e.target.value)} type="text" value={formData.denumire} placeholder="Denumire"/>
+        <input onChange={(e) => updateForm('antrenor', e.target.value)} type="text" value={formData.antrenor} placeholder="Antrenor"/>
+        <input onChange={(e) => updateForm('capacitate', e.target.value)} type="number" value={formData.capacitate} placeholder="Capacitate"/>
         </div>
         <div className="flex justify-between">
         <button disabled={formData.ora !== '' 
@@ -65,8 +65,8 @@ function PopUpAddClasa({locatie, zi, displayedMenus, setDisplayedMenus, getOrar}
         `bg-[#57596E] p-[10px] rounded-md`}>Adaugă clasă</button>
         <button onClick={(e) => {
             e.preventDefault()
-            setDisplayedMenus({...displayedMenus, popUpAddClasa: false})
             setFormData(defaultFormData);
+            setDisplayedMenus({...displayedMenus, popUpAddClasa: false})
         }} className="cursor-pointer p-[10px] rounded-md
         shadow-md hover:shadow-xl duration-150 ease-out">Anulează</button>
         </div>

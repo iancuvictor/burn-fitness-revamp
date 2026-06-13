@@ -35,7 +35,7 @@ router.post("/register", async (req, res) => {
 });
 
 router.get("/profile", protect, async (req, res) => {
-  let userData = await User.findOne({ username: req.user.username }).select(
+  let userData = await User.findOne({ _id: req.user.userId }).select(
     "-password",
   );
   res.json({ status: "authorised", userData });
@@ -50,7 +50,7 @@ router.post("/login", async (req, res) => {
     if (userFound !== null) {
       if (await bcrypt.compare(req.body.password, userFound.password)) {
         let signature = jwt.sign(
-          { username: userFound.username },
+          { userId: userFound._id },
           process.env.SIGN_KEY,
           { expiresIn: "30d" },
         );
