@@ -8,7 +8,7 @@ function OrarClase() {
     <div className="flex flex-col justify-center items-center pb-[50px] font-finlandica">
       <h1 className="text-[20px] md:text-[35px] font-[700] pb-[30px] pt-[30px] text-center">Clase</h1>
       <div className="flex gap-5">
-        <NavLink to='/salidefitness/sala-fitness-zorilor'><button className={buttonStyle}>ORAR CLASE ZORILOR</button></NavLink>
+        <NavLink to='/salidefitness/sala-fitness-zorilor#orar'><button className={buttonStyle}>ORAR CLASE ZORILOR</button></NavLink>
         <NavLink to='/salidefitness/sala-fitness-marasti'><button className={buttonStyle}>ORAR CLASE MĂRĂȘTI</button></NavLink>
         <NavLink to='/salidefitness/sala-fitness-sigma'><button className={buttonStyle}>ORAR CLASE SIGMA</button></NavLink>
       </div>

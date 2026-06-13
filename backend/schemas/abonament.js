@@ -1,0 +1,14 @@
+import mongoose, { Schema, model } from "mongoose";
+
+const abonament = new Schema({
+    tier: {type: String, required: true},
+    titlu: {type: String, required: true},
+    desc: {type: String, required: false},
+    preturi: [
+        {pret: {type: Number, required: true}, duratie: {type: Number, required: true}}
+    ],
+    imagine: {type: String, required: true}
+})
+
+const Abonament = model('Abonament', abonament);
+export default Abonament;

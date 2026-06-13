@@ -20,7 +20,8 @@ import {
   UserPages,
   AdminUsers,
   AdminDashboard,
-  AdminOrar
+  AdminOrar,
+  AdminAbonamente
 } from "./components";
 import "./App.css";
 import AdminLayout from "./components/AdminDashboard/adminLayout";
@@ -38,7 +39,7 @@ function App() {
     <BrowserRouter>
       <div
         id="appWrapper"
-        className="relative flex flex-col justify-between min-h-screen bg-gray-100" 
+        className="relative flex flex-col justify-between bg-gray-100" 
       >
         <Navbar menuState={menuState} setMenuState={setMenuState} />
         <Routes>
@@ -61,6 +62,7 @@ function App() {
               <Route index element={<AdminDashboard />} />
               <Route path="clienti" element={<AdminRoute><AdminUsers /></AdminRoute>} />
               <Route path="orar" element={<AdminRoute><AdminOrar /></AdminRoute>} />
+              <Route path="abonamente" element={<AdminRoute><AdminAbonamente /></AdminRoute>} />
           </Route>
           {/* <Route path="/regulamentul-de-functionare-a-centrelor-de-fitness-burn" element={<Regulament />} /> */}
         </Routes>

@@ -20,14 +20,13 @@ function SalaFitnessZorilor() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col items-center font-finlandica">
+    <div className="h-fit flex flex-col items-center font-finlandica pb-[50px]">
       <h1 className="text-[20px] md:text-[35px] font-[700] pb-[20px] pt-[30px] text-center">
-        Sala fitness zorilor
+        Sala fitness ZORILOR
       </h1>
-      <div className="h-fit flex flex-col items-center shadow-xl p-[25px] rounded-xl bg-white">
+      <div id='orar' className="h-fit flex flex-col items-center shadow-xl p-[25px] rounded-xl bg-white gap-5">
         <h2 className="text-[16px] md:text-[20px] font-[700]">ORAR-CLASE</h2>
-
-        <div className="h-fit grid grid-col grid-cols-4 gap-5">
+        <div className="h-fit flex flex-col md:grid md:grid-cols-4 gap-5">
           <ZiOrar dataOrar={dataOrar} zi="Luni" />
           <ZiOrar dataOrar={dataOrar} zi="Marți" />
           <ZiOrar dataOrar={dataOrar} zi="Miercuri" />

@@ -39,11 +39,11 @@ function PopUpAddClasa({locatie, zi, displayedMenus, setDisplayedMenus, getOrar}
 
   return (
     <div className="bg-black/80 z-3 fixed top-0 left-0 h-full w-full flex justify-center items-center">
-        <div className="bg-white p-[30px]">
+        <div className="w-150 bg-white p-[30px] rounded-md">
 
       <h1 className="text-[20px]">Adaugă clasă: <span className="font-[500]">{zi}</span></h1>
-      <form action="">
-        <div>
+      <form action="" className="flex flex-col gap-5">
+        <div className="flex flex-col gap-2">
         <input onChange={(e) => updateForm('ora', e.target.value)} type="time" value={formData.ora} placeholder="Ora"/>
         <input onChange={(e) => updateForm('denumire', e.target.value)} type="text" value={formData.denumire} placeholder="Denumire"/>
         <input onChange={(e) => updateForm('antrenor', e.target.value)} type="text" value={formData.antrenor} placeholder="Antrenor"/>

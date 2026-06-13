@@ -18,10 +18,6 @@ function Zi({locatie, dataOrar, zi, getOrar}) {
         getOrar(locatieAjustata);
     }
 
-    const addClass = () => {
-        setDisplayedMenus({...displayedMenus, popUpAddClasa: true});
-    }
-
     let ziCheck = zi.toLowerCase().normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
 
@@ -31,18 +27,18 @@ function Zi({locatie, dataOrar, zi, getOrar}) {
         </div>
         <div className='flex items-center gap-3'>
       <h1 className='text-[20px] font-[500]'>{zi}</h1>
-      <button onClick={() => addClass(zi)} className="flex items-center justify-center pt-[5px] pb-[5px] w-10 text-[18px] shadow-md hover:shadow-xl cursor-pointer 
+      <button onClick={() => setDisplayedMenus({...displayedMenus, popUpAddClasa: true})} className="flex items-center justify-center pt-[5px] pb-[5px] w-10 text-[18px] shadow-md hover:shadow-xl cursor-pointer 
       bg-[#6E7DFF] hover:bg-[#6E7DFF] md:hover:text-white rounded-md duration-150 ease-out"><FontAwesomeIcon icon={faCalendarPlus}/></button>
         </div>
       <div className='flex flex-col gap-1'>
         {dataOrar.filter((clasa) => clasa.zi === ziCheck).sort((a, b) => a.ora.localeCompare(b.ora)).map((clasa, index) => {
             return (
-              <div key={index} className="flex w-full gap-2 text-[16px] h-10">
+              <div key={index} className="border-b pb-[5px] flex w-full h-fit gap-2 text-[16px] h-10">
                 <span className="w-[20%]">{clasa.ora}</span>
                 <span className="w-[30%]">{clasa.denumire}</span>
                 <span className="w-[20%]">{clasa.antrenor}</span>
                 <span className="w-[20%]">{clasa.capacitate}</span>
-                <button onClick={() => removeClass(clasa)} className="w-[10%] shadow-md hover:shadow-xl cursor-pointer bg-[#F06E87]
+                <button onClick={() => removeClass(clasa)} className="h-fit w-[10%] shadow-md hover:shadow-xl cursor-pointer bg-[#F06E87]
                 hover:bg-[#DE264B] md:hover:text-white pt-[2px] pb-[2px] rounded-md duration-150 ease-out"><FontAwesomeIcon icon={faTrashCan}/></button>
               </div>
             );

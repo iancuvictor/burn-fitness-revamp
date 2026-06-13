@@ -32,6 +32,7 @@ function Abonamente() {
         </div>
         <div id="abonamenteRegular" className="relative w-full flex flex-row items-center justify-center flex-wrap gap-5 md:flex md:gap-5 md:flex-row md:flex-wrap md:justify-center lg:w-250 lg:justify-items-center lg:grid lg:grid-cols-3">
           <CardAbonament
+          tier='regular'
             titlu="FITNESS FULL"
             optUnu="1 Lună"
             pretUnu="178 Lei"
@@ -44,6 +45,7 @@ function Abonamente() {
             imagine="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z3ltJTIwd2VpZ2h0c3xlbnwwfHwwfHx8MA%3D%3D"
           />
           <CardAbonament
+          tier='regular'
             titlu="AEROBIC FULL"
             optUnu="1 Lună"
             pretUnu="178 Lei"
@@ -56,6 +58,7 @@ function Abonamente() {
             imagine="https://www.burncluj.ro/wp-content/uploads/2023/02/bc3.jpeg"
           />
           <CardAbonament
+          tier='regular'
             titlu="FITNESS+AEROBIC FULL"
             optUnu="1 Lună"
             pretUnu="205 Lei"
@@ -68,6 +71,7 @@ function Abonamente() {
             imagine="https://www.burncluj.ro/wp-content/uploads/2026/03/Burn-16.jpg"
           />
           <CardAbonament
+          tier='regular'
             titlu="FITNESS MATINAL"
             optUnu="1 Lună"
             pretUnu="145 Lei"
@@ -80,6 +84,7 @@ function Abonamente() {
             imagine="https://www.burncluj.ro/wp-content/uploads/2025/01/Sala-Fitness-Flora-13.jpg"
           />
           <CardAbonament
+          tier='regular'
             titlu="PERSONAL TRAINER"
             optUnu="1 Lună"
             pretUnu="60 Lei"
@@ -90,6 +95,7 @@ function Abonamente() {
             imagine="https://www.burncluj.ro/wp-content/uploads/2023/02/bc8.jpeg"
           />
           <CardAbonament
+          tier='regular'
             titlu="ONE BURN DAY"
             optUnu="1 Lună"
             pretUnu="30 Lei"

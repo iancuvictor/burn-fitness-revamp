@@ -8,7 +8,7 @@ function CardAbonament(props) {
   );
   let preturiArray = propArray.filter((prop) => prop.includes("Lei"));
 
-  if (props.tier === undefined) {
+  if (props.tier === 'regular') {
     return (
       <div className="group duration-400 h-[450px] md:h-[480px] w-xs md:w-xs rounded-xl overflow-hidden cursor-pointer relative font-finlandica flex flex-col justify-between items-center bg-black text-white duration-150 ease-out">
         <div className=" z-1 absolute top-0 w-full h-full md:opacity-30 md:bg-black hover:opacity-0 duration-400"></div>
