@@ -7,7 +7,7 @@ const abonament = new Schema({
     preturi: [
         {pret: {type: Number, required: true}, duratie: {type: Number, required: true}}
     ],
-    imagine: {type: String, required: true}
+    imagine: {type: String, required: false}
 })
 
 const Abonament = model('Abonament', abonament);

@@ -1,6 +1,20 @@
+import { useEffect, useState } from "react";
 import CardAbonament from "./cardAbonament/cardAbonament";
+import axios from 'axios';
+
+const API_URL = import.meta.env.VITE_BACKEND_URL
 
 function Abonamente() {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    async function getData(){
+      let response = await axios.get(`${API_URL}/abonamente`)
+      setData(response.data);
+    }
+    getData();
+  }, [])
+
   return (
     <div className="flex flex-col justify-center items-center min-h-screen w-full font-finlandica pb-[100px]">
       <h1 className="text-[20px] md:text-[35px] font-[700] pb-[30px] pt-[30px] text-center">
@@ -11,7 +25,20 @@ function Abonamente() {
         className="relative w-full flex flex-col flex-wrap items-center content-box justify-center gap-5"
       >
         <div id="abonamentePremium" className="relative w-full flex flex-row flex-wrap items-center justify-center gap-5">
-          <CardAbonament
+          {data.map((abonament) => {
+            if(abonament.tier === 'premium'){
+
+              return <CardAbonament
+              tier={abonament.tier}
+              titlu={abonament.titlu}
+              type='GOLD'
+              desc={abonament.desc}
+              preturi={abonament.preturi}
+              imagine={abonament.imagine}
+              />
+            }
+          })}
+          {/* <CardAbonament
             tier="premium"
             type="GOLD"
             titlu="FITNESS ȘI AEROBIC"
@@ -28,10 +55,25 @@ function Abonamente() {
             optUnu="Lună"
             pretUnu="195 Lei"
             imagine="https://www.burncluj.ro/wp-content/uploads/2026/03/Burn-16.jpg"
-          />
+          /> */}
         </div>
-        <div id="abonamenteRegular" className="relative w-full flex flex-row items-center justify-center flex-wrap gap-5 md:flex md:gap-5 md:flex-row md:flex-wrap md:justify-center lg:w-250 lg:justify-items-center lg:grid lg:grid-cols-3">
-          <CardAbonament
+        <div id="abonamenteRegular" className="relative w-full flex flex-row 
+        items-center justify-center flex-wrap gap-5 
+        md:flex md:gap-5 md:flex-row md:flex-wrap md:justify-center 
+        lg:w-250 lg:justify-items-center lg:grid lg:grid-cols-3">
+          {data.map((abonament) => {
+            if(abonament.tier === 'regular'){
+
+              return <CardAbonament
+              tier={abonament.tier}
+              titlu={abonament.titlu}
+              desc={abonament.desc}
+              preturi={abonament.preturi}
+              imagine={abonament.imagine}
+              />
+            }
+          })}
+          {/* <CardAbonament
           tier='regular'
             titlu="FITNESS FULL"
             optUnu="1 Lună"
@@ -100,7 +142,7 @@ function Abonamente() {
             optUnu="1 Lună"
             pretUnu="30 Lei"
             imagine="https://www.burncluj.ro/wp-content/uploads/2026/03/Burn-11-1.jpg"
-          />
+          /> */}
         </div>
       </div>
     </div>
