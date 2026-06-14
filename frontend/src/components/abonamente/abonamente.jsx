@@ -3,6 +3,7 @@ import CardAbonament from "./cardAbonament/cardAbonament";
 import axios from 'axios';
 
 const API_URL = import.meta.env.VITE_BACKEND_URL
+const IMAGE_PATH = import.meta.env.VITE_FOLDER_UPLOADS_ABONAMENTE
 
 function Abonamente() {
   const [data, setData] = useState([]);
@@ -16,8 +17,8 @@ function Abonamente() {
   }, [])
 
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen w-full font-finlandica pb-[100px]">
-      <h1 className="text-[20px] md:text-[35px] font-[700] pb-[30px] pt-[30px] text-center">
+    <div className="flex flex-col justify-center items-center min-h-screen w-full font-finlandica pt-20 pb-[100px]">
+      <h1 className="text-[20px] text-white md:text-[35px] font-[700] pb-[30px] pt-[30px] text-center">
         ABONAMENTELE BURN FITNESS CLUJ-NAPOCA
       </h1>
       <div
@@ -25,9 +26,8 @@ function Abonamente() {
         className="relative w-full flex flex-col flex-wrap items-center content-box justify-center gap-5"
       >
         <div id="abonamentePremium" className="relative w-full flex flex-row flex-wrap items-center justify-center gap-5">
-          {data.map((abonament) => {
+          {data.map((abonament, index) => {
             if(abonament.tier === 'premium'){
-
               return <CardAbonament
               tier={abonament.tier}
               titlu={abonament.titlu}
@@ -35,6 +35,7 @@ function Abonamente() {
               desc={abonament.desc}
               preturi={abonament.preturi}
               imagine={abonament.imagine}
+              key={index}
               />
             }
           })}

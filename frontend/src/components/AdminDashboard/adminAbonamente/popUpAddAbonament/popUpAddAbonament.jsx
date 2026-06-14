@@ -10,13 +10,20 @@ function PopUpAddAbonament({ displayedMenus, setDisplayedMenus }) {
     titlu: "",
     desc: "",
     preturi: [],
-    imagine: "",
   };
   const [formData, setFormData] = useState(defaultFormData);
+  const [imageFile, setImageFile] = useState(null);
 
   const adaugaAbonament = async (e) => {
     e.preventDefault();
-    await axios.post(`${API_URL}/abonamente/adaugaAbonament`, formData);
+    let data = new FormData();
+    data.append('tier', formData.tier)
+    data.append('titlu', formData.titlu)
+    data.append('desc', formData.desc)
+    data.append('preturi', JSON.stringify(formData.preturi))
+    data.append('imagine', imageFile);
+    await axios.post(`${API_URL}/abonamente/adaugaAbonament`, data);
+    console.log(data);
     setDisplayedMenus({ ...displayedMenus, popUpAddAbonament: false });
   };
 
@@ -27,7 +34,6 @@ function PopUpAddAbonament({ displayedMenus, setDisplayedMenus }) {
 
   const updateForm = (field, value) => {
     setFormData({ ...formData, [field]: value });
-    console.log(formData);
   };
 
   const updatePret = (field, index, value) => {
@@ -80,8 +86,9 @@ function PopUpAddAbonament({ displayedMenus, setDisplayedMenus }) {
             </div>
             <div className="w-[30%]">
               <div className="relative w-full overflow-hidden">
-                <input className='w-full' type="file" placeholder="Adaugă banner" />
-                <span className="text-white absolute opacity-25">Adaugă imaginea</span>
+                <input onChange={(e) => {
+                    setImageFile(e.target.files[0])
+                }} className='w-full' type="file" placeholder="Adaugă banner" />
               </div>
             </div>
           </div>

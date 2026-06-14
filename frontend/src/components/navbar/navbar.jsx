@@ -12,7 +12,9 @@ function Navbar({menuState, setMenuState}){
     const buttonClass = ({isActive}) => isActive ? 'z-1 text-white underline underline-offset-5' : 'hover:text-white hover:underline underline-offset-5 duration-150'
 
     return <>
-    <div id='navbar' className={`${isAdmin === false ? 'md:flex' : 'hidden'} z-4 sticky top-0 w-full hidden h-20 gap-5 bg-black/95 items-center md:justify-between xl:justify-evenly font-[600]`}>
+    <div id='navbar' className={`${isAdmin === false ? 'md:flex' : 'hidden'} z-4 fixed top-0 w-full hidden h-20 gap-5 bg-black/85 items-center md:justify-between xl:justify-evenly font-[600]`}>
+     <div className="z-[-1] absolute inset-0 bg-gradient-to-r from-black from-0% via-transparent via-40% to-transparent"></div>
+     <div className="z-[-1] absolute inset-0 bg-gradient-to-l from-black from-0% via-transparent via-40% to-transparent"></div>
         <NavLink to="/" className={buttonClass}><img src={BurnLogo} alt="burn fitness logo" className='w-50 md:pl-[20px] select-none'/></NavLink>
         <div className='hidden md:flex flex-wrap text-gray-500 text-[16px] gap-2.5 xl:gap-5 items-center justify-end md:pr-[20px]'>
             <NavLink to="/" className={buttonClass}>Acasa</NavLink>

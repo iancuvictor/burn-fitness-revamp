@@ -1,16 +1,18 @@
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+const API_URL = import.meta.env.VITE_BACKEND_URL
+
 function CardAbonament({titlu, preturi, imagine, tier, type, desc}) {
 
-  console.log(preturi);
+  console.log(imagine);
   if (tier === 'regular') {
     return (
       <div className="group duration-400 h-[450px] md:h-[480px] w-xs md:w-xs rounded-xl overflow-hidden cursor-pointer relative font-finlandica flex flex-col justify-between items-center bg-black text-white duration-150 ease-out">
         <div className=" z-1 absolute top-0 w-full h-full md:opacity-30 md:bg-black hover:opacity-0 duration-400"></div>
         <div className="w-full relative h-60 md:h-80 md:group-hover:h-60 duration-400 ease-out overflow-hidden">
           <img
-            src={imagine}
+            src={`http://localhost:3000/uploads/${imagine}`}
             alt=""
             className="w-full h-60 md:h-80 md:group-hover:scale-120 duration-400 ease-out object-cover object-top select-none"
           />
@@ -48,13 +50,15 @@ function CardAbonament({titlu, preturi, imagine, tier, type, desc}) {
     );
   } else if (tier === "premium") {
     return (
-      <div className="group h-[480px] w-xs md:w-md rounded-xl overflow-hidden cursor-pointer relative font-finlandica flex flex-col justify-between items-center bg-black text-white gap-3 duration-150 ease-out">
+      <div className={`ring-4 ${type === "GOLD" ? "ring-amber-400/50" : "ring-slate-600/50"} group h-[480px] w-xs md:w-md rounded-xl 
+      overflow-hidden cursor-pointer relative font-finlandica flex flex-col justify-between items-center bg-black 
+      text-white gap-3 duration-150 ease-out`}>
         <div
           className={`z-1 absolute top-0 w-full h-full md:bg-black md:opacity-30 hover:opacity-0 duration-150 ease-out`}
         ></div>
         <div className="w-full relative h-60 md:h-80 md:group-hover:h-60 duration-400 ease-out overflow-hidden">
           <img
-            src={imagine}
+            src={`http://localhost:3000/uploads/${imagine}`}
             alt=""
             className="w-full h-60 md:h-80 md:group-hover:scale-120 duration-400 ease-out object-cover object-top select-none"
           />
