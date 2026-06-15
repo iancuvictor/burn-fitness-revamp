@@ -7,8 +7,7 @@ import { AuthContext } from "../../context/AuthContext";
 function Footer() {
   const { isAdmin } = useContext(AuthContext);
 
-  return (
-    <div className={`${isAdmin ? 'hidden' : 'flex' } fixed bottom-0 h-fit w-full flex-col items-center p-[20px] border-box bg-black gap-2`}>
+  return <div className={`${isAdmin ? 'hidden' : 'flex' } absolute bottom-0 h-fit w-full flex-col items-center p-[20px] border-box bg-black gap-2`}>
       <h1 className="block md:hidden text-white font-finlandica font-bold text-[24px]">
         Descarcă aplicația Burn
       </h1>
@@ -32,7 +31,6 @@ function Footer() {
 
       </div>
     </div>
-  );
 }
 
 export default Footer;

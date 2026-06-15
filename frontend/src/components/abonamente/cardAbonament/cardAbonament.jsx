@@ -4,18 +4,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const API_URL = import.meta.env.VITE_BACKEND_URL
 
 function CardAbonament({titlu, preturi, imagine, tier, type, desc}) {
-
-  console.log(imagine);
   if (tier === 'regular') {
     return (
       <div className="group duration-400 h-[450px] md:h-[480px] w-xs md:w-xs rounded-xl overflow-hidden cursor-pointer relative font-finlandica flex flex-col justify-between items-center bg-black text-white duration-150 ease-out">
         <div className=" z-1 absolute top-0 w-full h-full md:opacity-30 md:bg-black hover:opacity-0 duration-400"></div>
         <div className="w-full relative h-60 md:h-80 md:group-hover:h-60 duration-400 ease-out overflow-hidden">
-          <img
+          {/* <img
             src={`http://localhost:3000/uploads/${imagine}`}
             alt=""
             className="w-full h-60 md:h-80 md:group-hover:scale-120 duration-400 ease-out object-cover object-top select-none"
-          />
+          /> */}
           <div className="absolute inset-0 bg-gradient-to-t from-black from-0% via-transparent via-40% to-transparent"></div>
         </div>
         <div className="flex flex-col justify-evenly items-center h-40 md:h-20 md:group-hover:h-40 duration-400 ease-out">
@@ -56,18 +54,6 @@ function CardAbonament({titlu, preturi, imagine, tier, type, desc}) {
         <div
           className={`z-1 absolute top-0 w-full h-full md:bg-black md:opacity-30 hover:opacity-0 duration-150 ease-out`}
         ></div>
-        <div className="w-full relative h-60 md:h-80 md:group-hover:h-60 duration-400 ease-out overflow-hidden">
-          <img
-            src={`http://localhost:3000/uploads/${imagine}`}
-            alt=""
-            className="w-full h-60 md:h-80 md:group-hover:scale-120 duration-400 ease-out object-cover object-top select-none"
-          />
-          <div
-            className={`${type === "GOLD" ? "md:bg-[#FFDD80] opacity-20" : "md:bg-[#747A80] opacity-20"} z-0 absolute top-0 w-full h-full`}
-          ></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-black from-0% via-transparent via-40% to-transparent"></div>
-        </div>
-
         <div className="flex flex-col justify-between items-center h-40 gap-3">
           <div className="flex flex-col items-center gap-0">
             <h1

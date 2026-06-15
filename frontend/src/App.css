@@ -4,6 +4,8 @@
   --font-finlandica: "Finlandica Text", sans-serif;
   --animate-fade-in: fadeIn 0.1s ease-in;
   --animate-fade-out: fadeOut 0.1 ease-out;
+  --animate-pulseLink: pulseLink 2s ease-out infinite;
+  --animate-infoBar: infoBar 10s infinite;
   --breakpoint-xs: 500px;
   --color-redishPinkDark: #DE264B;
   --color-redishPinkLight: #F06E87;
@@ -27,6 +29,17 @@
   }
 }
 
-#appWrapper{
-  background-color: black;
+@keyframes pulseLink {
+  0% {
+    color: white;
+  } 40% {
+    color: #DE264B;
+  } 100% {
+    color: white;
+  }
+}
+
+@keyframes infoBar {
+ 0% { transform: translateX(0%); }
+    100% { transform: translateX(-100%); }
 }

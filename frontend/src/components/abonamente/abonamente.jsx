@@ -34,7 +34,6 @@ function Abonamente() {
               type='GOLD'
               desc={abonament.desc}
               preturi={abonament.preturi}
-              imagine={abonament.imagine}
               key={index}
               />
             }
