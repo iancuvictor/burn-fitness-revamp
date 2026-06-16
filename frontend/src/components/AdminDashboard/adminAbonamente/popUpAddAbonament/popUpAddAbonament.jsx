@@ -16,15 +16,8 @@ function PopUpAddAbonament({ displayedMenus, setDisplayedMenus }) {
 
   const adaugaAbonament = async (e) => {
     e.preventDefault();
-    let data = new FormData();
-    data.append('tier', formData.tier)
-    data.append('titlu', formData.titlu)
-    data.append('desc', formData.desc)
-    data.append('preturi', JSON.stringify(formData.preturi))
-    // removed image for the subscription card temporarily(?)
-    // data.append('imagine', imageFile);
-    await axios.post(`${API_URL}/abonamente/adaugaAbonament`, data);
-    console.log(data);
+    await axios.post(`${API_URL}/abonamente/adaugaAbonament`, formData);
+    console.log(formData);
     setDisplayedMenus({ ...displayedMenus, popUpAddAbonament: false });
   };
 
@@ -47,8 +40,8 @@ function PopUpAddAbonament({ displayedMenus, setDisplayedMenus }) {
   };
 
   return (
-    <div className="bg-black/80 z-3 fixed top-0 left-0 h-full w-full flex justify-center items-center font-finlandica">
-      <div className="flex flex-col w-150 h-fit bg-white p-[20px] rounded-md gap-5">
+    <div className="bg-black/80 z-1 fixed top-0 left-0 h-full w-full flex justify-center items-center font-finlandica">
+      <div className="relative z-5 flex flex-col w-150 h-fit bg-white p-[20px] rounded-md gap-5">
         <h1 className="font-[600]">Adaugă abonament</h1>
         <div className="flex flex-col gap-2">
           <div className="flex gap-2">
@@ -126,7 +119,7 @@ function PopUpAddAbonament({ displayedMenus, setDisplayedMenus }) {
             onClick={(e) => adaugaAbonament(e)}
             className={`flex justify-center items-center cursor-pointer p-[10px] rounded-md 
                 bg-[#6E7DFF] hover:bg-[#6E7DFF] hover:text-white 
-                duration-150 ease-out bg-[#57596E] p-[10px] rounded-md`}
+                duration-150 ease-out bg-[#57596E]`}
           >
             Adaugă abonamentul
           </button>

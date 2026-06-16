@@ -27,14 +27,15 @@ router.get('/', async (req, res) => {
     res.json(data);
 });
 
-router.post('/adaugaAbonament', admin, upload.single('imagine'), async (req, res) => {
+router.post('/adaugaAbonament', admin, async (req, res) => {
+    console.log(req.body)
     try{
         await Abonament.create({
             tier: req.body.tier,
             titlu: req.body.titlu,
             desc: req.body.desc,
-            preturi: JSON.parse(req.body.preturi),
-            imagine: req.file.filename
+            preturi: req.body.preturi,
+            // imagine: req.file.filename
         })
         res.json('test');
     } catch(err) {

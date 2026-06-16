@@ -10,18 +10,21 @@ function ListaAbonamente(){
     async function getData(){
         let response = await axios.get(`${API_URL}/abonamente`);
         setData(response.data);
-        console.log(response.data);
     }
     useEffect(() => {
         getData()
     }, [])
 
     return <div>
-        {data.map((abonament) => {
+        <div className="grid grid-cols-3 gap-5">
+
+        {data.map((abonament, index) => {
             return <CardAbonamentAdmin
             data={abonament}
+            key={index}
             />
         })}
+        </div>
     </div>
 }
 

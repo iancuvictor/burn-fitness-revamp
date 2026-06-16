@@ -18,7 +18,7 @@ function AdminDashboard() {
   };
 
   return (
-    <div className="min-h-screen font-finlandica pt-[50px]">
+    <div className="pl-60 bg-white w-full min-h-screen font-finlandica pt-[50px]">
       <div className={`${alert.logOut ? "z-4 fixed top-0 left-0" : "hidden"}`}>
         <PopUp
           type="alert"

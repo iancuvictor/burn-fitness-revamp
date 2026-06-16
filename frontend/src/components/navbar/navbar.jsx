@@ -8,12 +8,11 @@ import { useContext } from 'react';
 
 function Navbar({menuState, setMenuState}){
     const { isAdmin } = useContext(AuthContext)
-    console.log(isAdmin);
     const buttonClass = ({isActive}) => isActive ? 'z-1 text-white underline underline-offset-5' : 'hover:text-white hover:underline underline-offset-5 duration-150'
 
     return <>
-    <div id='navbar' className={`${isAdmin === false ? 'md:flex' : 'hidden'} z-4 fixed top-0 w-full hidden h-20 gap-5 items-center md:justify-between xl:justify-evenly font-[600]`}>
-     <div className="z-[-1] h-full absolute inset-0 bg-gradient-to-b from-black from-0% via-black via-50% to-black via-70% to-transparent to-100%"></div>
+    <div id='navbar' className={`${isAdmin === false ? 'md:flex' : 'hidden'} bg-black/90 z-4 fixed top-0 w-full hidden h-20 gap-5 items-center md:justify-between xl:justify-evenly font-[600]`}>
+     {/* <div className="z-[-1] h-full absolute inset-0 bg-gradient-to-b from-black from-0% via-black via-50% to-black via-70% to-transparent to-100%"></div> */}
         <NavLink to="/" className={buttonClass}><img src={BurnLogo} alt="burn fitness logo" className='w-50 md:pl-[20px] select-none'/></NavLink>
         <div className='hidden md:flex flex-wrap text-gray-500 text-[16px] gap-2.5 xl:gap-5 items-center justify-end md:pr-[20px]'>
             <NavLink to="/" className={buttonClass}>Acasa</NavLink>
@@ -34,14 +33,15 @@ function Navbar({menuState, setMenuState}){
     </div>
 
     {/* mobile navbar */}
-    <div className={`${isAdmin === false ? 'flex' : 'hidden'} fixed w-full z-2 md:hidden justify-between`}>
-        <div className="z-[-1] h-full absolute inset-0 bg-gradient-to-b from-black from-0% via-black via-50% to-black via-70% to-transparent to-100%"></div>
+    <div className={`${isAdmin === false ? 'flex' : 'hidden'} bg-black/90 fixed w-full h-15 z-4 md:hidden justify-between items-center`}>
+        {/* <div className="z-[-1] h-full absolute inset-0 bg-gradient-to-b from-black from-0% via-black via-50% to-black via-70% to-transparent to-100%"></div> */}
     <NavLink to='/'><img src={BurnLogo} alt="burn fitness logo" className='md:hidden w-40 m-[10px]'/></NavLink>
     <div className='justify-center items-center flex gap-3'>
-        <NavLink to="/profile" className='text-white'><FontAwesomeIcon icon={faCircleUser} className='text-[25px]'/></NavLink>
+        <NavLink to="/profile" className='text-white'><FontAwesomeIcon icon={faCircleUser} className={`${menuState ? 'opacity-0' :
+         'opacity-100'} text-[25px] duration-100 ease-out`}/></NavLink>
         <button 
         onClick={() => setMenuState(!menuState)}
-        className={menuState ? 'hidden' : 'md:hidden cursor-pointer text-white text-[25px] pl-[px] pr-[20px]'}
+        className={`${menuState ? 'w-0' : 'w-10 md:hidden cursor-pointer text-white text-[25px] pr-[50px]'} duration-100 ease-out`}
         ><FontAwesomeIcon icon={faBars} /></button>
     </div>
     <div id='mobileBurger' className={menuState ? 'z-3 animate-fade-in flex flex-col fixed justify-center items-center gap-5 w-full h-full bg-black font-finlandica font-bold text-gray-500 text-[25px] md:hidden' : 'animate-fade-out hidden'}>

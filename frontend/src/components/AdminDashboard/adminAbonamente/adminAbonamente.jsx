@@ -19,7 +19,7 @@ function AdminAbonamente() {
   }, []);
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="w-full h-full flex flex-col items-center font-finlandica bg-white">
       <div>
         <div
           className={`${displayedMenus.popUpAddAbonament ? "flex" : "hidden"} fixed`}
@@ -29,7 +29,6 @@ function AdminAbonamente() {
             setDisplayedMenus={setDisplayedMenus}
           />
         </div>
-        <h1>Abonamente</h1>
         <button
           onClick={() =>
             setDisplayedMenus({ ...displayedMenus, popUpAddAbonament: true })
@@ -39,6 +38,7 @@ function AdminAbonamente() {
           Creează abonament
         </button>
             <div>
+              <h1 className="font-[700] text-[25px]">Listă Abonamente</h1>
                 <ListaAbonamente/>
             </div>
       </div>

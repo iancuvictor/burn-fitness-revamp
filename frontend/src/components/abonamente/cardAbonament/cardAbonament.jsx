@@ -3,39 +3,37 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const API_URL = import.meta.env.VITE_BACKEND_URL
 
-function CardAbonament({titlu, preturi, imagine, tier, type, desc}) {
+function CardAbonament({titlu, preturi, tier, type, desc, viewPreturi}) {
+
   if (tier === 'regular') {
     return (
-      <div className="group duration-400 h-[450px] md:h-[480px] w-xs md:w-xs rounded-xl overflow-hidden cursor-pointer relative font-finlandica flex flex-col justify-between items-center bg-black text-white duration-150 ease-out">
-        <div className=" z-1 absolute top-0 w-full h-full md:opacity-30 md:bg-black hover:opacity-0 duration-400"></div>
-        <div className="w-full relative h-60 md:h-80 md:group-hover:h-60 duration-400 ease-out overflow-hidden">
-          {/* <img
-            src={`http://localhost:3000/uploads/${imagine}`}
-            alt=""
-            className="w-full h-60 md:h-80 md:group-hover:scale-120 duration-400 ease-out object-cover object-top select-none"
-          /> */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black from-0% via-transparent via-40% to-transparent"></div>
-        </div>
-        <div className="flex flex-col justify-evenly items-center h-40 md:h-20 md:group-hover:h-40 duration-400 ease-out">
-          <h1 className="font-bold text-[22px] md:text-[25px]">
+      <div className="pt-[20px] ring-2 ring-lime-400 shadow-md shadow-lime-400 hover:shadow-lg duration-400 h-70 w-xs md:w-xs rounded-xl overflow-hidden 
+      cursor-pointer relative font-finlandica flex flex-col justify-between items-center bg-black text-white duration-75 ease-out">
+        <div className="flex flex-col justify-evenly items-center h-40 duration-400 ease-out">
+          <h1 className="font-[700] text-[22px] md:text-[30px] text-lime-400 text-center">
             {titlu}
           </h1>
-          <div className="w-full flex flex-wrap pl-[20px] pr-[20px] border-box md:m-h-0 md:overflow-hidden md:group-hover:m-h-96 md:opacity-0 md:group-hover:opacity-100 duration-400 ease-out">
+          <h2 className="text-[16px] text-center">
+            {desc}
+          </h2>
+          <div className="w-full flex flex-wrap pl-[20px] pr-[20px] border-box">
             {preturi.map((item, index) => {
               return (
                 <div
                   key={index}
-                  className={`${preturi.length === 1 ? "w-[100%]" : "w-[50%]"} flex 1 justify-center text-[15px] md:text-[14px]`}
+                  className={`${preturi.length === 1 ? "w-[100%]" : "w-[50%]"} flex 1 justify-center text-[15px] md:text-[16px]`}
                 >
                   <span>
-                    {item.pret} Lei / {item.duratie} {item.duratie > 1 ? 'Luni' : 'Lună'}
+                    {viewPreturi === 'studenti' && titlu !== 'FITNESS MATINAL' ? Math.round((item.pret * (100-13)/100).toFixed(2)) : 
+                    viewPreturi === 'familie' && titlu !== 'FITNESS MATINAL' ? Math.round((item.pret * (100-20)/100).toFixed(2)): item.pret} Lei / {item.duratie} {item.duratie > 1 ? 'Luni' : 'Lună'}
                   </span>
                 </div>
               );
             })}
           </div>
         </div>
-        <button className="outline-none active:bg-[#DE264B] md:hover:bg-[#DE264B] w-full h-20 md:h-0 group-hover:h-20 z-2 cursor-pointer group/buyButton flex flex-row justify-center items-center md:opacity-0 md:group-hover:opacity-100 duration-400 ease-out pl-[10px] pr-[10px] gap-2">
+        <button className="outline-none active:bg-[#DE264B] md:hover:bg-[#DE264B] w-full h-15 z-2
+         cursor-pointer group/buyButton flex flex-row justify-center items-center duration-150 ease-out pl-[10px] pr-[10px] gap-2">
           <FontAwesomeIcon
             icon={faCartShopping}
             className="text-[#DE264B]"
