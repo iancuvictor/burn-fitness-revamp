@@ -15,13 +15,14 @@ function ListaAbonamente(){
         getData()
     }, [])
 
-    return <div className="min-h-screen">
-        <div className="grid grid-cols-3 gap-5">
+    return <div className="min-h-screen w-full">
+        <div className="w-full grid grid-cols-3 gap-5">
 
         {data.map((abonament, index) => {
             return <CardAbonamentAdmin
             data={abonament}
             key={index}
+            getData={getData}
             />
         })}
         </div>

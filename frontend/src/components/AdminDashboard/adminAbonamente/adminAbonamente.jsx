@@ -19,8 +19,7 @@ function AdminAbonamente() {
   }, []);
 
   return (
-    <div className="w-full h-full flex flex-col items-center font-finlandica bg-white">
-      <div>
+    <div className="w-full h-full flex flex-col items-center font-finlandica bg-white pl-10 pr-10">
         <div
           className={`${displayedMenus.popUpAddAbonament ? "flex" : "hidden"} fixed`}
         >
@@ -41,7 +40,6 @@ function AdminAbonamente() {
               <h1 className="font-[700] text-[25px]">Listă Abonamente</h1>
                 <ListaAbonamente/>
             </div>
-      </div>
     </div>
   );
 }

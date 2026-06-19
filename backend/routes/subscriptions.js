@@ -43,13 +43,14 @@ router.post('/adaugaAbonament', admin, async (req, res) => {
 })
 
 router.put('/updateAbonament', admin, async (req, res) => {
-    if(req.body.highlighted === 'on'){
-        req.body.highlighted = true;
-    } else {
-        req.body.highlighted = false;
-    }
     await Abonament.updateOne({_id: req.body._id}, { $set: req.body });
     res.json('Abonament actualizat');
 })
+
+router.delete('/stergeAbonament', admin, async (req, res) => {
+    await Abonament.deleteOne({ _id: req.body._id});
+    res.json('Abonament sters');
+    console.log('abonament sters');
+});
 
 export default router;

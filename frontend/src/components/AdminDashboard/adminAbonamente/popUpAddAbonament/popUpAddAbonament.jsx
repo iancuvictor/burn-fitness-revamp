@@ -6,7 +6,7 @@ const API_URL = import.meta.env.VITE_BACKEND_URL;
 
 function PopUpAddAbonament({ displayedMenus, setDisplayedMenus }) {
   const defaultFormData = {
-    highlighted: false,
+    highlighted: '',
     tier: "regular",
     titlu: "",
     desc: "",
@@ -47,7 +47,7 @@ function PopUpAddAbonament({ displayedMenus, setDisplayedMenus }) {
         <div className="flex flex-col gap-2">
           <div className="flex gap-5">
             <span>Highlighted:</span>
-            <input onChange={(e) => updateForm('highlighted', e.target.value)} value={true} type="checkbox" />
+            <input onChange={(e) => updateForm('highlighted', e.target.value)} type="checkbox" />
           </div>
           <div className="flex gap-2">
             <span>Tier: </span>
