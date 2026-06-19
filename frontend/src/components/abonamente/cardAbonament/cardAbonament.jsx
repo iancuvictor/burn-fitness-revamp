@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const API_URL = import.meta.env.VITE_BACKEND_URL
 
-function CardAbonament({titlu, preturi, tier, type, desc, viewPreturi}) {
+function CardAbonament({titlu, preturi, tier, type, desc, viewPreturi, reducereAplicabila}) {
 
   if (tier === 'regular') {
     return (
@@ -24,8 +24,8 @@ function CardAbonament({titlu, preturi, tier, type, desc, viewPreturi}) {
                   className={`${preturi.length === 1 ? "w-[100%]" : "w-[50%]"} flex 1 justify-center text-[15px] md:text-[16px]`}
                 >
                   <span>
-                    {viewPreturi === 'studenti' && titlu !== 'FITNESS MATINAL' ? Math.round((item.pret * (100-13)/100).toFixed(2)) : 
-                    viewPreturi === 'familie' && titlu !== 'FITNESS MATINAL' ? Math.round((item.pret * (100-20)/100).toFixed(2)): item.pret} Lei / {item.duratie} {item.duratie > 1 ? 'Luni' : titlu === 'ONE BURN DAY' ? 'zi' : 'Lună'}
+                    {viewPreturi === 'studenti' && reducereAplicabila === true ? Math.round((item.pret * (100-13)/100).toFixed(2)) : 
+                    viewPreturi === 'familie' && reducereAplicabila === true ? Math.round((item.pret * (100-20)/100).toFixed(2)): item.pret} Lei / {item.duratie} {item.duratie > 1 ? 'Luni' : titlu === 'ONE BURN DAY' ? 'zi' : 'Lună'}
                   </span>
                 </div>
               );

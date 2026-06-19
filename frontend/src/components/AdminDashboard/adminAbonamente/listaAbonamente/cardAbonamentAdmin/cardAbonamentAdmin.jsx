@@ -13,6 +13,7 @@ const API_URL = import.meta.env.VITE_BACKEND_URL;
 function CardAbonamentAdmin({ data, getData }) {
   const [subscriptionData, setSubscriptionData] = useState({
     highlighted: data.highlighted,
+    reducereAplicabila: data.reducereAplicabila,
     _id: data._id,
     tier: data.tier,
     titlu: data.titlu,
@@ -69,7 +70,7 @@ function CardAbonamentAdmin({ data, getData }) {
   };
 
   return (
-    <div className="w-100 font-finlandica p-[20px] shadow-md bg-white">
+    <div className="w-100 font-finlandica p-[20px] shadow-md bg-white rounded-md">
       <div
         className={`${alert.duplicate ? "z-4 fixed top-0 left-0" : "hidden"}`}
       >
@@ -88,7 +89,9 @@ function CardAbonamentAdmin({ data, getData }) {
           ifNo={() => setAlert({ ...alert, update: false })}
         />
       </div>
-      <div className="flex gap-5 items-center justify-center">
+      <div className="flex gap-5 items-center justify-between">
+        <div className="flex gap-5">
+
         <div className="flex gap-2">
           <span>Highlighted</span>
           <input
@@ -99,7 +102,26 @@ function CardAbonamentAdmin({ data, getData }) {
             type="checkbox"
           />
         </div>
-        <div className="flex">
+        <div className="flex gap-2">
+          <span>Reducere aplicabilă</span>
+          <input
+            onChange={(e) =>
+              updateSubscriptionData("reducereAplicabila", e.target.checked)
+            }
+            checked={subscriptionData.reducereAplicabila}
+            type="checkbox"
+          />
+        </div>
+        </div>
+        <button
+          onClick={() => deleteAbonament()}
+          className="h-fit w-[30px] shadow-md hover:shadow-xl cursor-pointer bg-[#F06E87]
+                hover:bg-[#DE264B] md:hover:text-white pt-[2px] pb-[2px] rounded-md duration-150 ease-out"
+        >
+          <FontAwesomeIcon icon={faTrashCan} />
+        </button>
+      </div>
+      <div className="flex">
           <span>Tier:</span>
           <select
             onChange={(e) => updateSubscriptionData("tier", e.target.value)}
@@ -111,14 +133,6 @@ function CardAbonamentAdmin({ data, getData }) {
             <option value="premium">Premium</option>
           </select>
         </div>
-        <button
-          onClick={() => deleteAbonament()}
-          className="h-fit w-[30px] shadow-md hover:shadow-xl cursor-pointer bg-[#F06E87]
-                hover:bg-[#DE264B] md:hover:text-white pt-[2px] pb-[2px] rounded-md duration-150 ease-out"
-        >
-          <FontAwesomeIcon icon={faTrashCan} />
-        </button>
-      </div>
       <div className="flex gap-2">
         <span>Titlu:</span>
         <input
@@ -199,7 +213,8 @@ function CardAbonamentAdmin({ data, getData }) {
             data.titlu === subscriptionData.titlu &&
             data.desc === subscriptionData.desc &&
             data.preturi === subscriptionData.preturi &&
-            data.highlighted === subscriptionData.highlighted
+            data.highlighted === subscriptionData.highlighted &&
+            data.reducereAplicabila === subscriptionData.reducereAplicabila
               ? true
               : false
           }

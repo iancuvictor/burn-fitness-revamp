@@ -4,9 +4,10 @@ import axios from "axios";
 const inputStyle = "pt-[5px] pb-[5px] pl-[10px] pr-[10px] border-1";
 const API_URL = import.meta.env.VITE_BACKEND_URL;
 
-function PopUpAddAbonament({ displayedMenus, setDisplayedMenus }) {
+function PopUpAddAbonament({ displayedMenus, setDisplayedMenus, getData }) {
   const defaultFormData = {
     highlighted: '',
+    reducereAplicabila: '',
     tier: "regular",
     titlu: "",
     desc: "",
@@ -20,6 +21,7 @@ function PopUpAddAbonament({ displayedMenus, setDisplayedMenus }) {
     await axios.post(`${API_URL}/abonamente/adaugaAbonament`, formData);
     console.log(formData);
     setDisplayedMenus({ ...displayedMenus, popUpAddAbonament: false });
+    getData()
   };
 
   const adaugaPret = () => {
@@ -47,7 +49,11 @@ function PopUpAddAbonament({ displayedMenus, setDisplayedMenus }) {
         <div className="flex flex-col gap-2">
           <div className="flex gap-5">
             <span>Highlighted:</span>
-            <input onChange={(e) => updateForm('highlighted', e.target.value)} type="checkbox" />
+            <input onChange={(e) => updateForm('highlighted', e.target.checked)} type="checkbox" />
+          </div>
+          <div className="flex gap-5">
+            <span>Reducere aplicabilă:</span>
+            <input onChange={(e) => updateForm('reducereAplicabila', e.target.checked)} type="checkbox" />
           </div>
           <div className="flex gap-2">
             <span>Tier: </span>
@@ -74,22 +80,7 @@ function PopUpAddAbonament({ displayedMenus, setDisplayedMenus }) {
                 id=""
                 placeholder="descriere (opțională)"
               />
-              <input
-                className={inputStyle}
-                onChange={(e) => updateForm("imagine", e.target.value)}
-                type="text"
-                name=""
-                id=""
-                placeholder="imagine"
-              />
             </div>
-            {/* <div className="w-[30%]">
-              <div className="relative w-full overflow-hidden">
-                <input onChange={(e) => {
-                    setImageFile(e.target.files[0])
-                }} className='w-full' type="file" placeholder="Adaugă banner" />
-              </div>
-            </div> */}
           </div>
           <button className="cursor-pointer" onClick={() => adaugaPret()}>
             Adaugă prețuri

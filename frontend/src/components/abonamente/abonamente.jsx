@@ -65,6 +65,7 @@ function Abonamente() {
               desc={abonament.desc}
               preturi={abonament.preturi}
               viewPreturi={viewPreturi.viewPreturi}
+              reducereAplicabila={abonament.reducereAplicabila}
               key={index}
               />
             }
@@ -74,7 +75,7 @@ function Abonamente() {
         items-center justify-center flex-wrap gap-5 
         md:flex md:gap-10 md:flex-row md:flex-wrap md:justify-center 
         lg:w-250 lg:justify-items-center lg:grid lg:grid-cols-3">
-          {data.map((abonament) => {
+          {data.map((abonament, index) => {
             if(abonament.tier === 'regular'){
               return <CardAbonament
               tier={abonament.tier}
@@ -82,6 +83,8 @@ function Abonamente() {
               desc={abonament.desc}
               preturi={abonament.preturi}
               viewPreturi={viewPreturi.viewPreturi}
+              reducereAplicabila={abonament.reducereAplicabila}
+              key={index}
               />
             }
           })}

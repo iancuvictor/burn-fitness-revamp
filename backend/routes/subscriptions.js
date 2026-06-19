@@ -30,6 +30,7 @@ router.post('/adaugaAbonament', admin, async (req, res) => {
     try{
         await Abonament.create({
             highlighted: req.body.highlighted,
+            reducereAplicabila: req.body.reducereAplicabila,
             tier: req.body.tier,
             titlu: req.body.titlu,
             desc: req.body.desc,
