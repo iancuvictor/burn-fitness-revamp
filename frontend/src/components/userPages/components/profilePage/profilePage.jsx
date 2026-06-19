@@ -20,7 +20,7 @@ function ProfilePage() {
   };
 
   return (
-    <div className="min-h-screen pt-20 font-finlandica flex flex-col items-center bg-white">
+    <div className="min-h-screen pt-25 font-finlandica flex flex-col items-center bg-white">
       <div className={`${alert.logOut ? "z-4 fixed top-0 left-0" : "hidden"}`}>
         <PopUp
           type="alert"
@@ -32,6 +32,50 @@ function ProfilePage() {
       <h1 className="text-[30px] font-[700]">
         Bine ai revenit {user.username}!
       </h1>
+
+      <div className="flex gap-10">
+        <div className="flex flex-col w-fit shadow-xl p-10">
+          <h1 className="font-[700]">Gestionează contul</h1>
+          <div className="flex flex-col">
+            <div className="flex flex-col">
+              <span>Email:</span>
+              <input
+                className="w-70"
+                type="text"
+                name=""
+                id=""
+                defaultValue={user.email}
+              />
+            </div>
+            <div className="flex flex-col">
+              <span>Nr. telefon:</span>
+              <input
+                className="w-70"
+                type="text"
+                name=""
+                id=""
+                defaultValue={user.phone}
+              />
+            </div>
+            <div className="flex flex-col">
+              <span>Data nașterii:</span>
+              <input
+                className="w-70"
+                type="text"
+                name=""
+                id=""
+                defaultValue={"test"}
+              />
+            </div>
+            <span>Poză de profil</span>
+            <button className="cursor-pointer">Salvează modificările</button>
+          </div>
+        </div>
+
+        <div className="flex flex-col w-fit shadow-xl p-10">
+          <h1 className="font-[700]">Metode de plată</h1>
+        </div>
+      </div>
 
       <div className="flex">
         <div>
@@ -55,16 +99,6 @@ function ProfilePage() {
               </NavLink>
             </h1>
           )}
-        </div>
-
-        <div className="flex flex-col">
-            <h1 className="font-[700]">Gestionează contul</h1>
-            <form action="">
-
-          <input type="text" name="" id="" defaultValue={user.email} />
-          <input type="text" name="" id="" defaultValue={user.phone} />
-          <button className="cursor-pointer">Salvează modificările</button>
-            </form>
         </div>
         <button
           onClick={() => setAlert({ ...alert, logOut: true })}

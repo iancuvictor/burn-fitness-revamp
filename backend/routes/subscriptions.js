@@ -22,26 +22,34 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 router.get('/', async (req, res) => {
-    console.log('get subscriptions')
     let data = await Abonament.find();
     res.json(data);
 });
 
 router.post('/adaugaAbonament', admin, async (req, res) => {
-    console.log(req.body)
     try{
         await Abonament.create({
+            highlighted: req.body.highlighted,
             tier: req.body.tier,
             titlu: req.body.titlu,
             desc: req.body.desc,
             preturi: req.body.preturi,
-            // imagine: req.file.filename
         })
         res.json('test');
     } catch(err) {
         res.json('an error has occured');
         console.log(err);
     }
+})
+
+router.put('/updateAbonament', admin, async (req, res) => {
+    if(req.body.highlighted === 'on'){
+        req.body.highlighted = true;
+    } else {
+        req.body.highlighted = false;
+    }
+    await Abonament.updateOne({_id: req.body._id}, { $set: req.body });
+    res.json('Abonament actualizat');
 })
 
 export default router;

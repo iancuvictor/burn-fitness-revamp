@@ -20,8 +20,8 @@ function Abonamente() {
   }, [])
 
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen w-full font-finlandica pt-20 pb-[100px]">
-      <h1 className="text-[20px] text-white md:text-[35px] font-[700] pb-[30px] pt-[30px] text-center">
+    <div className="flex flex-col justify-center items-center min-h-screen w-full font-finlandica pt-20 pb-[100px] gap-5">
+      <h1 className="text-[20px] text-white md:text-[35px] font-[700] pt-[30px] text-center">
         ABONAMENTELE BURN FITNESS CLUJ-NAPOCA
       </h1>
       <div className="text-[14px] md:text-[18px] text-white flex flex-col items-center gap-3">
@@ -64,28 +64,11 @@ function Abonamente() {
               type='GOLD'
               desc={abonament.desc}
               preturi={abonament.preturi}
+              viewPreturi={viewPreturi.viewPreturi}
               key={index}
               />
             }
           })}
-          {/* <CardAbonament
-            tier="premium"
-            type="GOLD"
-            titlu="FITNESS ȘI AEROBIC"
-            desc="Acces în toate locațiile BURN Fitness și Aerobic"
-            optUnu="Lună"
-            pretUnu="225 Lei"
-            imagine="https://www.burncluj.ro/wp-content/uploads/2026/03/Burn-16.jpg"
-          />
-          <CardAbonament
-            tier="premium"
-            type="SILVER"
-            titlu="FITNESS SAU AEROBIC"
-            desc="Acces în toate locațiile BURN Fitness sau Aerobic"
-            optUnu="Lună"
-            pretUnu="195 Lei"
-            imagine="https://www.burncluj.ro/wp-content/uploads/2026/03/Burn-16.jpg"
-          /> */}
         </div>
         <div id="abonamenteRegular" className="relative w-full flex flex-row 
         items-center justify-center flex-wrap gap-5 
@@ -98,7 +81,6 @@ function Abonamente() {
               titlu={abonament.titlu}
               desc={abonament.desc}
               preturi={abonament.preturi}
-              imagine={abonament.imagine}
               viewPreturi={viewPreturi.viewPreturi}
               />
             }

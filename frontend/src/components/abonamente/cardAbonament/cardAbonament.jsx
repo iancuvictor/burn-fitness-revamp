@@ -25,7 +25,7 @@ function CardAbonament({titlu, preturi, tier, type, desc, viewPreturi}) {
                 >
                   <span>
                     {viewPreturi === 'studenti' && titlu !== 'FITNESS MATINAL' ? Math.round((item.pret * (100-13)/100).toFixed(2)) : 
-                    viewPreturi === 'familie' && titlu !== 'FITNESS MATINAL' ? Math.round((item.pret * (100-20)/100).toFixed(2)): item.pret} Lei / {item.duratie} {item.duratie > 1 ? 'Luni' : 'Lună'}
+                    viewPreturi === 'familie' && titlu !== 'FITNESS MATINAL' ? Math.round((item.pret * (100-20)/100).toFixed(2)): item.pret} Lei / {item.duratie} {item.duratie > 1 ? 'Luni' : titlu === 'ONE BURN DAY' ? 'zi' : 'Lună'}
                   </span>
                 </div>
               );
@@ -46,7 +46,7 @@ function CardAbonament({titlu, preturi, tier, type, desc, viewPreturi}) {
     );
   } else if (tier === "premium") {
     return (
-      <div className={`ring-4 ${type === "GOLD" ? "ring-amber-400/50" : "ring-slate-600/50"} group h-[480px] w-xs md:w-md rounded-xl 
+      <div className={`ring-4 ${type === "GOLD" ? "ring-amber-400/50" : "ring-slate-600/50"} group h-70 w-xs md:w-xs rounded-xl 
       overflow-hidden cursor-pointer relative font-finlandica flex flex-col justify-between items-center bg-black 
       text-white gap-3 duration-150 ease-out`}>
         <div
@@ -68,7 +68,8 @@ function CardAbonament({titlu, preturi, tier, type, desc, viewPreturi}) {
                   className={`${preturi.length === 1 ? "w-[100%]" : "w-[50%]"} flex 1 justify-center text-[15px] md:text-[14px]`}
                 >
                   <span>
-                    {item.pret} Lei / {item.duratie} {item.duratie > 1 ? 'Luni' : 'Lună'}
+                    {viewPreturi === 'studenti' && titlu !== 'FITNESS MATINAL' ? Math.round((item.pret * (100-13)/100).toFixed(2)) : 
+                    viewPreturi === 'familie' && titlu !== 'FITNESS MATINAL' ? Math.round((item.pret * (100-20)/100).toFixed(2)): item.pret} Lei / {item.duratie} {item.duratie > 1 ? 'Luni' : 'Lună'}
                   </span>
                 </div>
               );
@@ -79,7 +80,7 @@ function CardAbonament({titlu, preturi, tier, type, desc, viewPreturi}) {
             {desc}
           </p>
         </div>
-        <button className="outline-none active:bg-[#DE264B] md:hover:bg-[#DE264B] w-full h-20 md:h-0 group-hover:h-20 z-2 cursor-pointer group/buyButton flex flex-row justify-center items-center md:opacity-0 md:group-hover:opacity-100 duration-100 md:duration-200 ease-out pl-[10px] pr-[10px] gap-2">
+        <button className="outline-none active:bg-[#DE264B] md:hover:bg-[#DE264B] w-full h-15 md:h-0 group-hover:h-20 z-2 cursor-pointer group/buyButton flex flex-row justify-center items-center md:opacity-0 md:group-hover:opacity-100 duration-100 md:duration-200 ease-out pl-[10px] pr-[10px] gap-2">
           <FontAwesomeIcon
             icon={faCartShopping}
             className="text-[#DE264B]"
