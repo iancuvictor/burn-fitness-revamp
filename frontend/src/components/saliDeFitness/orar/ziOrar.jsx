@@ -1,19 +1,19 @@
-function ZiOrar({ dataOrar, zi }) {
-  let ziFiltru = zi
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .toLowerCase();
+function ZiOrar({ dataOrar, zi, data }) {
+  // let ziFiltru = zi
+  //   .normalize("NFD")
+  //   .replace(/[\u0300-\u036f]/g, "")
+  //   .toLowerCase();
 
-  let classesArray = [];
-  for (let clasa of dataOrar) {
-    if (clasa.zi === ziFiltru) {
+    
+    let classesArray = [];
+    for (let clasa of dataOrar) {
+    if (new Date(clasa.data).toLocaleDateString() === data) {
       classesArray.push(clasa);
     }
   }
-  console.log(classesArray);
   return (
     <div className="font-finlandica">
-      <h1 className="font-[700]">{zi}</h1>
+      <h1 className="font-[700]">{zi} {data}</h1>
       <div className="flex flex-col gap-2">
         {classesArray.length > 0 ? (
           classesArray.map((clasa, index) => {

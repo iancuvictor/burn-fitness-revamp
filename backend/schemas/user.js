@@ -11,12 +11,20 @@ const user = new Schema({
     profileImage: {type: String, required: false},
     activeSubscriptions: [
         {
-            subscription: {type: String, required: true},
+            subscriptionId: {type: String, required: true},
             subscriptionName: {type: String, required: true},
             price: {type: Number, required: true},
             duration: {type: Number, required: true},
             purchaseDate: {type: Date, required: true},
             expiryDate: {type: Date, required: true},
+        }
+    ],
+    activeClasses: [
+        {
+            classId: {type: String, required: true},
+            className: {type: String, required: true},
+            price: {type: Number, required: false},
+            date: {type: Date, required: true},
         }
     ]
 })

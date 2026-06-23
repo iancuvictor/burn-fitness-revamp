@@ -62,7 +62,7 @@ router.post('/cumparaAbonament', protect, async (req, res) => {
         await User.updateOne(
             {_id: req.user.userId}, 
             {$push: { activeSubscriptions: {
-                subscription: req.body.id, 
+                subscriptionId: req.body.id, 
                 subscriptionName: req.body.subscriptionName,
                 price: req.body.price,
                 duration: req.body.duration,

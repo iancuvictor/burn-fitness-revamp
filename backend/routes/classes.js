@@ -13,6 +13,7 @@ router.post("/orarClase", async (req, res) => {
         locatie: req.body.locatie,
         zi: req.body.zi,
         ora: req.body.ora,
+        data: req.body.data,
         denumire: req.body.denumire,
         antrenor: req.body.antrenor,
         capacitate: req.body.capacitate
@@ -46,5 +47,12 @@ router.delete('/orarClase', admin, async (req, res) => {
         res.json({message:`An error has occured`})
     }
 })
+
+// Sign up for classes
+
+router.post('/signUpClasa', protect, async (req, res) => {
+  console.log(req.body);
+  res.json('test');
+});
 
 export default router;

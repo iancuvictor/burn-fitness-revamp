@@ -23,7 +23,7 @@ function ProfilePage() {
     setUser();
   };
 
-  return <div className="min-h-screen pt-20 md:pt-25 font-finlandica flex flex-col items-center bg-white pl-5 pr-5">
+  return <div className="min-h-screen pt-20 md:pt-25 font-finlandica flex flex-col items-center bg-white pl-5 pr-5 pb-30">
     <MobileAccountNavbar logOut={() => setAlert({ ...alert, logOut: true })} display={display} setDisplay={setDisplay}/>
       <div className={`${alert.logOut ? "z-4 fixed top-0 left-0" : "hidden"}`}>
         <PopUp

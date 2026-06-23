@@ -6,6 +6,7 @@ const API_URL = import.meta.env.VITE_BACKEND_URL;
 function PopUpAddClasa({locatie, zi, displayedMenus, setDisplayedMenus, getOrar}) {
     let defaultFormData = {
         ora: '',
+        data: '',
         denumire: '',
         antrenor: '',
         capacitate: ''
@@ -18,11 +19,13 @@ function PopUpAddClasa({locatie, zi, displayedMenus, setDisplayedMenus, getOrar}
         locatie: locatie.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""),
         zi: zi.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""),
         ora: formData.ora,
+        data: formData.data,
         denumire: formData.denumire,
         antrenor: formData.antrenor,
         capacitate: +formData.capacitate
     }
     try{
+      console.log(reqBody);
         let response = await axios.post(`${API_URL}/classes/orarClase`, reqBody)
         console.log(response); 
         getOrar(locatie.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
@@ -45,6 +48,7 @@ function PopUpAddClasa({locatie, zi, displayedMenus, setDisplayedMenus, getOrar}
       <form action="" className="flex flex-col gap-5">
         <div className="flex flex-col gap-2">
         <input onChange={(e) => updateForm('ora', e.target.value)} type="time" value={formData.ora} placeholder="Ora"/>
+        <input onChange={(e) => updateForm('data', e.target.value)} type="date" value={formData.data} placeholder="Data"/>
         <input onChange={(e) => updateForm('denumire', e.target.value)} type="text" value={formData.denumire} placeholder="Denumire"/>
         <input onChange={(e) => updateForm('antrenor', e.target.value)} type="text" value={formData.antrenor} placeholder="Antrenor"/>
         <input onChange={(e) => updateForm('capacitate', e.target.value)} type="number" value={formData.capacitate} placeholder="Capacitate"/>
