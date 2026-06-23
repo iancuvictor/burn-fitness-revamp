@@ -13,7 +13,7 @@ function Banner() {
       className="relative flex flex-col h-160 w-full justify-center items-center pt-15 md:pt-20
   md:justify-center font-finlandica"
     >
-      <div className="relative z-1 flex justify-center items-center h-fit w-full bg-redishPinkDark p-3 md:p-5 gap-2
+      <div className="relative z-1 flex justify-center items-center h-fit w-full bg-redishPinkDark p-3 md:p-4 gap-2
       text-[13px] md:text-[15px] font-[600]">
             <FontAwesomeIcon
               icon={faPercent}
@@ -101,7 +101,7 @@ function Banner() {
               Cumpără primul tău abonament!
             </NavLink>
             <NavLink
-              to="/abonamente"
+              to="/freeTrial"
               className="text-[12px] md:text-[16px] w-fit bg-lime-500 text-white font-[600] p-[20px] box-content 
             rounded-md shadow-lg shadow-lime-500/40
             hover:shadow-xl duration-150 ease-out"

@@ -3,10 +3,16 @@ import AppleStore from "./assets/appleStore.svg";
 import { useContext } from "react";
 import { NavLink } from "react-router";
 import { AuthContext } from "../../context/AuthContext";
+import { useLocation } from "react-router";
+
 
 function Footer() {
-  const { isAdmin } = useContext(AuthContext);
+  const { loggedIn, isAdmin } = useContext(AuthContext);
+  const location = useLocation();
 
+  if(location.pathname === '/profile' && loggedIn === true){
+    return null
+  } else {
   return <div className={`${isAdmin ? 'hidden' : 'flex' } bottom-0 h-fit w-full flex-col items-center p-[20px] border-box bg-black gap-2`}>
       <h1 className="block md:hidden text-white font-finlandica font-bold text-[24px]">
         Descarcă aplicația Burn
@@ -31,6 +37,7 @@ function Footer() {
 
       </div>
     </div>
+  }
 }
 
 export default Footer;

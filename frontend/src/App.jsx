@@ -5,7 +5,6 @@ import {
   Footer,
   Acasa,
   Abonamente,
-  Servicii,
   OrarClase,
   Blog,
   Galerie,
@@ -21,7 +20,8 @@ import {
   AdminUsers,
   AdminDashboard,
   AdminOrar,
-  AdminAbonamente
+  AdminAbonamente,
+  FreeTrial
 } from "./components";
 import "./App.css";
 import AdminLayout from "./components/AdminDashboard/adminLayout";
@@ -39,15 +39,14 @@ function App() {
     <BrowserRouter>
       <div
         id="appWrapper"
-        className="relative flex flex-col justify-between bg-gray-100" 
+        className="relative flex flex-col justify-between bg-gray-100 h-full" 
       >
         <Navbar menuState={menuState} setMenuState={setMenuState} />
+
         <Routes>
           <Route path="/" element={<Acasa />} />
           <Route path="/abonamente" element={<Abonamente />} />
           <Route path="/orar-clase" element={<OrarClase />} />
-          <Route path="/servicii" element={<Servicii />} />
-          {/* <Route path="/rezervari" element={<Rezervari />} /> */}
           <Route path="/blog" element={<Blog />} />
           <Route path="/galerie" element={<Galerie />} />
           <Route path="/salidefitness" element={<SaliDeFitness />} />
@@ -58,6 +57,7 @@ function App() {
           <Route path="/salidefitness/sala-fitness-marasti" element={<SalaFitnessMarasti />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/profile" element={<UserPages />} />
+          <Route path="/freeTrial" element={<FreeTrial />} />
           <Route path="/admin" element={<AdminRoute><AdminLayout /></AdminRoute>}>
               <Route index element={<AdminDashboard />} />
               <Route path="clienti" element={<AdminRoute><AdminUsers /></AdminRoute>} />
@@ -66,8 +66,8 @@ function App() {
           </Route>
           {/* <Route path="/regulamentul-de-functionare-a-centrelor-de-fitness-burn" element={<Regulament />} /> */}
         </Routes>
+        </div>
         <Footer />
-      </div>
     </BrowserRouter>
   );
 }

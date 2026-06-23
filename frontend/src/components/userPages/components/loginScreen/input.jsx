@@ -20,7 +20,7 @@ function InputLogin({updateForm, error, setError, loginForm, setLoginForm, icon,
           id=""
           placeholder=""
           className={`z-1 h-full w-full peer outline-none pl-[10px] pt-[20px] pb-[5px] pr-[10px] `}
-          autoComplete="new-password"
+          autoComplete="off"
         />
         <span id='inputSpan'
           className={`${loginForm[inputType] !== "" ? "text-[12px] top-0 translate-y-0 pt-[10px] pl-[10px]" : "text-[16px] top-1/2 -translate-y-1/2"}

@@ -75,7 +75,7 @@ function LoginScreen() {
   };
 
   return (
-    <div className="relative h-[600px] md:min-h-screen flex justify-center items-center gap-10 font-finlandica md:pb-20">
+    <div className="relative h-[600px] md:min-h-screen flex justify-center items-center gap-10 font-finlandica pt-15 md:pt-20 md:pb-20">
       <div
         className={`${userExists ? "flex" : "hidden"} h-full md:h-fit w-full md:w-fit shadow-xl p-[20px] flex flex-col gap-6 bg-white rounded-xl pb-[20px]`}
       >
@@ -127,7 +127,7 @@ function LoginScreen() {
         className={`${userExists ? "hidden" : "flex"} h-full md:h-fit w-100 shadow-xl p-[20px] flex flex-col gap-6 bg-white rounded-xl pb-[20px]`}
       >
         <h1 className="text-[20px] font-[700]">Creează cont</h1>
-        <form action="" className="flex flex-col gap-5 w-full">
+        <form action="" className="flex flex-col gap-2 w-full">
           <InputLogin
             updateForm={updateForm}
             loginForm={signUpForm}

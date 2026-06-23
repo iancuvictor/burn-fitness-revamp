@@ -48,7 +48,7 @@ function Abonamente() {
               </div>
             <span className={`${viewPreturi.viewPreturi === 'familie' ? 'opacity-100 h-5 pt-[5px] pb-[20px] md:pb-[5px]' : 'opacity-0 h-0 p-0'} 
             text-redishPinkDark font-[600] text-[14px] md:text-[18px] duration-150 ease-out text-center box-content`}>
-              (minim un membru al familiei trebuie să aibe un
+              (minim un membru al familiei trebuie să aibă un
                 abonament <span className="text-white underline underline-offset-4">ACTIV</span> pentru reducerea de familie)</span>
           </div>
       <div
@@ -67,12 +67,13 @@ function Abonamente() {
               viewPreturi={viewPreturi.viewPreturi}
               reducereAplicabila={abonament.reducereAplicabila}
               key={index}
+              identifier={abonament._id}
               />
             }
           })}
         </div>
         <div id="abonamenteRegular" className="relative w-full flex flex-row 
-        items-center justify-center flex-wrap gap-5 
+        justify-center flex-wrap gap-5 
         md:flex md:gap-10 md:flex-row md:flex-wrap md:justify-center 
         lg:w-250 lg:justify-items-center lg:grid lg:grid-cols-3">
           {data.map((abonament, index) => {
@@ -85,6 +86,7 @@ function Abonamente() {
               viewPreturi={viewPreturi.viewPreturi}
               reducereAplicabila={abonament.reducereAplicabila}
               key={index}
+              identifier={abonament._id}
               />
             }
           })}

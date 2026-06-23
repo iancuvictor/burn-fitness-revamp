@@ -91,10 +91,10 @@ function AbonamenteAcasa() {
               </div>
             <span className={`${viewPreturi.viewPreturi === 'familie' ? 'opacity-100 h-5 pt-[5px] pb-[20px] md:pb-[5px]' : 'opacity-0 h-0 p-0'} 
             text-redishPinkDark font-[600] text-[14px] md:text-[18px] duration-150 ease-out text-center box-content`}>
-              (minim un membru al familiei trebuie să aibe un
+              (minim un membru al familiei trebuie să aibă un
                 abonament <span className="text-white underline underline-offset-4">ACTIV</span> pentru reducerea de familie)</span>
           </div>
-          <div className="flex flex-col gap-10 md:grid md:grid-cols-2 md:gap-20">
+          <div className="flex flex-col gap-10 md:grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 md:gap-10">
             {data.map((abonament, index) => {
               if (abonament.highlighted === true) {
                 return (

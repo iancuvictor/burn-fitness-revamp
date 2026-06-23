@@ -70,7 +70,7 @@ function CardAbonamentAdmin({ data, getData }) {
   };
 
   return (
-    <div className="w-100 font-finlandica p-[20px] shadow-md bg-white rounded-md">
+    <div className="flex flex-col gap-5 w-100 font-finlandica p-[20px] shadow-md bg-white rounded-md">
       <div
         className={`${alert.duplicate ? "z-4 fixed top-0 left-0" : "hidden"}`}
       >
@@ -91,27 +91,26 @@ function CardAbonamentAdmin({ data, getData }) {
       </div>
       <div className="flex gap-5 items-center justify-between">
         <div className="flex gap-5">
-
-        <div className="flex gap-2">
-          <span>Highlighted</span>
-          <input
-            onChange={(e) =>
-              updateSubscriptionData("highlighted", e.target.checked)
-            }
-            checked={subscriptionData.highlighted}
-            type="checkbox"
-          />
-        </div>
-        <div className="flex gap-2">
-          <span>Reducere aplicabilă</span>
-          <input
-            onChange={(e) =>
-              updateSubscriptionData("reducereAplicabila", e.target.checked)
-            }
-            checked={subscriptionData.reducereAplicabila}
-            type="checkbox"
-          />
-        </div>
+          <div className="flex gap-2">
+            <span>Highlighted</span>
+            <input
+              onChange={(e) =>
+                updateSubscriptionData("highlighted", e.target.checked)
+              }
+              checked={subscriptionData.highlighted}
+              type="checkbox"
+            />
+          </div>
+          <div className="flex gap-2">
+            <span>Reducere aplicabilă</span>
+            <input
+              onChange={(e) =>
+                updateSubscriptionData("reducereAplicabila", e.target.checked)
+              }
+              checked={subscriptionData.reducereAplicabila}
+              type="checkbox"
+            />
+          </div>
         </div>
         <button
           onClick={() => deleteAbonament()}
@@ -121,25 +120,27 @@ function CardAbonamentAdmin({ data, getData }) {
           <FontAwesomeIcon icon={faTrashCan} />
         </button>
       </div>
+      <div>
+
       <div className="flex">
-          <span>Tier:</span>
-          <select
-            onChange={(e) => updateSubscriptionData("tier", e.target.value)}
-            name=""
-            id=""
-            value={subscriptionData.tier}
+        <span>Tier:</span>
+        <select
+          onChange={(e) => updateSubscriptionData("tier", e.target.value)}
+          name=""
+          id=""
+          value={subscriptionData.tier}
           >
-            <option value="regular">Regular</option>
-            <option value="premium">Premium</option>
-          </select>
-        </div>
+          <option value="regular">Regular</option>
+          <option value="premium">Premium</option>
+        </select>
+      </div>
       <div className="flex gap-2">
         <span>Titlu:</span>
         <input
           onChange={(e) => updateSubscriptionData("titlu", e.target.value)}
           type="text"
           value={subscriptionData.titlu}
-        />
+          />
       </div>
       <div className="flex gap-2">
         <span>Descriere:</span>
@@ -150,6 +151,7 @@ function CardAbonamentAdmin({ data, getData }) {
           value={subscriptionData.desc}
         />
       </div>
+          </div>
       <div className="flex flex-col gap-2">
         <div className="flex gap-5">
           <span>Prețuri</span>

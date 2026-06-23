@@ -5,9 +5,9 @@ import { Navigate } from "react-router";
 
 
 function UserPages(){
-    const { loggedIn, isAdmin } = useContext(AuthContext)
+    const { loggedIn, isAdmin, loading } = useContext(AuthContext)
 
-    if(loggedIn === false){
+    if(loggedIn === false && loading === false){
         return <div className="relative h-full w-full">
         <LoginScreen />
         </div>

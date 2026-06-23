@@ -11,8 +11,12 @@ const user = new Schema({
     profileImage: {type: String, required: false},
     activeSubscriptions: [
         {
-            quantity: {type: String, required: false},
-            subscriptionName: {type: String, required: false}
+            subscription: {type: String, required: true},
+            subscriptionName: {type: String, required: true},
+            price: {type: Number, required: true},
+            duration: {type: Number, required: true},
+            purchaseDate: {type: Date, required: true},
+            expiryDate: {type: Date, required: true},
         }
     ]
 })

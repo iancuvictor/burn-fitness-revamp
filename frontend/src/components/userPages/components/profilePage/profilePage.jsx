@@ -3,10 +3,14 @@ import { AuthContext } from "../../../../context/AuthContext";
 import axios from "axios";
 import { NavLink } from "react-router";
 import { PopUp } from "../../../index";
+import ListaAbonamenteProfil from "./listaAbonamenteProfil";
+import MobileAccountNavbar from "./mobileAccountNavbar";
 
 const API_URL = import.meta.env.VITE_BACKEND_URL;
 
 function ProfilePage() {
+
+  const [display, setDisplay] = useState('abonamente');
   const { setLoggedIn, setUser } = useContext(AuthContext);
   const { user } = useContext(AuthContext);
   const [alert, setAlert] = useState({
@@ -19,8 +23,8 @@ function ProfilePage() {
     setUser();
   };
 
-  return (
-    <div className="min-h-screen pt-25 font-finlandica flex flex-col items-center bg-white">
+  return <div className="min-h-screen pt-20 md:pt-25 font-finlandica flex flex-col items-center bg-white pl-5 pr-5">
+    <MobileAccountNavbar logOut={() => setAlert({ ...alert, logOut: true })} display={display} setDisplay={setDisplay}/>
       <div className={`${alert.logOut ? "z-4 fixed top-0 left-0" : "hidden"}`}>
         <PopUp
           type="alert"
@@ -29,12 +33,18 @@ function ProfilePage() {
           ifNo={() => setAlert({ ...alert, logOut: false })}
         />
       </div>
-      <h1 className="text-[30px] font-[700]">
-        Bine ai revenit {user.username}!
-      </h1>
-
-      <div className="flex gap-10">
-        <div className="flex flex-col w-fit shadow-xl p-10">
+      <div className={`${display === 'abonamente' ? 'flex' : 'hidden'} flex-col gap-10 relative justify-center w-full`}>
+        <div className="w-full">
+          <h1 className="font-[700] text-[20px]">Abonamente active: ({user.activeSubscriptions.length})</h1>
+          <ListaAbonamenteProfil data={user.activeSubscriptions}/>
+        </div>
+        <div className="w-full">
+          <h1 className="font-[700] text-[20px]">Clase programate: ({user.activeSubscriptions.length})</h1>
+          <ListaAbonamenteProfil data={user.activeSubscriptions}/>
+        </div>
+      </div>
+      <div className="flex flex-col gap-10">
+        <div className={`${display === 'setariCont' ? 'flex' : 'hidden'} flex-col w-fit shadow-xl p-10`}>
           <h1 className="font-[700]">Gestionează contul</h1>
           <div className="flex flex-col">
             <div className="flex flex-col">
@@ -72,43 +82,17 @@ function ProfilePage() {
           </div>
         </div>
 
-        <div className="flex flex-col w-fit shadow-xl p-10">
+        <div className={`${display === 'metodePlata' ? 'flex' : 'hidden'} flex-col w-fit shadow-xl p-10`}>
           <h1 className="font-[700]">Metode de plată</h1>
         </div>
       </div>
-
-      <div className="flex">
-        <div>
-          <h1>Abonamente active:</h1>
-          {user.activeSubscriptions.length > 0 ? (
-            user.activeSubscriptions.map((abonament) => {
-              <div>
-                <h1>{abonament.titlu}</h1>
-                <h1>{abonament.valoare}</h1>
-                <h1>{abonament.dataExpirare}</h1>
-              </div>;
-            })
-          ) : (
-            <h1>
-              Nu ai nici un abonament activ.{" "}
-              <NavLink
-                to="/abonamente"
-                className="text-[#3454E3] md:hover:text-[#3454E3]"
-              >
-                Cumpără unul aici
-              </NavLink>
-            </h1>
-          )}
-        </div>
-        <button
+      {/* <button
           onClick={() => setAlert({ ...alert, logOut: true })}
           className="cursor-pointer bg-[#DE264B] text-white p-[10px] rounded-md"
         >
           Log Out
-        </button>
-      </div>
+        </button> */}
     </div>
-  );
 }
 
 export default ProfilePage;

@@ -43,6 +43,12 @@ function AdminAbonamente() {
           >
           <FontAwesomeIcon className="text-[25px]" icon={faSquarePlus} />
         </button>
+        <span>Sortează:</span>
+        <select name="" id="">
+          <option value="tier">tier</option>
+          <option value="tier">highlighted</option>
+          <option value="tier">alfabetic</option>
+        </select>
               </div>
                 <ListaAbonamente/>
             </div>

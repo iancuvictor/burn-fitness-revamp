@@ -16,7 +16,7 @@ function ListaAbonamente(){
     }, [])
 
     return <div className="min-h-screen">
-        <div className="grid grid-cols-3 gap-5">
+        <div className="grid lg:grid-cols-2 2xl:grid-cols-3 gap-5">
 
         {data.map((abonament, index) => {
             return <CardAbonamentAdmin
