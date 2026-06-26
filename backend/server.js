@@ -15,7 +15,6 @@ server.use(cors({ origin: ['http://localhost:5173', 'http://192.168.0.220:5173',
 
 server.use(express.json())
 server.use(cookieParser())
-
 server.use('/api/uploads', express.static('./uploads'));
 
 mongoose

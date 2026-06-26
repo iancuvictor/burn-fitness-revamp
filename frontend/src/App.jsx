@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router";
 import { useState, useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
+import {Toaster} from 'sonner';
+import { ScrollToTop } from "./scroller";
 import {
   Footer,
   Acasa,
@@ -17,18 +19,18 @@ import {
   SalaFitnessFlora,
   SalaFitnessMarasti,
   UserPages,
+  ProfilePage,
+  AdminLayout,
   AdminUsers,
   AdminDashboard,
   AdminOrar,
   AdminAbonamente,
-  FreeTrial
+  FreeTrial,
+  WrapperAbonamente,
+  AccountSettings,
+  MetodePlata
 } from "./components";
 import "./App.css";
-import AdminLayout from "./components/AdminDashboard/adminLayout";
-import WrapperAbonamente from "./components/userPages/components/profilePage/components/abonamente/wrapperAbonamente";
-import { ProfilePage } from "./components/userPages/components";
-import AccountSettings from "./components/userPages/components/profilePage/components/accountSettings";
-import MetodePlata from "./components/userPages/components/profilePage/components/metodePlata";
 
 function AdminRoute({children}){
     const { isAdmin, loading } = useContext(AuthContext)
@@ -46,6 +48,7 @@ function App() {
 
     return (
       <BrowserRouter>
+      <ScrollToTop/>
       <div
         id="appWrapper"
         className="relative flex flex-col justify-between bg-gray-100 h-full" 
@@ -83,6 +86,7 @@ function App() {
         </Routes>
         </div>
         <Footer />
+        <Toaster position="top-center" richColors/>
     </BrowserRouter>
   );
 }

@@ -20,3 +20,8 @@ export {default as AdminUsers} from './AdminDashboard/adminUsers.jsx';
 export {default as AdminOrar} from './AdminDashboard/adminOrar/adminOrar.jsx';
 export {default as AdminAbonamente} from './AdminDashboard/adminAbonamente/adminAbonamente.jsx';
 export {default as FreeTrial} from './freeTrial/freeTrial.jsx';
+export {default as AdminLayout} from './AdminDashboard/adminLayout.jsx';
+export {default as WrapperAbonamente} from './userPages/components/profilePage/components/abonamente/wrapperAbonamente.jsx';
+export {default as ProfilePage} from './userPages/components/profilePage';
+export {default as AccountSettings} from './userPages/components/profilePage/components/accountSettings.jsx';
+export {default as metodePlata} from './userPages/components/profilePage/components/metodePlata.jsx';

@@ -11,6 +11,13 @@ function AuthProvider({children}){
     const [isAdmin, setIsAdmin] = useState(false);
     const [loading, setLoading] = useState(true);
 
+    const refreshUser = async () => {
+        let response = await axios.get(`${API_URL}/users/profile`, { withCredentials: true });
+        let userData = response.data.userData;
+        console.log(userData);
+        setUser(userData);
+    }
+
     useEffect(() => {
         async function checkCookie(){
             try {
@@ -35,7 +42,7 @@ function AuthProvider({children}){
     }, []);
 
     return (
-        <AuthContext.Provider value={{loggedIn, setLoggedIn, user, setUser, isAdmin, setIsAdmin, loading, setLoading}}>
+        <AuthContext.Provider value={{loggedIn, setLoggedIn, user, setUser, isAdmin, setIsAdmin, loading, setLoading, refreshUser}}>
             {children}
         </AuthContext.Provider>
     )

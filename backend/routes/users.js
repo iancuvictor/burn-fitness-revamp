@@ -69,9 +69,7 @@ router.post("/updateProfile", protect, upload.single('pozaProfil'), async (req, 
   }
 
   await User.updateOne({_id: req.user.userId}, {
-    $set: {
-      updateData
-    }
+    $set: updateData
   })
   res.json('got it');
 });
