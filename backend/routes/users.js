@@ -5,6 +5,21 @@ import jwt from "jsonwebtoken";
 import { protect, admin } from "./auth.js";
 const router = express.Router();
 
+import multer from 'multer';
+const UPLOAD_PATH = process.env.FOLDER_UPLOADS_POZEPROFIL;
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+    cb(null, UPLOAD_PATH);
+  },
+  filename: (req, file, cb) => {
+    const parts = file.originalname.split('.');
+    const ext = parts[parts.length - 1];
+    cb(null, req.user.userId + '_pozaProfil.' + ext);
+  }
+})
+const upload = multer({ storage });
+
 router.post("/register", async (req, res) => {
   let userCheck = await User.findOne({ username: req.body.username });
   // check if user exists
@@ -39,6 +54,26 @@ router.get("/profile", protect, async (req, res) => {
     "-password",
   );
   res.json({ status: "authorised", userData });
+});
+
+router.post("/updateProfile", protect, upload.single('pozaProfil'), async (req, res) => {
+  const updateData = {
+    username: req.body.username,
+      email: req.body.email,
+      phone: req.body.nrTelefon,
+      dataNasterii: req.body.dataNasterii,
+  }
+  
+  if(req.file){
+    updateData.profilePhoto = req.file.filename;
+  }
+
+  await User.updateOne({_id: req.user.userId}, {
+    $set: {
+      updateData
+    }
+  })
+  res.json('got it');
 });
 
 router.post("/login", async (req, res) => {

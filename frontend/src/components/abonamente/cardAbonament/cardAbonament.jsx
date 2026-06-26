@@ -1,4 +1,5 @@
-import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
+import { faCartShopping, faCircleCheck as CircleCheckSolid } from "@fortawesome/free-solid-svg-icons";
+import { faCircleCheck as CircleCheckRegular } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AuthContext } from "../../../context/AuthContext";
 import { useContext, useState } from "react";
@@ -14,14 +15,19 @@ function CardAbonament({titlu, preturi, tier, type, desc, viewPreturi, reducereA
   const navigate = useNavigate();
   const { loggedIn } = useContext(AuthContext);
   const [buying, setBuying] = useState(false);
-  const [selectedOption, setSelectedOption] = useState({
+  const [errors, setErrors] = useState({
+    selectSomething: false,
+  })
+
+  const defaultOption = {
     id: identifier,
     subscriptionName: titlu,
     price: '',
     duration: '',
     purchaseDate: new Date(),
     expiryDate: ''
-  });
+  }
+  const [selectedOption, setSelectedOption] = useState(defaultOption);
 
   const cardRef = useRef(null);
 
@@ -29,6 +35,7 @@ useEffect(() => {
   const handleClickOutside = (e) => {
     if (cardRef.current && !cardRef.current.contains(e.target)) {
       setBuying(false);
+      setSelectedOption(defaultOption);
     }
   };
 
@@ -37,34 +44,43 @@ useEffect(() => {
 }, []);
 
   const buySubscription = async () => {
-    if(loggedIn){
-      await axios.post(`${API_URL}/abonamente/cumparaAbonament`, selectedOption, {withCredentials : true});
-      console.log('works');
+    if(selectedOption.price !== ''){
+
+      if(loggedIn){
+        await axios.post(`${API_URL}/abonamente/cumparaAbonament`, selectedOption, {withCredentials : true});
+        console.log('works');
+      } else {
+        navigate('/profile')
+      }
     } else {
-      navigate('/profile')
+      setErrors({...errors, selectSomething: true})
     }
   }
-
-  console.log(selectedOption);
   if (tier === 'regular') {
     return (
-      <div ref={cardRef} className={`${buying === false ? 'h-70' : 'h-90'} pt-[20px] ring-2 ring-lime-400 shadow-md shadow-lime-400 hover:shadow-lg duration-400 w-xs md:w-xs rounded-xl overflow-hidden 
-      relative font-finlandica flex flex-col justify-between items-center bg-black text-white duration-75 ease-out`}>
-        <div className={`${buying === false ? 'gap-0' : 'gap-1'} flex flex-col justify-evenly items-center h-40 duration-400 ease-out`}>
-          <h1 className={`font-[700] text-[22px] md:text-[30px] text-lime-400 text-center`}>
+      <div ref={cardRef} className={`${buying === false ? 'max-h-60' : 'max-h-200'} 
+      pt-[10px]
+      md:pt-[20px]
+      ring-2 ring-lime-400 shadow-md shadow-lime-400 hover:shadow-lg w-xs md:w-xs rounded-xl overflow-hidden 
+      relative font-finlandica flex flex-col justify-between items-center bg-black text-white transition-all duration-400 ease-out`}>
+        <div className={`${buying === false ? 'gap-0' : 'gap-1'} h-fit flex flex-col justify-evenly items-center duration-400 ease-out
+        w-full pl-5 pr-5`}>
+          <h1 className={`font-[700] text-[22px] md:text-[30px] text-white text-shadow-md text-shadow-lime-600 text-center`}>
             {titlu}
           </h1>
-          <h2 className="text-[16px] text-center">
+          {console.log(desc)}
+          <h2 className={`${desc === '' ? 'hidden' : 'block'} text-[16px] text-center`}>
             {desc}
           </h2>
-          <div className={`${buying === false ? 'flex-wrap' : 'flex-col gap-4'} flex w-full pl-[20px] pr-[20px] border-box`}>
+          <div className={`${buying === false ? 'h-fit flex-wrap' : 'flex-col gap-4'} flex w-full pb-5 pt-5`}>
             {buying === false ? preturi.map((item, index) => {
               return (
                 <div
                   key={index}
-                  className={`${preturi.length === 1 ? "w-[100%]" : "w-[50%]"} flex 1 justify-center text-[15px] md:text-[16px]`}
+                  className={`${preturi.length === 1 ? "w-[100%]" : "w-[50%]"} flex 1 justify-center text-[15px] md:text-[16px]
+                  `}
                 >
-                  <span>
+                  <span className="">
                     {viewPreturi === 'studenti' && reducereAplicabila === true ? Math.round((item.pret * (100-13)/100).toFixed(2)) : 
                     viewPreturi === 'familie' && reducereAplicabila === true ? Math.round((item.pret * (100-20)/100).toFixed(2)): item.pret} Lei / {item.duratie} {item.duratie > 1 ? 'Luni' : titlu === 'ONE BURN DAY' ? 'zi' : 'Lună'}
                   </span>
@@ -78,29 +94,41 @@ useEffect(() => {
                   duration: item.duratie,
                    expiryDate: new Date(new Date(selectedOption.purchaseDate).setMonth(
                     selectedOption.purchaseDate.getMonth() + item.duratie))})} 
-                   className="flex justify-center items-center cursor-pointer ring-1 ring-lime-400 p-1 rounded-md" key={index}>
-
-                  <span key={index}>
+                   className={`${selectedOption.price === item.pret ?
+                     'shadow-md md:shadow-lg bg-rose-500 ring-white text-white shadow-rose-500' : 'ring-lime-400'}
+                   flex justify-between gap-2 cursor-pointer ring-2 pt-1 pb-1 pl-3 pr-3 rounded-md duration-75 ease-out w-full`} 
+                   key={index}>
+                  <span className="" 
+                  key={index}>
                     {viewPreturi === 'studenti' && reducereAplicabila === true ? Math.round((item.pret * (100-13)/100).toFixed(2)) : 
                     viewPreturi === 'familie' && reducereAplicabila === true ? Math.round((item.pret * (100-20)/100).toFixed(2)): item.pret} Lei / {item.duratie} {item.duratie > 1 ? 'Luni' : titlu === 'ONE BURN DAY' ? 'zi' : 'Lună'}
                   </span>
+                  <div className="">
+                  <FontAwesomeIcon icon={selectedOption.price === item.pret ? CircleCheckSolid : CircleCheckRegular} regular/>
+                  </div>
                     </div>
               );
             })}
           </div>
         </div>
-        <button onClick={buying === false ? () => setBuying(true) : () => buySubscription()} className="outline-none active:bg-[#DE264B] md:hover:bg-[#DE264B] w-full h-15 z-2
-         cursor-pointer group/buyButton flex flex-row justify-center items-center duration-150 ease-out pl-[10px] pr-[10px] gap-2">
+        <button onClick={buying === false ? () => setBuying(true) : () => buySubscription()} 
+        className={`${selectedOption.price !== '' ? 'bg-rose-500 text-white' : ''} 
+        outline-none active:bg-rose-500 md:hover:bg-rose-500 w-full h-15 pt-[10px] pb-[10px] z-2
+         cursor-pointer group/buyButton flex flex-row justify-center items-center duration-150 ease-out
+          pl-[10px] pr-[10px] gap-2`}>
           <FontAwesomeIcon
             icon={faCartShopping}
-            className="text-[#DE264B]"
+            className={selectedOption.price !== '' ? 'text-white' : 'text-rose-500'}
           />
-          <span className="group-hover/buyButton:text-white text-[#B3B3C7]">
-            Cumpără abonamentul
+          <span className="text-white">
+            {selectedOption.price !== '' ? 'Cumpără abonamentul' : 'Selectează abonamentul'}
           </span>
         </button>
       </div>
     );
+
+
+
   } else if (tier === "premium") {
     return (
       <div className={`ring-4 ${type === "GOLD" ? "ring-amber-400/50" : "ring-slate-600/50"} group h-70 w-xs md:w-xs rounded-xl 

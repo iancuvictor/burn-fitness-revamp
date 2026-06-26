@@ -121,37 +121,36 @@ function CardAbonamentAdmin({ data, getData }) {
         </button>
       </div>
       <div>
-
-      <div className="flex">
-        <span>Tier:</span>
-        <select
-          onChange={(e) => updateSubscriptionData("tier", e.target.value)}
-          name=""
-          id=""
-          value={subscriptionData.tier}
+        <div className="flex">
+          <span>Tier:</span>
+          <select
+            onChange={(e) => updateSubscriptionData("tier", e.target.value)}
+            name=""
+            id=""
+            value={subscriptionData.tier}
           >
-          <option value="regular">Regular</option>
-          <option value="premium">Premium</option>
-        </select>
-      </div>
-      <div className="flex gap-2">
-        <span>Titlu:</span>
-        <input
-          onChange={(e) => updateSubscriptionData("titlu", e.target.value)}
-          type="text"
-          value={subscriptionData.titlu}
+            <option value="regular">Regular</option>
+            <option value="premium">Premium</option>
+          </select>
+        </div>
+        <div className="flex gap-2">
+          <span>Titlu:</span>
+          <input
+            onChange={(e) => updateSubscriptionData("titlu", e.target.value)}
+            type="text"
+            value={subscriptionData.titlu}
           />
+        </div>
+        <div className="flex gap-2">
+          <span>Descriere:</span>
+          <textarea
+            className="h-fit pl-[10px] pr-[10px]"
+            onChange={(e) => updateSubscriptionData("desc", e.target.value)}
+            type="text"
+            value={subscriptionData.desc}
+          />
+        </div>
       </div>
-      <div className="flex gap-2">
-        <span>Descriere:</span>
-        <textarea
-          className="h-fit pl-[10px] pr-[10px]"
-          onChange={(e) => updateSubscriptionData("desc", e.target.value)}
-          type="text"
-          value={subscriptionData.desc}
-        />
-      </div>
-          </div>
       <div className="flex flex-col gap-2">
         <div className="flex gap-5">
           <span>Prețuri</span>

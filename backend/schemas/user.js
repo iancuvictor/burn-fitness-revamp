@@ -8,7 +8,8 @@ const user = new Schema({
     email: {type: String, required: true},
     isAdmin: { type: Boolean, default: false },
     phone: {type: String, required: true},
-    profileImage: {type: String, required: false},
+    profilePhoto: {type: String, required: false},
+    dataNasterii: {type: Date, required: false},
     activeSubscriptions: [
         {
             subscriptionId: {type: String, required: true},
@@ -25,6 +26,10 @@ const user = new Schema({
             className: {type: String, required: true},
             price: {type: Number, required: false},
             date: {type: Date, required: true},
+            antrenor: {type: String, required: true},
+            locatie: {type: String, required: true},
+            zi: {type: String, required: true},
+            ora: {type: String, required: true}
         }
     ]
 })

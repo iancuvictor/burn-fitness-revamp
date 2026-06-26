@@ -1,14 +1,14 @@
 import { NavLink } from 'react-router';
 import BurnLogo from './assets/burnLogo.svg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faCircleUser } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faCalendarDays, faCircleUser, faDumbbell, faEnvelope, faHouse, faHouseUser, faWeightHanging } from '@fortawesome/free-solid-svg-icons';
 import { faFacebookSquare, faInstagramSquare } from '@fortawesome/free-brands-svg-icons';
 import { AuthContext } from "../../context/AuthContext";
 import { useContext } from 'react';
 
 function Navbar({menuState, setMenuState}){
     const { isAdmin } = useContext(AuthContext)
-    const buttonClass = ({isActive}) => isActive ? 'z-1 text-white underline underline-offset-5' : 'hover:text-white hover:underline underline-offset-5 duration-150'
+    const buttonClass = ({isActive}) => `${isActive ? 'z-1 text-white underline underline-offset-5' : 'hover:text-white hover:underline underline-offset-5 duration-150'} flex items-center justify-center gap-2`
 
     return <>
     <div id='navbar' className={`${isAdmin === false ? 'md:flex' : 'hidden'} bg-black/95 z-4 fixed top-0 w-full hidden h-20 gap-5 items-center md:justify-between xl:justify-evenly font-[600]`}>
@@ -39,19 +39,26 @@ function Navbar({menuState, setMenuState}){
          'opacity-100'} text-[25px] duration-100 ease-out`}/></NavLink>
         <button 
         onClick={() => setMenuState(!menuState)}
-        className={`${menuState ? 'w-0' : 'w-10 md:hidden cursor-pointer text-white text-[25px] pr-[50px]'} duration-100 ease-out`}
+        className={`${menuState ? 'w-10 opacity-0' : 'opacity-100 w-10 md:hidden cursor-pointer text-white'} text-[25px] pr-[50px] duration-100 ease-out`}
         ><FontAwesomeIcon icon={faBars} /></button>
     </div>
     <div id='mobileBurger' className={menuState ? 'z-3 animate-fade-in flex flex-col fixed top-0 justify-center items-center gap-5 w-full h-full bg-black font-finlandica font-bold text-gray-500 text-[25px] md:hidden' : 'animate-fade-out hidden'}>
         <div onClick={() => setMenuState(!menuState)} className='fixed z-[-1] h-full w-full'></div>
         <img src={BurnLogo} alt="burn fitness logo" className='w-40 pb-[20px] box-border' onClick={() => setMenuState(!menuState)}/>
-        <NavLink to="/" className={buttonClass} onClick={() => setMenuState(!menuState)}>Acasa</NavLink>
-        <NavLink to="/abonamente" className={buttonClass} onClick={() => setMenuState(!menuState)}>Abonamente</NavLink>
-        <NavLink to="/orar-clase" className={buttonClass} onClick={() => setMenuState(!menuState)}>Clase</NavLink>
-        <NavLink to="/salidefitness" className={buttonClass} onClick={() => setMenuState(!menuState)}>Săli fitness</NavLink>
+        <NavLink to="/" className={buttonClass} onClick={() => setMenuState(!menuState)}>
+        <FontAwesomeIcon icon={faHouse}/> Acasa</NavLink>
+        <NavLink to="/abonamente" className={buttonClass} onClick={() => setMenuState(!menuState)}>
+        <FontAwesomeIcon icon={faDumbbell}/> Abonamente</NavLink>
+        <NavLink to="/orar-clase" className={buttonClass} onClick={() => setMenuState(!menuState)}>
+        <FontAwesomeIcon icon={faCalendarDays}/> Clase</NavLink>
+        <NavLink to="/salidefitness" className={buttonClass} onClick={() => setMenuState(!menuState)}>
+        <FontAwesomeIcon icon={faWeightHanging}/> Săli fitness</NavLink>
         {/* <NavLink to="/blog" className={buttonClass} onClick={() => setMenuState(!menuState)}>Blog</NavLink> */}
         {/* <NavLink to="/galerie" className={buttonClass} onClick={() => setMenuState(!menuState)}>Galerie foto</NavLink> */}
-        <NavLink to="/contact" className={buttonClass} onClick={() => setMenuState(!menuState)}>Contact</NavLink>
+        <NavLink to="/contact" className={buttonClass} onClick={() => setMenuState(!menuState)}>
+        <FontAwesomeIcon icon={faEnvelope}/> Contact</NavLink>
+        <NavLink to="/profile" className={buttonClass} onClick={() => setMenuState(!menuState)}>
+        <FontAwesomeIcon icon={faHouseUser}/>Cont</NavLink>
         <div>
         <a href="https://www.instagram.com/burnfitnesscluj/" target='_blank'><FontAwesomeIcon icon={faInstagramSquare} className='text-[#E06397] hover:text-[#DB2777] duration-150 text-3xl'/></a>
         <a href="https://www.facebook.com/BurnFitnessCluj" target='_blank'><FontAwesomeIcon icon={faFacebookSquare} className='text-[#6096D6] hover:text-[#1877F2] duration-150 text-3xl'/></a>

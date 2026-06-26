@@ -25,7 +25,7 @@ function Abonamente() {
         ABONAMENTELE BURN FITNESS CLUJ-NAPOCA
       </h1>
       <div className="text-[14px] md:text-[18px] text-white flex flex-col items-center gap-3">
-            <div className="flex bg-redishPinkDark p-[10px] rounded-md">
+            <div className="flex bg-redishPinkDark p-[10px] rounded-md gap-1">
             <span>Vezi preturile:</span>
             <select
               onChange={(e) =>
@@ -35,13 +35,13 @@ function Abonamente() {
               id=""
               className="cursor-pointer select-none outline-none"
               >
-              <option value="basic" className="bg-black outline-none">
+              <option value="basic" className="cursor-pointer bg-black outline-none">
                 basic (fără reducere)
               </option>
-              <option value="studenti" className="bg-black outline-none">
+              <option value="studenti" className="cursor-pointer bg-black outline-none">
                 pentru studenți (13% REDUCERE)
               </option>
-              <option value="familie" className="bg-black outline-none">
+              <option value="familie" className="cursor-pointer bg-black outline-none">
                 pentru familie (-20% REDUCERE)
               </option>
             </select>

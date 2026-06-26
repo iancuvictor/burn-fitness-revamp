@@ -10,7 +10,7 @@ function Footer() {
   const { loggedIn, isAdmin } = useContext(AuthContext);
   const location = useLocation();
 
-  if(location.pathname === '/profile' && loggedIn === true){
+  if(location.pathname.includes('/profile') && loggedIn === true){
     return null
   } else {
   return <div className={`${isAdmin ? 'hidden' : 'flex' } bottom-0 h-fit w-full flex-col items-center p-[20px] border-box bg-black gap-2`}>

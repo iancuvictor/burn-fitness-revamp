@@ -8,7 +8,10 @@ const orar = new Schema({
             denumire: {type: String, required: true},
             antrenor: {type: String, required: true},
             capacitate: {type: Number, required: true},
-            inscrisi: {type: Number, default: 0}
+            inscrisi: [
+                {numeClient: {type: String, required: true},
+                idClient: {type: String, required: true}}
+            ]
 })
 
 

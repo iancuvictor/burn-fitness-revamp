@@ -25,6 +25,10 @@ import {
 } from "./components";
 import "./App.css";
 import AdminLayout from "./components/AdminDashboard/adminLayout";
+import WrapperAbonamente from "./components/userPages/components/profilePage/components/abonamente/wrapperAbonamente";
+import { ProfilePage } from "./components/userPages/components";
+import AccountSettings from "./components/userPages/components/profilePage/components/accountSettings";
+import MetodePlata from "./components/userPages/components/profilePage/components/metodePlata";
 
 function AdminRoute({children}){
     const { isAdmin, loading } = useContext(AuthContext)
@@ -34,13 +38,18 @@ function AdminRoute({children}){
 
 function App() {
   const [menuState, setMenuState] = useState(false);
+  const { loading } = useContext(AuthContext)
 
-  return (
-    <BrowserRouter>
+  if(loading){
+    return null
+  } else {
+
+    return (
+      <BrowserRouter>
       <div
         id="appWrapper"
         className="relative flex flex-col justify-between bg-gray-100 h-full" 
-      >
+        >
         <Navbar menuState={menuState} setMenuState={setMenuState} />
 
         <Routes>
@@ -56,7 +65,13 @@ function App() {
           <Route path="/salidefitness/sala-fitness-flora" element={<SalaFitnessFlora />} />
           <Route path="/salidefitness/sala-fitness-marasti" element={<SalaFitnessMarasti />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/profile" element={<UserPages />} />
+          <Route path="/profile" element={<UserPages />}>
+            <Route element={<ProfilePage />}>
+              <Route path="" element={<WrapperAbonamente />} />
+              <Route path="setariCont" element={<AccountSettings />} />
+              <Route path="metodePlata" element={<MetodePlata />} />
+            </Route>
+          </Route>
           <Route path="/freeTrial" element={<FreeTrial />} />
           <Route path="/admin" element={<AdminRoute><AdminLayout /></AdminRoute>}>
               <Route index element={<AdminDashboard />} />
@@ -70,6 +85,7 @@ function App() {
         <Footer />
     </BrowserRouter>
   );
+}
 }
 
 export default App;
