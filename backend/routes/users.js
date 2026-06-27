@@ -59,6 +59,7 @@ router.get("/profile", protect, async (req, res) => {
 router.post("/updateProfile", protect, upload.single('pozaProfil'), async (req, res) => {
   const updateData = {
     username: req.body.username,
+    displayName: req.body.displayName,
       email: req.body.email,
       phone: req.body.nrTelefon,
       dataNasterii: req.body.dataNasterii,
@@ -73,6 +74,24 @@ router.post("/updateProfile", protect, upload.single('pozaProfil'), async (req, 
   })
   res.json('got it');
 });
+
+router.post('/updatePassword', protect, async (req, res) => {
+  let user = await User.findOne({_id: req.user.userId});
+  let hashedPass = await bcrypt.hash(req.body.password, 10)
+
+  let check = await bcrypt.compare(req.body.password, user.password);
+
+  if(check){
+    res.json({message: 'passwordIsSame'});
+    console.log('password is same');
+  } else {
+    await User.updateOne({_id: req.user.userId}, {
+      password: hashedPass
+  })
+  console.log('password changed');
+    res.json('password changed');
+  }
+})
 
 router.post("/login", async (req, res) => {
   // checks if user exists

@@ -50,11 +50,12 @@ function CardListaAbonamente({ dataAbonament }) {
                 >
                   {detalii === false ? 'Vezi mai multe detalii' : 'Vezi mai puține detalii'}
                 </button>
-              <div className={`${detalii === true ? 'opacity-100 h-15' : 'opacity-0 h-0'} flex flex-col justify-between text-[14px]
+              <div className={`${detalii === true ? 'opacity-100 h-18' : 'opacity-0 h-0'} flex flex-col justify-between text-[14px]
               duration-150 ease-out`}>
                 <span>Durație: {dataAbonament.duration} {dataAbonament.duration > 1 ? 'Luni' : 'Lună'}</span>
-                <span>Cumpărat la data de: {new Date(dataAbonament.purchaseDate).toLocaleDateString()}</span>
-                <span>Expiră la data de: {new Date(dataAbonament.expiryDate).toLocaleDateString()}</span>
+                <span>Preț: {dataAbonament.price} lei</span>
+                <span>Cumpărat în: {new Date(dataAbonament.purchaseDate).toLocaleDateString()}</span>
+                <span>Expiră în: {new Date(dataAbonament.expiryDate).toLocaleDateString()}</span>
               </div>
               <div className="flex gap-2 text-[14px]">
                 <button

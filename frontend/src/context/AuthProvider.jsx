@@ -14,7 +14,6 @@ function AuthProvider({children}){
     const refreshUser = async () => {
         let response = await axios.get(`${API_URL}/users/profile`, { withCredentials: true });
         let userData = response.data.userData;
-        console.log(userData);
         setUser(userData);
     }
 

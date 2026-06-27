@@ -1,6 +1,7 @@
 import { faBasketShopping, faGear, faRightFromBracket, faWallet } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NavLink } from "react-router";
+import { toast } from "sonner";
 
 const buttonStyle = ({isActive}) => `${isActive ? 'text-black bg-white' : 'text-gray-300 bg-black'}
 flex items-center justify-center w-[25%] pt-4 pb-4 duration-75 ease-out`

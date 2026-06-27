@@ -10,7 +10,7 @@ function PopUp({ type, message, ifYes, ifNo }) {
         <div className="flex justify-evenly">
           <button
             onClick={() => ifYes()}
-            className="shadow-md md:hover:shadow-xl cursor-pointer bg-[#F06E87] active:bg-[#DE264B] active:text-white
+            className="shadow-md md:hover:shadow-xl cursor-pointer md:bg-rose-400 bg-[#DE264B] text-white
             md:hover:bg-[#DE264B] md:hover:text-white p-[10px] rounded-md w-[40%] duration-150 ease-out"
           >
             Confirm

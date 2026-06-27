@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router";
 import { useState, useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
 import {Toaster} from 'sonner';
-import { ScrollToTop } from "./scroller";
+import ScrollToTop from "./scroller";
 import {
   Footer,
   Acasa,

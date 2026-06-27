@@ -4,6 +4,7 @@ import axios from "axios";
 import { Outlet } from "react-router";
 import { PopUp } from "../../../index";
 import MobileAccountNavbar from "./mobileAccountNavbar";
+import { toast } from "sonner";
 
 const API_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -36,8 +37,7 @@ function ProfilePage() {
     }, []);
 
   return <div className="w-full pl-2 pr-2 font-finlandica flex flex-col items-center bg-white">
-    <MobileAccountNavbar logOut={() => setAlert({ ...alert, logOut: true })} display={display} setDisplay={setDisplay}/>
-      <div className={`${alert.logOut ? "z-4 fixed top-0 left-0" : "hidden"}`}>
+    <div className={`${alert.logOut ? "animate-fade-in duration-500 ease-out z-4 fixed top-0 left-0" : "hidden"}`}>
         <PopUp
           type="alert"
           message="Ești sigur că vrei să te deconectezi?"
@@ -45,6 +45,7 @@ function ProfilePage() {
           ifNo={() => setAlert({ ...alert, logOut: false })}
         />
       </div>
+    <MobileAccountNavbar logOut={() => setAlert({ ...alert, logOut: true })} display={display} setDisplay={setDisplay}/>
       <Outlet/>
     </div>
 }

@@ -22,6 +22,6 @@ export {default as AdminAbonamente} from './AdminDashboard/adminAbonamente/admin
 export {default as FreeTrial} from './freeTrial/freeTrial.jsx';
 export {default as AdminLayout} from './AdminDashboard/adminLayout.jsx';
 export {default as WrapperAbonamente} from './userPages/components/profilePage/components/abonamente/wrapperAbonamente.jsx';
-export {default as ProfilePage} from './userPages/components/profilePage';
+export {default as ProfilePage} from './userPages/components/profilePage/profilePage.jsx';
 export {default as AccountSettings} from './userPages/components/profilePage/components/accountSettings.jsx';
-export {default as metodePlata} from './userPages/components/profilePage/components/metodePlata.jsx';
+export {default as MetodePlata} from './userPages/components/profilePage/components/metodePlata.jsx';
