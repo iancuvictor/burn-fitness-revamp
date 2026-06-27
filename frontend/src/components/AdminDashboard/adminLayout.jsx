@@ -2,11 +2,9 @@ import AdminNavbar from "./adminNavbar";
 import { Outlet } from "react-router";
 
 function AdminLayout(){
-    return <div className="min-h-screen w-full flex flex-row">
-        <div className="relative w-[15%]">
+    return <div className="min-h-screen w-full flex flex-col">
         <AdminNavbar />
-        </div>
-        <div className="relative w-[85%]">
+        <div className="">
         <Outlet />
         </div>
     </div>

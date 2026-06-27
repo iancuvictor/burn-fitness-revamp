@@ -10,6 +10,11 @@ function AuthProvider({children}){
     const [loggedIn, setLoggedIn] = useState(false);
     const [isAdmin, setIsAdmin] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [selectors, setSelectors] = useState({
+    antrenori: [],
+    clase: []
+    })
+
 
     const refreshUser = async () => {
         let response = await axios.get(`${API_URL}/users/profile`, { withCredentials: true });
@@ -17,7 +22,13 @@ function AuthProvider({children}){
         setUser(userData);
     }
 
+    const getSelectors = async () => {
+      let response = await axios.get(`${API_URL}/classes/getSelectors`, {withCredentials: true});
+      setSelectors({...selectors, antrenori: response.data.antrenori, clase: response.data.clase})
+    }
+
     useEffect(() => {
+    getSelectors();
         async function checkCookie(){
             try {
                 let response = await axios.get(`${API_URL}/users/profile`, { withCredentials: true });
@@ -41,7 +52,8 @@ function AuthProvider({children}){
     }, []);
 
     return (
-        <AuthContext.Provider value={{loggedIn, setLoggedIn, user, setUser, isAdmin, setIsAdmin, loading, setLoading, refreshUser}}>
+        <AuthContext.Provider value={{loggedIn, setLoggedIn, user, setUser, isAdmin, setIsAdmin, 
+        loading, setLoading, refreshUser, selectors, getSelectors}}>
             {children}
         </AuthContext.Provider>
     )

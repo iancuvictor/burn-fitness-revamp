@@ -1,10 +1,11 @@
 export function setDateOrar(){
     // Notite pentru mine
     // gaseste ziua de azi
+    let todaysDay = new Date().getDay();
     let monday = new Date();
 
     // calculeaza diferenta (cate zile is diferenta intre ziua de azi si luni.)
-    let difference = monday.getDay() - 1
+    let difference = todaysDay === 0 ? 6 : todaysDay - 1;
 
     // setezi data de luni incat sa corespunda. getDate returneaza fix ziua, de ex 22. 22-1 = 21 e ziua de luni
     monday.setDate(monday.getDate() - difference);

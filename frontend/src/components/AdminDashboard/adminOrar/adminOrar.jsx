@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Orar from "./Orar/orar";
 import axios from "axios";
+import AdaugaAntrenoriClase from "./adaugaAntrenoriClase";
 
 const API_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -9,7 +10,6 @@ function AdminOrar() {
   const [datePagina, setDatePagina] = useState({
     titluOrar: "Zorilor",
   });
-
   const getOrar = async (identifier) => {
     identifier = identifier
       .normalize("NFD")
@@ -21,59 +21,41 @@ function AdminOrar() {
     setDataOrar(response.data);
   };
 
-  let zile = [
-    "Luni",
-    "Marți",
-    "Miercuri",
-    "Joi",
-    "Vineri",
-    "Sâmbătă",
-    "Duminică",
-  ];
   let locatii = ["Zorilor", "Sigma", "Mănăștur", "Flora", "Mărăști"];
 
-  let clase = [
-    "Fitness and BodyBuilding",
-    "Cycling",
-    "Fitball",
-    "Interval Training",
-    "Burn and Pump",
-    "Step Dance Basic",
-    "Zumba Fitness",
-    "BODYART",
-    "Pilates",
-    "Toning",
-    "Capoeira pentru copii",
-    "TRX",
-    "Abdomen, Fese, Coapse",
-  ];
-
   useEffect(() => {
+
     let filtruLocatie = datePagina.titluOrar
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
       .toLowerCase();
-    getOrar(filtruLocatie);
+      getOrar(filtruLocatie);
   }, []);
 
   return (
-    <div className="relative w-full pl-60 bg-white">
-      <div className="flex flex-col w-50">
-        <span>Editează orar sală:</span>
-        <select
-          onChange={(e) => {
-            getOrar(e.target.value);
-            setDatePagina({ ...datePagina, titluOrar: e.target.value });
-          }}
-        >
-          {locatii.map((locatie) => {
-            return (
-              <option key={locatie} value={locatie}>
-                {locatie}
-              </option>
-            );
-          })}
-        </select>
+    <div className="relative w-full min-h-screen p-5 bg-white flex flex-col gap-5">
+      <div className="flex flex-row gap-5">
+        <div className="flex flex-col w-50">
+          <span>Editează orar sală:</span>
+          <select
+            onChange={(e) => {
+              getOrar(e.target.value);
+              setDatePagina({ ...datePagina, titluOrar: e.target.value });
+            }}
+          >
+            {locatii.map((locatie) => {
+              return (
+                <option key={locatie} value={locatie}>
+                  {locatie}
+                </option>
+              );
+            })}
+          </select>
+        </div>
+        <div className="flex flex-row gap-5">
+          <AdaugaAntrenoriClase type='antrenor'/>
+          <AdaugaAntrenoriClase type='clasa'/>
+        </div>
       </div>
       <div id="editorWrap">
         <div className="flex flex-col rounded-lg">

@@ -4,9 +4,11 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { protect, admin } from "./auth.js";
 import User from "../schemas/user.js";
+import Antrenor from "../schemas/listaAntrenoriAdmin.js";
+import Clasa from "../schemas/listaClaseAdmin.js";
 const router = express.Router();
 
-router.post("/orarClase", async (req, res) => {
+router.post("/orarClase", admin, async (req, res) => {
   let checkAvailability = null;
   if (checkAvailability === null) {
     try {
@@ -130,4 +132,44 @@ router.put("/renuntaLaClasa", protect, async (req, res) => {
     res.json("error happened");
   }
 });
+
+// Adding trainers
+
+router.post('/antrenor', admin, async (req, res) => {
+
+  try{
+    let result = await Antrenor.create({
+      numeAntrenor: req.body.numeAntrenor
+    })
+    console.log(result);
+    res.status(201).json('antrenorAdaugat')
+    console.log(`Antrenor adăugat: ${req.body.numeAntrenor}`);
+  } catch(err) {
+    console.log(err);
+    res.status(409).json('failed')
+  }
+});
+
+// Adding classes (admin panel)
+
+router.post('/clasa', admin, async (req, res) => {
+
+  try{
+    let result = await Clasa.create({
+      numeClasa: req.body.numeClasa
+    })
+    console.log(result);
+    res.status(201).json('clasaAdaugata')
+    console.log(`Clasă adăugată: ${req.body.numeAntrenor}`);
+  } catch(err) {
+    console.log(err);
+    res.status(409).json('failed')
+  }
+});
+
+router.get('/getSelectors', async (req, res) => {
+  let antrenor = await Antrenor.find({});
+  let clasa = await Clasa.find({});
+  res.status(200).json({antrenori: antrenor, clase: clasa});
+})
 export default router;

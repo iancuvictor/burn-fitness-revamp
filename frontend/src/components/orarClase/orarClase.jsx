@@ -5,16 +5,16 @@ const buttonStyle = 'cursor-pointer bg-black text-white p-[10px] bg-rose-900 hov
 
 function OrarClase() {
   return (
-    <div className="flex flex-col justify-center gap-5 items-center pt-20 pb-[50px] font-finlandica">
+    <div className="flex flex-col justify-center gap-5 items-center pt-20 pb-[50px] pl-5 pr-5 font-finlandica">
       <h1 className="text-[20px] text-white md:text-[35px] font-[700] pt-[30px] text-center">Clase</h1>
-      <div className="flex gap-5">
-        <NavLink to='/salidefitness/sala-fitness-zorilor#orar'><button className={buttonStyle}>ORAR CLASE ZORILOR</button></NavLink>
-        <NavLink to='/salidefitness/sala-fitness-sigma'><button className={buttonStyle}>ORAR CLASE SIGMA</button></NavLink>
-        <NavLink to='/salidefitness/sala-fitness-marasti'><button className={buttonStyle}>ORAR CLASE MĂRĂȘTI</button></NavLink>
-        <NavLink to='/salidefitness/sala-fitness-manastur'><button className={buttonStyle}>ORAR CLASE MĂNĂȘTUR</button></NavLink>
-        <NavLink to='/salidefitness/sala-fitness-flora'><button className={buttonStyle}>ORAR CLASE FLORA</button></NavLink>
+      <div className="w-full grid grid-cols-3 gap-5">
+        <NavLink to='/salidefitness/sala-fitness-zorilor#orar'><button className={buttonStyle}>CLASE ZORILOR</button></NavLink>
+        <NavLink to='/salidefitness/sala-fitness-sigma'><button className={buttonStyle}>CLASE SIGMA</button></NavLink>
+        <NavLink to='/salidefitness/sala-fitness-marasti'><button className={buttonStyle}>CLASE MĂRĂȘTI</button></NavLink>
+        <NavLink to='/salidefitness/sala-fitness-manastur'><button className={buttonStyle}>CLASE MĂNĂȘTUR</button></NavLink>
+        <NavLink to='/salidefitness/sala-fitness-flora'><button className={buttonStyle}>CLASE FLORA</button></NavLink>
       </div>
-    <div className="flex flex-row flex-wrap justify-center items-center gap-2">
+    <div className="w-full flex flex-row flex-wrap justify-center items-center gap-2">
       <CardClase
         title="Fitness & Bodybuilding"
         img='https://www.burncluj.ro/wp-content/uploads/2023/02/thumbnail-768x1152.jpeg'

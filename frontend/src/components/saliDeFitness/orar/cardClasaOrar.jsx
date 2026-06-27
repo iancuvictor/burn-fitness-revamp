@@ -1,7 +1,6 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../../../context/AuthContext";
 import axios from "axios";
-import { has2DTranslate } from "framer-motion";
 
 const API_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -10,7 +9,7 @@ function CardClasaOrar({ clasa, getOrar }) {
   const [errors, setErrors] = useState({
     dejaInscris: false,
     classFull: false,
-    noAerobic: true,
+    noAerobic: '',
   });
 
   const inscriereClasa = async (id) => {
@@ -28,12 +27,12 @@ function CardClasaOrar({ clasa, getOrar }) {
   };
 
   const renuntaLaClasa = async (id) => {
-    let response = await axios.put(
+    await axios.put(
       `${API_URL}/classes/renuntaLaClasa`,
       { _id: id },
       { withCredentials: true },
     );
-    console.log(response);
+    // console.log(response);
     getOrar();
     setErrors({ ...errors, dejaInscris: false });
   };
@@ -48,53 +47,58 @@ function CardClasaOrar({ clasa, getOrar }) {
                 } else if (clasa.inscrisi.length === clasa.capacitate) {
                     setErrors({ ...errors, classFull: true });
                 }
+            } else {
+              setErrors({...errors, noAerobic: true});
             }
         }
         checkAvailability();
+    } else {
+      setErrors({...errors, noAerobic: true});
     }
     getOrar();
   }, []);
 
-  //   console.log(clasa._id)
-
   return (
-    <div className="flex flex-col gap-1 text-[12px] md:text-[14px]">
-      <div className="flex items-center gap-2">
-        <span>{clasa.ora}</span>
-        <span>{clasa.denumire}</span>
-        <span>{clasa.antrenor}</span>
-        <button
-          onClick={
-            errors.dejaInscris
-              ? () => renuntaLaClasa(clasa._id)
-              : () => inscriereClasa(clasa._id)
-          }
-
-          disabled={errors.noAerobic}
-
-          className={`${user === undefined || errors.noAerobic ? 'hidden' : 'block'} 
-          ${errors.dejaInscris || errors.classFull ? "bg-gray-700" : "bg-rose-500"} cursor-pointer rounded-xs text-white p-2`}
-        >
-          {errors.dejaInscris
-            ? "Renunță"
-              : "Înscrie-te"}
-        </button>
+    <div className="font-finlandica flex flex-col gap-1 text-[12px] md:text-[14px]">
+      <div className="flex justify-between items-center gap-2">
+        <div className="flex md:flex-row flex-wrap gap-1">
+        <span>[{clasa.ora}]</span>
+        <span className="font-[600] underline underline-offset-2">{clasa.denumire}</span>
+        <span className="text-rose-500 font-[600]">{clasa.antrenor}</span>
+        </div>
       </div>
-        <span className={`${errors.noAerobic ? 'block' : 'hidden'} text-red-500`}>Ai nevoie de abonament AEROBIC pentru a te înscrie</span>
       <div className="flex flex-col">
         <div>
           <span>
-            {clasa.inscrisi.length} / {clasa.capacitate}
           </span>
         </div>
-        <div className="w-full h-2 bg-gray-200 rounded">
+        <div className="flex items-center gap-2">
+        <div className="w-[65%] md:w-65 h-2 bg-gray-200 rounded">
           <div
             className="h-full bg-[#6E7DFF] rounded"
             style={{
               width: `${(clasa.inscrisi.length / clasa.capacitate) * 100}%`,
             }}
-          />
+            />
         </div>
+        <button
+          onClick={
+            errors.dejaInscris
+              ? () => renuntaLaClasa(clasa._id)
+              : () => inscriereClasa(clasa._id)
+            }
+
+            disabled={errors.noAerobic}
+            
+            className={`${errors.noAerobic || user === undefined ? 'hidden' : 'block'} 
+          ${errors.dejaInscris || errors.classFull ? "bg-gray-700" : "bg-rose-500"} 
+          w-[35%] md:w-35 text-[13px] cursor-pointer rounded-xs text-white p-1`}
+        >
+          {errors.dejaInscris
+            ? "Renunță"
+              : `Înscrie-te ${clasa.inscrisi.length} / ${clasa.capacitate}`}
+        </button>
+              </div>
       </div>
     </div>
   );

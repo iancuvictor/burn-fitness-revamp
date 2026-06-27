@@ -17,7 +17,7 @@ function ZiOrar({ dataOrar, zi, data, getOrar}) {
 
   return (
     <div className="font-finlandica">
-      <h1 className="font-[700]">{zi} <span className="font-[500]">[{data}]</span></h1>
+      <h1 className="text-[18px] font-[700]">{zi} <span className="font-[500]">[{data}]</span></h1>
       <div className="flex flex-col gap-2">
         {classesArray.length > 0 ? (
           classesArray.map((clasa, index) => {
