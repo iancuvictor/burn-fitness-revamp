@@ -16,7 +16,7 @@ export default function QrCode(){
         getQrCode();
     }, [])
 
-    return <div className="flex flex-col items-center justify-center w-full min-h-screen
+    return <div className="flex flex-col items-center justify-center w-full min-h-100
     bg-black text-white font-finlandica">
         <div className="w-50 flex flex-col items-center justify-center gap-5">
         <h1 className="text-center font-[700]">Prezintă codul QR la recepție</h1>

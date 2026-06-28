@@ -95,13 +95,28 @@ function AbonamenteAcasa() {
                 abonament <span className="text-white underline underline-offset-4">ACTIV</span> pentru reducerea de familie)</span>
           </div>
           <div className="flex flex-col gap-10 md:grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 md:gap-10">
-            {data.map((abonament, index) => {
+            {data.filter((abonament) => abonament.tier === 'premium').map((abonament, index) => {
               if (abonament.highlighted === true) {
                 return (
                   <CardAbonament
                     tier={abonament.tier}
                     titlu={abonament.titlu}
-                    type="GOLD"
+                    type={abonament.tierName}
+                    desc={abonament.desc}
+                    preturi={abonament.preturi}
+                    key={index}
+                    viewPreturi={viewPreturi.viewPreturi}
+                  />
+                );
+              }
+            })}
+            {data.filter((abonament) => abonament.tier === 'regular').map((abonament, index) => {
+              if (abonament.highlighted === true) {
+                return (
+                  <CardAbonament
+                    tier={abonament.tier}
+                    titlu={abonament.titlu}
+                    type={abonament.tierName}
                     desc={abonament.desc}
                     preturi={abonament.preturi}
                     key={index}

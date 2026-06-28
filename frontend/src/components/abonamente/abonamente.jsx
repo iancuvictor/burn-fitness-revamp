@@ -20,7 +20,7 @@ function Abonamente() {
   }, [])
 
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen w-full font-finlandica pt-20 pb-[100px] gap-5">
+    <div className="flex flex-col justify-center items-center min-h-screen w-full font-finlandica md:pt-20 pb-[100px] gap-5">
       <h1 className="text-[20px] text-white md:text-[35px] font-[700] pt-[30px] text-center">
         ABONAMENTELE BURN FITNESS CLUJ-NAPOCA
       </h1>

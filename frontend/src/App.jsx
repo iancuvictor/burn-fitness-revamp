@@ -52,7 +52,7 @@ function App() {
       <ScrollToTop/>
       <div
         id="appWrapper"
-        className="relative flex flex-col justify-between bg-gray-100 h-full" 
+        className="relative flex flex-col justify-between bg-gray-100 w-full" 
         >
         <Navbar menuState={menuState} setMenuState={setMenuState} />
 

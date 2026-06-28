@@ -10,7 +10,7 @@ const navLinkStyle =
 function Banner() {
   return (
     <div
-      className="relative flex flex-col h-160 w-full justify-center items-center pt-15 md:pt-20
+      className="relative flex flex-col h-160 w-full justify-center items-center
   md:justify-center font-finlandica"
     >
       <div className="relative z-1 flex justify-center items-center h-fit w-full bg-redishPinkDark p-3 md:p-4 gap-2
