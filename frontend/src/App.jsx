@@ -28,7 +28,8 @@ import {
   FreeTrial,
   WrapperAbonamente,
   AccountSettings,
-  MetodePlata
+  MetodePlata,
+  QrCode
 } from "./components";
 import "./App.css";
 
@@ -73,6 +74,7 @@ function App() {
               <Route path="" element={<WrapperAbonamente />} />
               <Route path="setariCont" element={<AccountSettings />} />
               <Route path="metodePlata" element={<MetodePlata />} />
+              <Route path="qrCode" element={<QrCode />} />
             </Route>
           </Route>
           <Route path="/freeTrial" element={<FreeTrial />} />

@@ -59,7 +59,7 @@ function CardClasaOrar({ clasa, getOrar }) {
   }, []);
 
   return (
-    <div className="font-finlandica flex flex-col gap-1 text-[12px] md:text-[14px]">
+    <div className="font-finlandica flex flex-col gap-1 text-[12px] md:text-[14px] ring-1 p-2 rounded-xs">
       <div className="flex justify-between items-center gap-2">
         <div className="flex md:flex-row flex-wrap gap-1">
           <span>[{clasa.ora}]</span>
@@ -72,7 +72,7 @@ function CardClasaOrar({ clasa, getOrar }) {
           <span className={`${errors.noAerobic ? 'block' : 'hidden'}`}>{clasa.inscrisi.length} / {clasa.capacitate}</span>
         </div>
         <div className="flex items-center gap-2">
-          <div className={`${errors.noAerobic ? 'w-full' : 'w-[65%]'} md:w-65 h-2 bg-gray-200 rounded`}>
+          <div className={`${errors.noAerobic ? 'w-full' : 'w-[60%]'} md:w-65 h-2 bg-gray-200 rounded`}>
             <div
               className="h-full bg-[#6E7DFF] rounded"
               style={{
@@ -91,7 +91,7 @@ function CardClasaOrar({ clasa, getOrar }) {
 
             className={`${errors.noAerobic || user === undefined ? 'hidden' : 'block'} 
           ${errors.dejaInscris || errors.classFull ? "bg-gray-700" : "bg-rose-500"} 
-          w-[35%] md:w-35 text-[13px] cursor-pointer rounded-xs text-white p-1`}
+          w-[40%] md:w-35 text-[13px] cursor-pointer rounded-xs text-white p-1`}
           >
             {errors.dejaInscris
               ? "Renunță"

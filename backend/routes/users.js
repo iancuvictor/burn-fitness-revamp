@@ -3,6 +3,7 @@ import User from "../schemas/user.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { protect, admin } from "./auth.js";
+import QRCode from 'qrcode';
 const router = express.Router();
 
 import multer from 'multer';
@@ -136,5 +137,10 @@ router.get('/', admin, async (req, res) => {
   let userList = await User.find();
   res.send(userList);
 });
+
+router.get('/profile/qrCode', protect, async (req, res) => {
+  const qrCodeReply = await QRCode.toDataURL(req.user.userId, { width: 500 });
+  res.status(200).json({imageUrl: qrCodeReply});
+})
 
 export default router;

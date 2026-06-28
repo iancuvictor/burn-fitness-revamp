@@ -31,7 +31,7 @@ function Navbar({menuState, setMenuState}){
     </div>
 
     {/* mobile navbar */}
-    <div className={`${isAdmin === false ? 'flex' : 'hidden'} bg-black/95 fixed w-full h-15 z-4 md:hidden justify-between items-center`}>
+    <div className={`${isAdmin === false ? 'flex' : 'hidden'} bg-black/95 sticky top-0 w-full h-15 z-4 md:hidden justify-between items-center`}>
         {/* <div className="z-[-1] h-full absolute inset-0 bg-gradient-to-b from-black from-0% via-black via-50% to-black via-70% to-transparent to-100%"></div> */}
     <NavLink to='/'><img src={BurnLogo} alt="burn fitness logo" className='md:hidden w-40 m-[10px]'/></NavLink>
     <div className='justify-center items-center flex gap-3'>

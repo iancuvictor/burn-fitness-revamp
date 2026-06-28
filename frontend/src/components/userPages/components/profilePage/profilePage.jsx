@@ -36,7 +36,7 @@ function ProfilePage() {
         checkCookie()
     }, []);
 
-  return <div className="w-full pl-2 pr-2 font-finlandica flex flex-col items-center bg-white">
+  return <div className="w-full font-finlandica flex flex-col items-center bg-white">
     <div className={`${alert.logOut ? "animate-fade-in duration-500 ease-out z-4 fixed top-0 left-0" : "hidden"}`}>
         <PopUp
           type="alert"

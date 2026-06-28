@@ -4,6 +4,7 @@ const abonament = new Schema({
     highlighted: {type: Boolean, required: false},
     reducereAplicabila: {type: Boolean, required: false},
     tier: {type: String, required: true},
+    tierName: {type: String, required: false},
     titlu: {type: String, required: true},
     desc: {type: String, required: false},
     preturi: [

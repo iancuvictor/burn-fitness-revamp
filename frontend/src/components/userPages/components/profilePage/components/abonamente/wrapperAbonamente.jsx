@@ -6,7 +6,7 @@ import { useContext } from "react";
 function WrapperAbonamente(){
   const { user } = useContext(AuthContext);
 
-    return <div className="w-full min-h-screen flex flex-col gap-5 pt-25 pb-30">
+    return <div className="w-full min-h-screen flex flex-col gap-5 pt-5 pb-30 pr-5 pl-5">
         <div className="w-full flex flex-col gap-2">
           <h1 className="font-[700] text-[20px]">Abonamente active: ({user.activeSubscriptions.length})</h1>
           <ListaAbonamenteProfil data={user.activeSubscriptions}/>

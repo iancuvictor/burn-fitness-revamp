@@ -61,11 +61,11 @@ useEffect(() => {
       <div ref={cardRef} className={`${buying === false ? 'max-h-60' : 'max-h-200'} 
       pt-[10px]
       md:pt-[20px]
-      ring-2 ring-lime-400 shadow-md shadow-lime-400 hover:shadow-lg w-xs md:w-xs rounded-xl overflow-hidden 
+      ring-1 ring-lime-400 shadow-md shadow-lime-400 hover:shadow-lg w-xs md:w-xs rounded-xl overflow-hidden 
       relative font-finlandica flex flex-col justify-between items-center bg-black text-white transition-all duration-400 ease-out`}>
         <div className={`${buying === false ? 'gap-0' : 'gap-1'} h-fit flex flex-col justify-evenly items-center duration-400 ease-out
         w-full pl-5 pr-5`}>
-          <h1 className={`font-[700] text-[22px] md:text-[30px] text-white text-shadow-md text-shadow-lime-600 text-center`}>
+          <h1 className={`font-[700] text-[22px] md:text-[30px] text-white text-center`}>
             {titlu}
           </h1>
           {console.log(desc)}
@@ -131,12 +131,9 @@ useEffect(() => {
 
   } else if (tier === "premium") {
     return (
-      <div className={`ring-4 ${type === "GOLD" ? "ring-amber-400/50" : "ring-slate-600/50"} group h-70 w-xs md:w-xs rounded-xl 
+      <div className={`ring-4 ${type === "GOLD" ? "ring-amber-400/50" : "ring-slate-600/50"} h-70 w-xs md:w-xs rounded-xl pt-2
       overflow-hidden cursor-pointer relative font-finlandica flex flex-col justify-between items-center bg-black 
       text-white gap-3 duration-150 ease-out`}>
-        <div
-          className={`z-1 absolute top-0 w-full h-full md:bg-black md:opacity-30 hover:opacity-0 duration-150 ease-out`}
-        ></div>
         <div className="flex flex-col justify-between items-center h-40 gap-3">
           <div className="flex flex-col items-center gap-0">
             <h1
@@ -161,16 +158,17 @@ useEffect(() => {
             })}
             </div>
           </div>
-          <p className="text-center text-[#B3B3C7] text-[14px] md:text-[16px] md:opacity-0 md:group-hover:opacity-100 duration-400 ease-out pl-[10px] pr-[10px]">
+          <p className="text-center text-[#B3B3C7] text-[14px] md:text-[16px] duration-400 ease-out pl-[10px] pr-[10px]">
             {desc}
           </p>
         </div>
-        <button className="outline-none active:bg-[#DE264B] md:hover:bg-[#DE264B] w-full h-15 md:h-0 group-hover:h-20 z-2 cursor-pointer group/buyButton flex flex-row justify-center items-center md:opacity-0 md:group-hover:opacity-100 duration-100 md:duration-200 ease-out pl-[10px] pr-[10px] gap-2">
+        <button className="outline-none active:bg-rose-500 w-full h-15 md:hover:bg-rose-500 z-2 cursor-pointer
+         flex flex-row justify-center items-center duration-150 ease-out pl-[10px] pr-[10px] gap-2">
           <FontAwesomeIcon
             icon={faCartShopping}
-            className="text-[#DE264B]"
+            className="text-rose-500"
           />
-          <span className="md:group-hover/buyButton:text-white text-[#B3B3C7]">
+          <span className="text-white">
             Cumpără abonamentul
           </span>
         </button>

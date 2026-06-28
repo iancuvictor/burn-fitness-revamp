@@ -25,4 +25,5 @@ export {default as WrapperAbonamente} from './userPages/components/profilePage/c
 export {default as ProfilePage} from './userPages/components/profilePage/profilePage.jsx';
 export {default as AccountSettings} from './userPages/components/profilePage/components/accountSettings.jsx';
 export {default as MetodePlata} from './userPages/components/profilePage/components/metodePlata.jsx';
+export {default as QrCode} from './userPages/components/profilePage/qrCode.jsx';
 export {default as Filtre } from './filtre/filtre.jsx';

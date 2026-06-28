@@ -75,7 +75,7 @@ function AccountSettings() {
   }, [formData.pozaProfil]);
 
   return (
-    <div className="min-h-screen flex flex-col items-center gap-2 pt-20 pb-20 w-full ">
+    <div className="min-h-screen flex flex-col items-center gap-2 pt-5 pb-20 pr-5 pl-5 w-full ">
       <div className="w-full md:w-100 flex flex-col gap-5">
         <h1 className="font-[700] text-[20px]">Gestionează contul</h1>
         <div className="flex flex-col gap-2">

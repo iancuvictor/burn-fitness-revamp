@@ -61,7 +61,7 @@ function Abonamente() {
               return <CardAbonament
               tier={abonament.tier}
               titlu={abonament.titlu}
-              type='GOLD'
+              type={abonament.tierName}
               desc={abonament.desc}
               preturi={abonament.preturi}
               viewPreturi={viewPreturi.viewPreturi}
