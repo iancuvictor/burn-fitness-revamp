@@ -1,1 +1,3 @@
-Revamp of Burn Fitness Website
+FULL-STACK PROJECT BUILT IN REACT.JS, MONGO.DB, EXPRESS.JS AND TAILWIND.CSS
+
+List of things that still need to be done:

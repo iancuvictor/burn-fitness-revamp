@@ -9,7 +9,7 @@ import {
   faSquareCaretRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { faCheckCircle as faCheckCircleRegular } from "@fortawesome/free-regular-svg-icons";
-import { VaulDrawer } from "../../index";
+import { Filtre } from "../../index";
 
 // calendar functions
 import { changeCalendarWeek, setDateOrar } from "../orar/utils";
@@ -19,9 +19,10 @@ const API_URL = import.meta.env.VITE_BACKEND_URL;
 
 function SalaFitnessZorilor() {
   const { user, selectors } = useContext(AuthContext);
-  const { filtre, setFiltre } = useState({
+  const [filtre, setFiltre] = useState({
     antrenor: '',
-    clasa: ''
+    clasa: '',
+    open: false,
   });
   const [dataOrar, setDataOrar] = useState([]);
   const [dateCalendar, setDateCalendar] = useState(setDateOrar());
@@ -56,6 +57,7 @@ function SalaFitnessZorilor() {
 
   return (
     <div className="h-fit flex flex-col items-center font-finlandica pb-[50px]">
+      {filtre.open && <Filtre filtre={filtre} setFiltre={setFiltre}/>}
       <h1 className="text-[20px] md:text-[35px] font-[700] pb-[20px] pt-[30px] text-center">
         Sala fitness ZORILOR
       </h1>
@@ -64,7 +66,8 @@ function SalaFitnessZorilor() {
         className="h-fit flex flex-col items-center shadow-xl p-[25px] rounded-xl bg-white gap-5"
       >
         <div className="flex flex-row items-center gap-5">
-        <VaulDrawer open={true} filtre={filtre} setFiltre={setFiltre}/>
+          <button onClick={() => setFiltre({...filtre, open: true})} 
+          className="cursor-pointer bg-black p-2 rounded-md text-white text-[14px] font-[500]">FILTRE <FontAwesomeIcon icon={faFilter} /></button>
           <div className="flex flex-col items-center">
             <span>
               {dateCalendar[0].toLocaleDateString()} -{" "}
@@ -92,43 +95,16 @@ function SalaFitnessZorilor() {
               </button>
             </div>
           </div>
+        </div>
           <span
             className={`${errors.noAerobic ? "block" : "hidden"} text-red-500`}
           >
             Ai nevoie de abonament AEROBIC pentru a te înscrie
           </span>
-        </div>
         <div
           className="flex flex-row gap-2 text-[14px]
           md:text-[16px]"
         >
-          {/* <div className="fixed flex items-center flex-col bottom-0 left-0 h-[50%] bg-white w-full rounded-t-2xl p-5">
-            <h1 className="text-[22px] font-[700]">FILTRE</h1>
-            <div className="flex flex-col gap-2">
-              <span>Clasă:</span>
-              <div name="" id="">
-              <div value="">TOATE CLASELE <FontAwesomeIcon icon={faCheckCircleSolid}/></div>
-              {selectors.clase.map((clasa) => {
-                return <div value={clasa.numeClasa}>{clasa.numeClasa} <FontAwesomeIcon icon={faCheckCircleRegular}/></div>
-                })}
-                </div>
-              <div className="flex gap-2">
-                <span>Antrenor:</span>
-                <div className="flex flex-col ">
-
-                  <div value="">TOȚI ANTRENORII <FontAwesomeIcon icon={faCheckCircleSolid}/></div>
-                  {selectors.antrenori.map((antrenor) => {
-                    return (
-                      <div value={antrenor.numeAntrenor}>
-                        {antrenor.numeAntrenor}
-                        <FontAwesomeIcon icon={faCheckCircleSolid}/>
-                      </div>
-                    );
-                  })}
-              </div>
-                  </div>
-            </div>
-          </div> */}
         </div>
         <div className="h-fit flex flex-col md:grid md:grid-cols-4 gap-10 md:gap-5">
           <ZiOrar
@@ -136,42 +112,49 @@ function SalaFitnessZorilor() {
             zi="Luni"
             data={dateCalendar[0].toLocaleDateString()}
             getOrar={getOrar}
+            filtre={filtre}
           />
           <ZiOrar
             dataOrar={dataOrar}
             zi="Marți"
             data={dateCalendar[1].toLocaleDateString()}
             getOrar={getOrar}
+            filtre={filtre}
           />
           <ZiOrar
             dataOrar={dataOrar}
             zi="Miercuri"
             data={dateCalendar[2].toLocaleDateString()}
             getOrar={getOrar}
+            filtre={filtre}
           />
           <ZiOrar
             dataOrar={dataOrar}
             zi="Joi"
             data={dateCalendar[3].toLocaleDateString()}
             getOrar={getOrar}
+            filtre={filtre}
           />
           <ZiOrar
             dataOrar={dataOrar}
             zi="Vineri"
             data={dateCalendar[4].toLocaleDateString()}
             getOrar={getOrar}
+            filtre={filtre}
           />
           <ZiOrar
             dataOrar={dataOrar}
             zi="Sâmbătă"
             data={dateCalendar[5].toLocaleDateString()}
             getOrar={getOrar}
+            filtre={filtre}
           />
           <ZiOrar
             dataOrar={dataOrar}
             zi="Duminică"
             data={dateCalendar[6].toLocaleDateString()}
             getOrar={getOrar}
+            filtre={filtre}
           />
         </div>
       </div>
