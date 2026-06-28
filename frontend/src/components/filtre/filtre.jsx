@@ -14,14 +14,11 @@ export default function Filtre({ filtre, setFiltre }) {
     })
 
     const seteazaFiltrele = (field, value) => {
-        console.log('fires')
-        if(filtre[field].includes(value)){
-            setFiltre({...filtre, [field] : {...field, value}});
+        if(!filtre[field].includes(value)){
+            setFiltre({...filtre, [field] : [...filtre[field], value]});
+            console.log(filtre);
         } else {
-            if(filtre[field] === ''){
-                console.log('set empty filter');
-                setFiltre({...filtre, [field] : {...field, value}});
-            }
+            setFiltre({...filtre, [field]: filtre[field].filter((filtru) => filtru !== value)})
         }
     }
 
@@ -50,13 +47,15 @@ export default function Filtre({ filtre, setFiltre }) {
                     <div className="flex flex-col w-full">
                         <button onClick={() => setFilterUI({ ...filterUI, clase: !filterUI.clase, antrenori: false })}
                             className="flex justify-between w-full font-[700] text-[16px]"><span>CLASE: </span><FontAwesomeIcon icon={filterUI.clase ? faCaretDown : faCaretUp} /></button>
-                        <span className="text-[13px] text-gray-500">{filtre.clasa}</span>
+                        <span className="text-[13px] text-gray-500">
+                            {filtre.clasa.map((filtru, index) => {
+                                return <span key={index}>{filtru} | </span>
+                            })}</span>
                     </div>
                     <div className='relative w-full'>
                         <div className={`${filterUI.clase ? 'flex h-50 ring-1' : 'h-0 ring-0'} z-1 overflow-scroll left-0 w-full bg-white
             peer-focus-within:animate-fade-in duration-150 ease-out flex-col`}>
-                            {selectors.clase
-                                .map((clasa, index) => {
+                            {selectors.clase.map((clasa, index) => {
                                     return <div key={index} onMouseDown={() => seteazaFiltrele('clasa', clasa.numeClasa)}
                                         className={`${filtre.clasa.includes(clasa.numeClasa) ? 'bg-rose-500 text-white' : 'bg-white'}
                                         cursor-pointer p-3 duration-75 ease-out text-[14px] flex justify-between`}>
