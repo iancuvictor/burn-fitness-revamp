@@ -16,7 +16,6 @@ export default function Filtre({ filtre, setFiltre }) {
     const seteazaFiltrele = (field, value) => {
         if(!filtre[field].includes(value)){
             setFiltre({...filtre, [field] : [...filtre[field], value]});
-            console.log(filtre);
         } else {
             setFiltre({...filtre, [field]: filtre[field].filter((filtru) => filtru !== value)})
         }
@@ -47,7 +46,7 @@ export default function Filtre({ filtre, setFiltre }) {
                     <div className="flex flex-col w-full">
                         <button onClick={() => setFilterUI({ ...filterUI, clase: !filterUI.clase, antrenori: false })}
                             className="flex justify-between w-full font-[700] text-[16px]"><span>CLASE: </span><FontAwesomeIcon icon={filterUI.clase ? faCaretDown : faCaretUp} /></button>
-                        <span className="text-[13px] text-gray-500">
+                        <span className="text-[13px] text-gray-700 font-[400">
                             {filtre.clasa.map((filtru, index) => {
                                 return <span key={index}>{filtru} | </span>
                             })}</span>
@@ -70,18 +69,21 @@ export default function Filtre({ filtre, setFiltre }) {
                             className="flex justify-between w-full font-[700] text-[16px">
                             <span>ANTRENORI: </span>
                             <FontAwesomeIcon icon={filterUI.antrenori ? faCaretDown : faCaretUp} /></button>
-                        <span className="text-[13px] text-gray-500">{filtre.antrenor}</span>
+                        <span className="text-[13px] text-gray-700 font-[400]">
+                            {filtre.antrenor.map((filtru, index) => {
+                                return <span key={index}>{filtru} | </span>
+                            })}</span>
                     </div>
                     <div className='relative w-full'>
                         <div className={`${filterUI.antrenori ? 'flex h-50 ring-1' : 'h-0 ring-0'} w-full z-1 overflow-scroll left-0 bg-white
                             flex peer-focus-within:animate-fade-in duration-150 ease-out flex-col`}>
                             {selectors.antrenori
                                 .map((antrenor, index) => {
-                                    return <div key={index} onMouseDown={() => setFiltre({ ...filtre, antrenor: antrenor.numeAntrenor })}
-                                        className={`${filtre.antrenor === antrenor.numeAntrenor ? 'bg-rose-500 text-white' : 'bg-white'} 
+                                    return <div key={index} onMouseDown={() => seteazaFiltrele('antrenor', antrenor.numeAntrenor)}
+                                        className={`${filtre.antrenor.includes(antrenor.numeAntrenor) ? 'bg-rose-500 text-white' : 'bg-white'} 
                                         w-full cursor-pointer p-3 duration-75 ease-out text-[14px] flex justify-between`}>
                                         <span>{antrenor.numeAntrenor}</span>
-                                        <FontAwesomeIcon icon={filtre.antrenor === antrenor.numeAntrenor ? faCheckCircleSolid : faCheckCircleRegular} />
+                                        <FontAwesomeIcon icon={filtre.antrenor.includes(antrenor.numeAntrenor) ? faCheckCircleSolid : faCheckCircleRegular} />
                                         </div>
                                 })}
                         </div>
@@ -92,21 +94,12 @@ export default function Filtre({ filtre, setFiltre }) {
             </div>
             <button onClick={() => {
                 toast.success('Filtrele au fost șterse');
-                setFiltre({ ...filtre, antrenor: '', clasa: '' })
+                setFiltre({ ...filtre, antrenor: [], clasa: [] })
             }}
-                className={`${filtre.clasa !== '' || filtre.antrenor !== '' ? 'flex' : 'hidden'} cursor-pointer bg-rose-500 text-white p-3 w-full rounded-md`}>Șterge filtrele</button>
+                className={`${filtre.clasa.length !== 0 || filtre.antrenor.length !== 0 ? 'flex p-3 opacity-100' : 'h-0 p-0 opacity-0'}
+                 cursor-pointer bg-rose-500 text-white w-full rounded-md duration-300 ease-out`}>Șterge filtrele</button>
         </div>
     </div>
 }
 
-
-{/* <span className="w-full ring-1 pl-2 peer flex items-center">
-                        <FontAwesomeIcon icon={faMagnifyingGlass} />
-                        <input onChange={(e) => setFiltre({ ...filtre, antrenor: e.target.value })} type="text" value={filtre.antrenor}
-                            placeholder='Introdu numele'
-                            className='peer p-2 outline-none w-full' />
-                        <button onClick={() => setFiltre({...filtre, antrenor: ''})} 
-                        className={`${filtre.antrenor === '' ? 'hidden' : 'animate-fade-in duration-200 ease-out'} 
-                        cursor-pointer pr-3 pl-3 pt-2 pb-2 text-rose-500 duration-150 ease-out`}><FontAwesomeIcon icon={faXmark}/></button>
-                    </span> */}
 
