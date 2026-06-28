@@ -20,8 +20,8 @@ const API_URL = import.meta.env.VITE_BACKEND_URL;
 function SalaFitnessZorilor() {
   const { user, selectors } = useContext(AuthContext);
   const [filtre, setFiltre] = useState({
-    antrenor: '',
-    clasa: '',
+    antrenor: [],
+    clasa: [],
     open: false,
   });
   const [dataOrar, setDataOrar] = useState([]);

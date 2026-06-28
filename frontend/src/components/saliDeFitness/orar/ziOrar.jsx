@@ -21,8 +21,8 @@ function ZiOrar({ dataOrar, zi, data, getOrar, filtre}) {
       <h1 className="text-[18px] font-[700]">{zi} <span className="font-[500]">[{data}]</span></h1>
       <div className="flex flex-col gap-2">
         {classesArray.length > 0 ? (
-          classesArray.filter((clasa) => clasa.antrenor.toLowerCase().includes(filtre.antrenor.toLowerCase()) &&
-        clasa.denumire.toLowerCase().includes(filtre.clasa.toLowerCase())).map((clasa, index) => {
+          classesArray.filter((clasa) => clasa.antrenor.toLowerCase().includes() &&
+        clasa.denumire.toLowerCase().includes()).map((clasa, index) => {
             if (classesArray.length > 0) {
               return <CardClasaOrar key={index} clasa={clasa} getOrar={getOrar}/>
             }
