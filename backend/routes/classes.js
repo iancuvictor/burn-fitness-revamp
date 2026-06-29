@@ -6,7 +6,14 @@ import { protect, admin } from "./auth.js";
 import User from "../schemas/user.js";
 import Antrenor from "../schemas/listaAntrenoriAdmin.js";
 import Clasa from "../schemas/listaClaseAdmin.js";
+import cron from 'node-cron';
 const router = express.Router();
+
+// might add cron scheduler sometimes in the future
+
+// cron.schedule('0 0 1 * * ', () => {
+//   console.log('');
+// });
 
 router.post("/orarClase", admin, async (req, res) => {
   let checkAvailability = null;
@@ -20,6 +27,7 @@ router.post("/orarClase", admin, async (req, res) => {
         denumire: req.body.denumire,
         antrenor: req.body.antrenor,
         capacitate: req.body.capacitate,
+        expiryDate: new Date(new Date(req.body.data).getTime() + 7 * 24 * 60 * 60 * 1000)
       });
       res.json("clasă adăugată la orar");
     } catch (err) {
@@ -172,4 +180,21 @@ router.get('/getSelectors', async (req, res) => {
   let clasa = await Clasa.find({});
   res.status(200).json({antrenori: antrenor, clase: clasa});
 })
+
+router.post('/extindeOrarul', admin, async (req, res) => {
+  // console.log(req.body);
+  let classes = await Orar.find({data: {$in: req.body}})
+  for(let clasa of classes){
+    await Orar.create({
+      locatie: clasa.locatie,
+      zi: clasa.zi,
+      ora: clasa.ora,
+      data: new Date(new Date(clasa.data).setDate(new Date(clasa.data).getDate() + 7)),
+      denumire: clasa.denumire,
+      antrenor: clasa.antrenor,
+      capacitate: clasa.capacitate,
+    })
+  }
+  res.status(201).json({message: 'orarul a fost extins/timetable has been extended'});
+});
 export default router;

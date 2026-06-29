@@ -59,8 +59,8 @@ function PopUpAddClasa({locatie, zi, ziOrar, displayedMenus, setDisplayedMenus, 
           className="peer w-full p-2"/>
           <div className={`hidden peer-focus:flex absolute overflow-auto h-fit w-full z-1 
             bg-white flex-col gap-2 p-2 shadow-lg/20 border`}>
-            {selectors.clase.filter((clasa) => clasa.numeClasa.toLowerCase().includes(formData.denumire.toLowerCase())).map((clasa) => {
-            return <div onMouseDown={() => updateForm('denumire', clasa.numeClasa)} className="cursor-pointer">{clasa.numeClasa}</div>
+            {selectors.clase.filter((clasa) => clasa.numeClasa.toLowerCase().includes(formData.denumire.toLowerCase())).map((clasa, index) => {
+            return <div key={index} onMouseDown={() => updateForm('denumire', clasa.numeClasa)} className="cursor-pointer">{clasa.numeClasa}</div>
           })}
           </div>
         </div>
@@ -70,8 +70,8 @@ function PopUpAddClasa({locatie, zi, ziOrar, displayedMenus, setDisplayedMenus, 
           <div className={`hidden peer-focus:flex absolute overflow-auto h-fit w-full bg-white flex-col gap-2 p-2 shadow-lg/20 border`}>
             {selectors.antrenori.filter(
               (antrenor) => antrenor.numeAntrenor.toLowerCase()
-              .includes(formData.antrenor.toLowerCase())).map((antrenor) => {
-            return <div onMouseDown={() => updateForm('antrenor', antrenor.numeAntrenor)} className="cursor-pointer">{antrenor.numeAntrenor}</div>
+              .includes(formData.antrenor.toLowerCase())).map((antrenor, index) => {
+            return <div key={index} onMouseDown={() => updateForm('antrenor', antrenor.numeAntrenor)} className="cursor-pointer">{antrenor.numeAntrenor}</div>
           })}
           </div>
         </div>

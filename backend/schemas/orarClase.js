@@ -11,7 +11,8 @@ const orar = new Schema({
             inscrisi: [
                 {numeClient: {type: String, required: true},
                 idClient: {type: String, required: true}}
-            ]
+            ],
+            expiryDate: {type: Date, expires: 0}
 })
 
 

@@ -58,7 +58,7 @@ function SalaFitnessZorilor() {
   return (
     <div className="h-fit flex flex-col items-center font-finlandica pb-[50px]">
       {filtre.open && <Filtre filtre={filtre} setFiltre={setFiltre}/>}
-      <h1 className="text-[20px] md:text-[35px] font-[700] pb-[20px] pt-[30px] text-center">
+      <h1 className="text-[20px] md:text-[35px] font-[700] pb-[20px] pt-[30px] text-center text-white">
         Sala fitness ZORILOR
       </h1>
       <div

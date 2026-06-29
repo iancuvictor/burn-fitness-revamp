@@ -1,20 +1,23 @@
 import { NavLink } from "react-router";
 import videoBanner from "../../../media/BurnClujZorilor1080p.mp4";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPercent } from "@fortawesome/free-solid-svg-icons";
+import { faPercent, faX } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
 // import CardAbonament from "../abonamente/cardAbonament/cardAbonament";
 
 const navLinkStyle =
   "hover:text-redishPinkDark hover:underline underline-offset-5 duration-75 ease-out";
 
 function Banner() {
+  const [display, setDisplay] = useState(true);
   return (
     <div
-      className="relative flex flex-col h-160 w-full justify-center items-center
+      className="relative flex flex-col h-140 w-full justify-center items-center
   md:justify-center font-finlandica"
     >
-      <div className="relative z-1 flex justify-center items-center h-fit w-full bg-redishPinkDark p-3 md:p-4 gap-2
-      text-[13px] md:text-[15px] font-[600]">
+      <div className={`${display ? 'p-3 md:p-4 h-15' : 'opacity-0 h-0'}
+      relative z-1 flex justify-center items-center w-full bg-rose-500 gap-2
+      text-[12px] md:text-[15px] font-[600] duration-500 ease-out`}>
             <FontAwesomeIcon
               icon={faPercent}
               className=" leading-none inline-block h-full"
@@ -26,7 +29,10 @@ function Banner() {
                 </span>
               </h1>
             </div>
-          </div>
+            <button onClick={() => setDisplay(false)} className="cursor-pointer">
+            <FontAwesomeIcon icon={faX}/>
+            </button>
+      </div>
       <div className="absolute h-full w-full z-0 top-0 overflow-hidden">
         <div className="z-1 absolute inset-0 bg-gradient-to-r from-black from-0% via-transparent via-100% to-transparent"></div>
         <div className="z-1 absolute inset-0 bg-gradient-to-t from-black from-0% via-transparent via-10% to-transparent"></div>

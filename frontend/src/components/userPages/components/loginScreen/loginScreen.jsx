@@ -116,12 +116,13 @@ function LoginScreen() {
             Conectează-te
           </button>
         </form>
-        <button
-          className="cursor-pointer md:hover:text-[#3454E3] duration-150 ease-out text-left w-fit text-[16px]"
+        <span>
+          Nu ai cont? <button
+          className="cursor-pointer text-blue-700 hover:underline underline-offset-2 duration-150 ease-out text-left w-fit text-[16px]"
           onClick={() => setUserExists(false)}
-        >
-          Nu ai cont? Creează unul
+          >Creează unul
         </button>
+          </span>
       </div>
 
       <div
@@ -195,12 +196,14 @@ function LoginScreen() {
             Înregistrează-te
           </button>
         </form>
-        <button
-          className="cursor-pointer md:hover:text-[#3454E3] duration-150 ease-out text-left w-fit text-[16px]"
+        <span>
+          Ai cont deja? <button
+          className="cursor-pointer md:hover:text-blue-700 hover:underline underline-offset-2 duration-150 ease-out text-left w-fit text-[16px]"
           onClick={() => setUserExists(true)}
-        >
-          Ai cont deja? Conectează-te
+          >
+          <span className="text-blue-700">Conectează-te</span>
         </button>
+          </span>
       </div>
     </div>
   );

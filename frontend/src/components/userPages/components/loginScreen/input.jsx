@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function InputLogin({updateForm, error, setError, loginForm, setLoginForm, icon, inputType, fieldType, placeholder}) {
   return (
-    <div className="flex justify-center items-center relative w-full shadow-md pl-[10px] pr-[10px]">
+    <div className="flex justify-center items-center relative w-full shadow-md pl-[10px] pr-[10px] rounded-md">
       <FontAwesomeIcon icon={icon} className="text-[30px]" />
       <div className="h-15 w-100 relative duration-150 ease-out flex m-0 p-0 overflow-hidden">
         <input
@@ -23,7 +23,7 @@ function InputLogin({updateForm, error, setError, loginForm, setLoginForm, icon,
           autoComplete="off"
         />
         <span id='inputSpan'
-          className={`${loginForm[inputType] !== "" ? "text-[12px] top-0 translate-y-0 pt-[10px] pl-[10px]" : "text-[16px] top-1/2 -translate-y-1/2"}
+          className={`${loginForm[inputType] !== "" ? "z-2 text-[12px] top-0 translate-y-0 pt-[10px] pl-[10px]" : "text-[16px] top-1/2 -translate-y-1/2"}
                 ${error[inputType] ? "!text-red-500" : "text-black"}     
                 absolute z-0
                 pl-[5%]

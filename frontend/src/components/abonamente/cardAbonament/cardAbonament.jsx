@@ -131,18 +131,18 @@ useEffect(() => {
 
   } else if (tier === "premium") {
     return (
-      <div className={`ring-4 ${type === "GOLD" ? "ring-amber-400/50" : "ring-slate-600/50"} h-70 w-xs md:w-xs rounded-xl pt-2
+      <div className={`ring-4 ${type === "GOLD" ? "ring-amber-400/50" : "ring-slate-600/50"} h-70 shadow-lg shadow-amber-400/40 w-xs md:w-xs rounded-xl pt-2
       overflow-hidden cursor-pointer relative font-finlandica flex flex-col justify-between items-center bg-black 
       text-white gap-3 duration-150 ease-out`}>
         <div className="flex flex-col justify-between items-center h-40 gap-3">
           <div className="flex flex-col items-center gap-0">
             <h1
-              className={`${type === "GOLD" ? "text-[#F7B52F]" : "text-[#C3CAD9]"} font-[800] text-[30px]`}
+              className={`${type === "GOLD" ? "text-[#F7B52F]" : "text-[#C3CAD9]"} italic font-[800] text-[30px]`}
             >
               {type}
             </h1>
             <h1 className="font-bold text-[25px]">{titlu}</h1>
-            <div className="w-full flex flex-wrap pl-[20px] pr-[20px] border-box md:opacity-0 md:group-hover:opacity-100 duration-400 ease-out">
+            <div className="w-full flex flex-wrap pl-[20px] pr-[20px] border-box duration-400 ease-out">
               {preturi.map((item, index) => {
               return (
                 <div
@@ -158,7 +158,7 @@ useEffect(() => {
             })}
             </div>
           </div>
-          <p className="text-center text-[#B3B3C7] text-[14px] md:text-[16px] duration-400 ease-out pl-[10px] pr-[10px]">
+          <p className="text-center text-[#B3B3C7] text-[14px] duration-400 ease-out pl-[10px] pr-[10px]">
             {desc}
           </p>
         </div>

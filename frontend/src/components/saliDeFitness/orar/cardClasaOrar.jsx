@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../context/AuthContext";
 import axios from "axios";
 
@@ -10,6 +10,7 @@ function CardClasaOrar({ clasa, getOrar }) {
     dejaInscris: false,
     classFull: false,
     noAerobic: '',
+    expired: false,
   });
 
   const inscriereClasa = async (id) => {
@@ -26,6 +27,7 @@ function CardClasaOrar({ clasa, getOrar }) {
     }
   };
 
+  
   const renuntaLaClasa = async (id) => {
     await axios.put(
       `${API_URL}/classes/renuntaLaClasa`,
@@ -36,30 +38,56 @@ function CardClasaOrar({ clasa, getOrar }) {
     getOrar();
     setErrors({ ...errors, dejaInscris: false });
   };
+  
+  useEffect(() => {    
+    // get the data
+ let dateToday = new Date();
+ let dateNow = dateToday.getDate();
+ let hourNow = dateToday.getHours();
+ let minutesNow = dateToday.getMinutes();
 
-  useState(() => {
+ // checks
+ let dateCheck = new Date(clasa.data).getDate() - +dateNow;
+ let hourCheck = +clasa.ora.split(':')[0] - +hourNow;
+ let minutesCheck = +clasa.ora.split(':')[1] - +minutesNow;
+ 
+    function checkExpiry(){
+      if(0 > +dateCheck){
+        setErrors(prev => ({...prev, expired: true}));
+      } else if(dateCheck === 0 && 0 > +hourCheck){
+        setErrors(prev => ({...prev, expired: true}));
+      } else if(dateCheck === 0 && hourCheck === 0 && 0 > +minutesCheck){
+        setErrors(prev => ({...prev, expired: true}));
+      }
+    }
+    
+    checkExpiry();
+    
     if (user !== undefined) {
       function checkAvailability() {
         if (user.activeSubscriptions.some((subscription) => subscription.subscriptionName.toLowerCase().includes('aerobic'))) {
-          setErrors({ ...errors, noAerobic: false });
+          setErrors(prev => ({ ...prev, noAerobic: false }));
           if (user.activeClasses.some((cls) => cls.classId === clasa._id)) {
-            setErrors({ ...errors, dejaInscris: true });
+            setErrors(prev => ({ ...prev, dejaInscris: true }));
           } else if (clasa.inscrisi.length === clasa.capacitate) {
-            setErrors({ ...errors, classFull: true });
+            setErrors(prev => ({ ...prev, classFull: true }));
           }
         } else {
-          setErrors({ ...errors, noAerobic: true });
+          setErrors(prev => ({ ...prev, noAerobic: true }));
         }
       }
       checkAvailability();
     } else {
-      setErrors({ ...errors, noAerobic: true });
+      setErrors(prev => ({...prev, noAerobic: true }));
     }
     getOrar();
   }, []);
 
   return (
-    <div className="font-finlandica flex flex-col gap-1 text-[12px] md:text-[14px] ring-1 p-2 rounded-xs">
+    <div className="relative font-finlandica flex flex-col gap-1 text-[12px] md:text-[14px] ring-1 p-2 rounded-xs">
+      <div className={`${errors.expired ? 'flex' : 'hidden'} absolute top-0 left-0 w-full h-full bg-black/80 z-1 
+      text-rose-500 font-[700]
+      items-center justify-center`}>CLASA A EXPIRAT</div>
       <div className="flex justify-between items-center gap-2">
         <div className="flex md:flex-row flex-wrap gap-1">
           <span>[{clasa.ora}]</span>
@@ -72,7 +100,7 @@ function CardClasaOrar({ clasa, getOrar }) {
           <span className={`${errors.noAerobic ? 'block' : 'hidden'}`}>{clasa.inscrisi.length} / {clasa.capacitate}</span>
         </div>
         <div className="flex items-center gap-2">
-          <div className={`${errors.noAerobic ? 'w-full' : 'w-[60%]'} md:w-65 h-2 bg-gray-200 rounded`}>
+          <div className={`${errors.noAerobic ? 'w-full' : errors.expired ? 'w-full' : 'w-[60%] md:w-65'} h-2 bg-gray-200 rounded`}>
             <div
               className="h-full bg-[#6E7DFF] rounded"
               style={{
@@ -89,7 +117,7 @@ function CardClasaOrar({ clasa, getOrar }) {
 
             disabled={errors.noAerobic}
 
-            className={`${errors.noAerobic || user === undefined ? 'hidden' : 'block'} 
+            className={`${errors.noAerobic || user === undefined || errors.expired ? 'hidden' : 'block'} 
           ${errors.dejaInscris || errors.classFull ? "bg-gray-700" : "bg-rose-500"} 
           w-[40%] md:w-35 text-[13px] cursor-pointer rounded-xs text-white p-1`}
           >

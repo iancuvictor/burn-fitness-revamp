@@ -68,7 +68,7 @@ function AbonamenteAcasa() {
         <div className="flex flex-col items-center gap-5">
           <div className="text-[14px] md:text-[18px] text-white flex flex-col items-center gap-3">
             <h1 className="text-[25px] font-[600]">Abonamente simple</h1>
-            <div className="flex bg-redishPinkDark p-[10px] rounded-md">
+            <div className="flex bg-redishPinkDark p-2 rounded-md">
             <span>Vezi preturile:</span>
             <select
               onChange={(e) =>
