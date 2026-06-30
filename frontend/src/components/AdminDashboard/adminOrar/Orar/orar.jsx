@@ -12,10 +12,10 @@ function Orar({ locatie, dataOrar, getOrar }) {
 
   const extindeOrar = async () => {
     let dateArr = []
-  for(let date of dataCalendar){
-    dateArr.push(date.toISOString().split('T')[0])
-  }
-    let response = await axios.post(`${API_URL}/classes/extindeOrarul`, dateArr, {withCredentials: true});
+    for (let date of dataCalendar) {
+      dateArr.push(date.toISOString().split('T')[0])
+    }
+    let response = await axios.post(`${API_URL}/classes/extindeOrarul`, dateArr, { withCredentials: true });
     console.log(response);
   }
 
@@ -25,20 +25,20 @@ function Orar({ locatie, dataOrar, getOrar }) {
         <span>{dataCalendar[0].toLocaleDateString()} - {dataCalendar[6].toLocaleDateString()}</span>
         <div className="flex justify-center items-center gap-3">
           <button onClick={() => extindeOrar()}
-          className="cursor-pointer bg-rose-500 p-2 rounded-md text-white">Clonează orarul pe întreaga lună</button>
-          <button onClick={() => changeCalendarWeek('substract', dataCalendar, setDataCalendar)} className="cursor-pointer"><FontAwesomeIcon icon={faSquareCaretLeft}/></button>
-        <h2 className="text-[16px] md:text-[20px] font-[700]">ORAR-CLASE</h2>
-        <button onClick={() => changeCalendarWeek('add', dataCalendar, setDataCalendar)} className="cursor-pointer"><FontAwesomeIcon icon={faSquareCaretRight}/></button>
+            className="cursor-pointer bg-rose-500 p-2 rounded-md text-white">Clonează orarul pe întreaga lună</button>
+          <button onClick={() => changeCalendarWeek('substract', dataCalendar, setDataCalendar)} className="cursor-pointer"><FontAwesomeIcon icon={faSquareCaretLeft} /></button>
+          <h2 className="text-[16px] md:text-[20px] font-[700]">ORAR-CLASE</h2>
+          <button onClick={() => changeCalendarWeek('add', dataCalendar, setDataCalendar)} className="cursor-pointer"><FontAwesomeIcon icon={faSquareCaretRight} /></button>
         </div>
-        </div>
+      </div>
       <div className="relative w-full grid grid-cols-3 p-[20px] gap-4 w-full">
-        <Zi zi="Luni" locatie={locatie} ziOrar={dataCalendar[0].toLocaleDateString()} dataOrar={dataOrar} getOrar={getOrar}/>
-        <Zi zi="Marți" locatie={locatie} ziOrar={dataCalendar[1].toLocaleDateString()} dataOrar={dataOrar} getOrar={getOrar}/>
-        <Zi zi="Miercuri" locatie={locatie} ziOrar={dataCalendar[2].toLocaleDateString()} dataOrar={dataOrar} getOrar={getOrar}/>
-        <Zi zi="Joi" locatie={locatie} ziOrar={dataCalendar[3].toLocaleDateString()} dataOrar={dataOrar} getOrar={getOrar}/>
-        <Zi zi="Vineri" locatie={locatie} ziOrar={dataCalendar[4].toLocaleDateString()} dataOrar={dataOrar} getOrar={getOrar}/>
-        <Zi zi="Sâmbătă" locatie={locatie} ziOrar={dataCalendar[5].toLocaleDateString()} dataOrar={dataOrar} getOrar={getOrar}/>
-        <Zi zi="Duminică" locatie={locatie} ziOrar={dataCalendar[6].toLocaleDateString()} dataOrar={dataOrar} getOrar={getOrar}/>
+        <Zi zi="Luni" locatie={locatie} ziOrar={dataCalendar[0].toLocaleDateString()} dataOrar={dataOrar} getOrar={getOrar} />
+        <Zi zi="Marți" locatie={locatie} ziOrar={dataCalendar[1].toLocaleDateString()} dataOrar={dataOrar} getOrar={getOrar} />
+        <Zi zi="Miercuri" locatie={locatie} ziOrar={dataCalendar[2].toLocaleDateString()} dataOrar={dataOrar} getOrar={getOrar} />
+        <Zi zi="Joi" locatie={locatie} ziOrar={dataCalendar[3].toLocaleDateString()} dataOrar={dataOrar} getOrar={getOrar} />
+        <Zi zi="Vineri" locatie={locatie} ziOrar={dataCalendar[4].toLocaleDateString()} dataOrar={dataOrar} getOrar={getOrar} />
+        <Zi zi="Sâmbătă" locatie={locatie} ziOrar={dataCalendar[5].toLocaleDateString()} dataOrar={dataOrar} getOrar={getOrar} />
+        <Zi zi="Duminică" locatie={locatie} ziOrar={dataCalendar[6].toLocaleDateString()} dataOrar={dataOrar} getOrar={getOrar} />
       </div>
     </div>
   );

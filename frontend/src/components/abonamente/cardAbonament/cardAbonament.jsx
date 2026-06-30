@@ -68,7 +68,6 @@ useEffect(() => {
           <h1 className={`font-[700] text-[22px] md:text-[30px] text-white text-center`}>
             {titlu}
           </h1>
-          {console.log(desc)}
           <h2 className={`${desc === '' ? 'hidden' : 'block'} text-[16px] text-center`}>
             {desc}
           </h2>

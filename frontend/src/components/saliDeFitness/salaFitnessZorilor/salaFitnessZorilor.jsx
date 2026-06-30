@@ -14,6 +14,7 @@ import { Filtre } from "../../index";
 // calendar functions
 import { changeCalendarWeek, setDateOrar } from "../orar/utils";
 import { AuthContext } from "../../../context/AuthContext";
+import { NavLink } from "react-router";
 
 const API_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -58,9 +59,12 @@ function SalaFitnessZorilor() {
   return (
     <div className="h-fit flex flex-col items-center font-finlandica pb-[50px]">
       {filtre.open && <Filtre filtre={filtre} setFiltre={setFiltre}/>}
-      <h1 className="text-[20px] md:text-[35px] font-[700] pb-[20px] pt-[30px] text-center text-white">
+      <div className="relative h-fit flex items-center gap-3 pb-5 pt-5">
+        <NavLink to='/orar-clase' className="block md:hidden text-white font-[600] justify-self-start ring-1 rounded-xs p-1"><FontAwesomeIcon icon={faSquareCaretLeft}/> Înapoi</NavLink>
+        <h1 className="text-[20px] md:text-[35px] font-[700] text-center text-white justify-self-center">
         Sala fitness ZORILOR
-      </h1>
+        </h1>
+      </div>
       <div
         id="orar"
         className="h-fit flex flex-col items-center shadow-xl p-[25px] rounded-xl bg-white gap-5"

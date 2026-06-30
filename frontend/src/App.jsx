@@ -7,6 +7,7 @@ import {
   Footer,
   Acasa,
   Abonamente,
+  Clase,
   OrarClase,
   Blog,
   Galerie,
@@ -59,7 +60,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Acasa />} />
           <Route path="/abonamente" element={<Abonamente />} />
-          <Route path="/orar-clase" element={<OrarClase />} />
+          <Route path="/clase" element={<Clase />} />
+          <Route path="/clase/orar" element={<OrarClase />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/galerie" element={<Galerie />} />
           <Route path="/salidefitness" element={<SaliDeFitness />} />

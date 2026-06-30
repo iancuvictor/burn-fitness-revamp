@@ -6,9 +6,12 @@ import { faFacebookSquare, faInstagramSquare } from '@fortawesome/free-brands-sv
 import { AuthContext } from "../../context/AuthContext";
 import { useContext } from 'react';
 
+const buttonClass = ({isActive}) => `${isActive ? 'z-1 text-white underline underline-offset-5' :
+     'hover:text-white hover:underline underline-offset-5 duration-150'} 
+     w-50 md:w-fit pt-2 pb-2 flex items-center justify-center gap-2`
+
 function Navbar({menuState, setMenuState}){
     const { isAdmin } = useContext(AuthContext)
-    const buttonClass = ({isActive}) => `${isActive ? 'z-1 text-white underline underline-offset-5' : 'hover:text-white hover:underline underline-offset-5 duration-150'} w-50 md:w-fit flex items-center justify-center gap-2`
     return <>
     <div id='navbar' className={`${isAdmin === false ? 'md:flex' : 'hidden'} bg-black/95 hidden z-4 sticky top-0 w-full h-20 gap-5 items-center md:justify-between xl:justify-evenly font-[600]`}>
      {/* <div className="z-[-1] h-full absolute inset-0 bg-gradient-to-b from-black from-0% via-black via-50% to-black via-70% to-transparent to-100%"></div> */}
@@ -16,7 +19,8 @@ function Navbar({menuState, setMenuState}){
         <div className='hidden md:flex flex-wrap text-gray-500 text-[16px] gap-2.5 xl:gap-5 items-center justify-end md:pr-[20px]'>
             <NavLink to="/" className={buttonClass}>Acasa</NavLink>
             <NavLink to="/abonamente" className={buttonClass}>Abonamente</NavLink>
-            <NavLink to="/orar-clase" className={buttonClass}>Clase</NavLink>
+            <NavLink to="/clase" className={buttonClass}>Clase</NavLink>
+            <NavLink to="/clase/orar" className={buttonClass}>Orar Clase</NavLink>
             <NavLink to="/salidefitness" className={buttonClass}>Săli fitness</NavLink>
             {/* <NavLink to="/blog" className={buttonClass}>Blog</NavLink> */}
             {/* <NavLink to="/galerie" className={buttonClass}>Galerie foto</NavLink> */}
@@ -41,12 +45,13 @@ function Navbar({menuState, setMenuState}){
         className={`${menuState ? 'w-10 opacity-0' : 'opacity-100 w-10 md:hidden cursor-pointer text-white'} text-[25px] pr-[50px] duration-100 ease-out`}
         ><FontAwesomeIcon icon={faBars} /></button>
     </div>
-    <div id='mobileBurger' className={menuState ? 'z-3 animate-fade-in flex flex-col fixed top-0 justify-center items-center gap-5 w-full h-full bg-black font-finlandica font-bold text-gray-500 text-[25px] md:hidden' : 'animate-fade-out hidden'}>
+    <div id='mobileBurger' className={menuState ? 'z-3 animate-fade-in flex flex-col fixed top-0 justify-center items-center w-full h-full bg-black font-finlandica font-bold text-gray-500 text-[25px] md:hidden' : 'animate-fade-out hidden'}>
         <div onClick={() => setMenuState(!menuState)} className='fixed z-[-1] h-full w-full'></div>
         <img src={BurnLogo} alt="burn fitness logo" className='w-40 pb-[20px] box-border' onClick={() => setMenuState(!menuState)}/>
         <NavLink to="/" className={buttonClass} onClick={() => setMenuState(!menuState)}>Acasa</NavLink>
         <NavLink to="/abonamente" className={buttonClass} onClick={() => setMenuState(!menuState)}>Abonamente</NavLink>
-        <NavLink to="/orar-clase" className={buttonClass} onClick={() => setMenuState(!menuState)}>Clase</NavLink>
+        <NavLink to="/clase" end className={buttonClass} onClick={() => setMenuState(!menuState)}>Clase</NavLink>
+        <NavLink to="/clase/orar" className={buttonClass} onClick={() => setMenuState(!menuState)}>Orar clase</NavLink>
         <NavLink to="/salidefitness" className={buttonClass} onClick={() => setMenuState(!menuState)}>Săli fitness</NavLink>
         {/* <NavLink to="/blog" className={buttonClass} onClick={() => setMenuState(!menuState)}>Blog</NavLink> */}
         {/* <NavLink to="/galerie" className={buttonClass} onClick={() => setMenuState(!menuState)}>Galerie foto</NavLink> */}

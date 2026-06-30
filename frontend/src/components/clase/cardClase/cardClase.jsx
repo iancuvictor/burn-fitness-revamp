@@ -1,9 +1,8 @@
 function CardClase(props) {
   return (
     <div
-      id="test"
       className="cursor-pointer group bg-black relative flex flex-col justify-baseline items-center 
-      w-full md:w-xs h-90 font-finlandica rounded-xl overflow-hidden"
+      w-fit h-[50%] md:w-xs md:h-90 font-finlandica rounded-xl overflow-hidden"
     >
         <div className=" z-1 absolute top-0 w-full h-full md:opacity-30 md:bg-black hover:opacity-0 duration-400"></div>
       <div className="relative flex flex-col justify-baseline items-center w-full md:w-xs h-90 overflow-hidden">

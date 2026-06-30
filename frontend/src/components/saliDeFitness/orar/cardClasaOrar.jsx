@@ -42,21 +42,25 @@ function CardClasaOrar({ clasa, getOrar }) {
   useEffect(() => {    
     // get the data
  let dateToday = new Date();
+ let monthNow = dateToday.getMonth();
  let dateNow = dateToday.getDate();
  let hourNow = dateToday.getHours();
  let minutesNow = dateToday.getMinutes();
 
  // checks
+ let monthCheck = new Date(clasa.data).getMonth() - +monthNow;
  let dateCheck = new Date(clasa.data).getDate() - +dateNow;
  let hourCheck = +clasa.ora.split(':')[0] - +hourNow;
  let minutesCheck = +clasa.ora.split(':')[1] - +minutesNow;
  
     function checkExpiry(){
-      if(0 > +dateCheck){
+      if(0 > +monthCheck){
         setErrors(prev => ({...prev, expired: true}));
-      } else if(dateCheck === 0 && 0 > +hourCheck){
+      } else if(+monthCheck === 0 && 0 > +dateCheck){
         setErrors(prev => ({...prev, expired: true}));
-      } else if(dateCheck === 0 && hourCheck === 0 && 0 > +minutesCheck){
+      } else if(+dateCheck === 0 && 0 > +hourCheck){
+        setErrors(prev => ({...prev, expired: true}));
+      } else if(+dateCheck === 0 && hourCheck === 0 && 0 > +minutesCheck){
         setErrors(prev => ({...prev, expired: true}));
       }
     }
@@ -84,14 +88,14 @@ function CardClasaOrar({ clasa, getOrar }) {
   }, []);
 
   return (
-    <div className="relative font-finlandica flex flex-col gap-1 text-[12px] md:text-[14px] ring-1 p-2 rounded-xs">
+    <div className="relative font-finlandica flex flex-col gap-1 text-[12px] md:text-[14px] min-h-16 md:min-h-20 ring-1 p-2 rounded-xs">
       <div className={`${errors.expired ? 'flex' : 'hidden'} absolute top-0 left-0 w-full h-full bg-black/80 z-1 
       text-rose-500 font-[700]
       items-center justify-center`}>CLASA A EXPIRAT</div>
       <div className="flex justify-between items-center gap-2">
-        <div className="flex md:flex-row flex-wrap gap-1">
+        <div className="flex md:flex-row flex-wrap gap-1 items-center justify-center">
           <span>[{clasa.ora}]</span>
-          <span className="font-[600] underline underline-offset-2">{clasa.denumire}</span>
+          <span className="font-[600] text-[14px] underline underline-offset-2">{clasa.denumire}</span>
           <span className="text-rose-500 font-[600]">{clasa.antrenor}</span>
         </div>
       </div>
@@ -108,6 +112,7 @@ function CardClasaOrar({ clasa, getOrar }) {
               }}
             />
           </div>
+          {errors.noAerobic === false && user !== undefined && errors.expired === false ? (
           <button
             onClick={
               errors.dejaInscris
@@ -117,14 +122,13 @@ function CardClasaOrar({ clasa, getOrar }) {
 
             disabled={errors.noAerobic}
 
-            className={`${errors.noAerobic || user === undefined || errors.expired ? 'hidden' : 'block'} 
-          ${errors.dejaInscris || errors.classFull ? "bg-gray-700" : "bg-rose-500"} 
+            className={`${errors.dejaInscris || errors.classFull ? "bg-gray-700" : "bg-rose-500"} 
           w-[40%] md:w-35 text-[13px] cursor-pointer rounded-xs text-white p-1`}
           >
             {errors.dejaInscris
               ? "Renunță"
               : `Înscrie-te ${clasa.inscrisi.length} / ${clasa.capacitate}`}
-          </button>
+          </button>) : null}
         </div>
       </div>
     </div>
