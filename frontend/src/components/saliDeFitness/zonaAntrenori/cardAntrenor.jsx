@@ -55,8 +55,6 @@ export default function CardAntrenor({ antrenor }) {
 
 
     if (isAdmin) {
-
-
         // pt admin
         return <div className='flex gap-5 w-full'>
             <div className='bg-white text-black p-5 flex flex-col items-center justify-center gap-5 rounded-md w-fit'>
@@ -84,30 +82,33 @@ export default function CardAntrenor({ antrenor }) {
                     <button onClick={() => setForm({ ...form, calificari: [...form.calificari, { calificare: '' }] })}
                         className="cursor-pointer bg-white text-black p-1 w-fit"><FontAwesomeIcon icon={faPlus} /></button>
                 </div>
-                <textarea onChange={(e) => updateForm('descriere', e.target.value)} type="text" name="" id="" value={form.descriere} className="text-white w-full" />
+                <textarea onChange={(e) => updateForm('descriere', e.target.value)} type="text" name="" id="" value={form.descriere} 
+                className="text-white w-full min-h-50" />
             </div>
         </div>
     } else {
 
         // pentru utilizatori
-        return <div className='flex gap-5 w-full'>
+        return <div className='flex flex-col items-center md:flex-row w-full gap-5 md:w-4xl'>
             <div className='bg-white text-black p-5 flex flex-col items-center justify-center gap-5 rounded-md w-fit'>
-                <img src={`${API_URL}/uploads/POZEPROFIL/ANTRENORI/${antrenor.pozaProfil}`} alt="" className='w-xs' />
-                <h1 className='font-[700] text-[25px]'>{antrenor.nume}</h1>
+                <div className="w-50 h-50 md:w-100 md:h-100">
+                <img src={`${API_URL}/uploads/POZEPROFIL/ANTRENORI/${antrenor.pozaProfil}`} alt="" className='h-full w-full object-cover' />
+                </div>
+                <h1 className='font-[700] md:text-[25px]'>{antrenor.nume}</h1>
             </div>
             <div className="w-full">
                 <div className='text-gray-400'>
                     {antrenor.functii.map((functie, index) => {
                         return <span key={index}>{functie.functie} | </span>
                     })}
-                    <button onClick={() => setForm({ ...form, functii: [...form.functii, { functie: '' }] })} className="cursor-pointer"><FontAwesomeIcon icon={faPlus} /></button>
                 </div>
-                <div className='text-white'>
+                <div className='text-white flex flex-col'>
                     {antrenor.calificari.map((calificare, index) => {
                         return <span key={index}><FontAwesomeIcon icon={faChevronRight} /> {calificare.calificare} | </span>
                     })}
                 </div>
-                <p className='text-white'>{antrenor.descriere}</p>
+                <div className="w-full h-[2px] mt-2 mb-2 bg-white rounded-md"></div>
+                <p className='text-white text-[16px] text-justify'>{antrenor.descriere}</p>
             </div>
         </div>
     }

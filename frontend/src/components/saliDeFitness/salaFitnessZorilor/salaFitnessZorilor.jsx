@@ -24,7 +24,7 @@ function SalaFitnessZorilor() {
           Sala fitness ZORILOR
         </h1>
       </div>
-      <div className="flex flex-row gap-10">
+      <div className="flex flex-col md:flex-row gap-10">
         <div className="flex flex-col gap-3 text-white">
           <h1 className="text-[24px] font-[700]">Ce oferim la Burn Fitness Zorilor?</h1>
         </div>
@@ -38,16 +38,19 @@ function SalaFitnessZorilor() {
           programDuminica="10:00 - 17:00"
         />
       </div>
-
-
       {/* sectiune antrenori */}
+      <div className="pl-1 pr-1">
+
         <ZonaAntrenori/>
         {isAdmin && <button onClick={() => {
           setAdminMenuDisplay({...adminMenuDisplay, adaugaAntrenor: true})
-        document.body.style.overflow = 'hidden'}} 
-        className="text-white cursor-pointer">ADAUGĂ ANTRENOR</button>}
+          document.body.style.overflow = 'hidden'}} 
+          className="cursor-pointer bg-white text-black p-3">ADAUGĂ ANTRENOR</button>}
         {adminMenuDisplay.adaugaAntrenor && <PopUpAdaugaAntrenor adminMenuDisplay={adminMenuDisplay} setAdminMenuDisplay={setAdminMenuDisplay}/>}
-      <CalendarOrar locatie='zorilor' />
+          </div>
+          <div id='orar' className="w-full">
+        <CalendarOrar locatie='zorilor' />
+          </div>
     </div>
   );
 }

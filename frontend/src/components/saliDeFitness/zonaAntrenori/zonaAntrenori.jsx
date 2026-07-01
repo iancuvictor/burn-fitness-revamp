@@ -22,9 +22,8 @@ export default function ZonaAntrenori(){
         getData()
     }, [])
     return <div className='flex flex-col items-center gap-10 w-full'>
-        <h1 className='text-white text-[30px] font-[700]'>Antrenorii sălii noastre</h1>
+        <h1 className='text-white text-[28px] md:text-[30px] font-[700]'>Antrenorii sălii noastre</h1>
         <div className='flex flex-col justify-center items-center gap-5'>
-
         {data !== undefined && data.map((antrenor, index) => {
             return <CardAntrenor key={index} antrenor={antrenor}/>
         })}
