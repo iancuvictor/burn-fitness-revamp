@@ -22,11 +22,13 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/adaugaAbonament", admin, async (req, res) => {
+  console.log(req.body);
   try {
     await Abonament.create({
       highlighted: req.body.highlighted,
       reducereAplicabila: req.body.reducereAplicabila,
       tier: req.body.tier,
+      tierName: req.body.tierName,
       titlu: req.body.titlu,
       desc: req.body.desc,
       preturi: req.body.preturi,
@@ -105,6 +107,7 @@ router.post("/ziGratis", async (req, res) => {
 });
 
 router.put("/updateAbonament", admin, async (req, res) => {
+  console.log(req.body);
   await Abonament.updateOne({ _id: req.body._id }, { $set: req.body });
   res.json("Abonament actualizat");
 });

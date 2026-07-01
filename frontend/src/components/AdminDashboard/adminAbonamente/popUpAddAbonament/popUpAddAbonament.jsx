@@ -6,9 +6,10 @@ const API_URL = import.meta.env.VITE_BACKEND_URL;
 
 function PopUpAddAbonament({ displayedMenus, setDisplayedMenus, getData }) {
   const defaultFormData = {
-    highlighted: '',
-    reducereAplicabila: '',
+    highlighted: false,
+    reducereAplicabila: false,
     tier: "regular",
+    tierName: '',
     titlu: "",
     desc: "",
     preturi: [],
@@ -60,6 +61,13 @@ function PopUpAddAbonament({ displayedMenus, setDisplayedMenus, getData }) {
             <select onChange={(e) => updateForm("tier", e.target.value)}>
               <option value="regular">Regular</option>
               <option value="premium">Premium</option>
+            </select>
+          </div>
+          <div className="flex gap-2">
+            <span>Nume tier: </span>
+            <select onChange={(e) => updateForm("tierName", e.target.value)}>
+              <option value="GOLD">GOLD</option>
+              <option value="SILVER">SILVER</option>
             </select>
           </div>
           <div className="flex w-full gap-10">

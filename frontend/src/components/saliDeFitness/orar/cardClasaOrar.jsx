@@ -1,10 +1,11 @@
-import { useContext, useEffect, useState } from "react";
+import { React, useContext, useEffect, useState } from "react";
+import { memo } from "react";
 import { AuthContext } from "../../../context/AuthContext";
 import axios from "axios";
 
 const API_URL = import.meta.env.VITE_BACKEND_URL;
 
-function CardClasaOrar({ clasa, getOrar }) {
+function CardClasaOrar({ clasa, getOrar, calendarDate }) {
   const { user } = useContext(AuthContext);
   const [errors, setErrors] = useState({
     dejaInscris: false,
@@ -26,7 +27,6 @@ function CardClasaOrar({ clasa, getOrar }) {
       setErrors({ ...errors, classFull: true });
     }
   };
-
   
   const renuntaLaClasa = async (id) => {
     await axios.put(
@@ -39,7 +39,7 @@ function CardClasaOrar({ clasa, getOrar }) {
     setErrors({ ...errors, dejaInscris: false });
   };
   
-  useEffect(() => {    
+  useEffect(() => { 
     // get the data
  let dateToday = new Date();
  let monthNow = dateToday.getMonth();
@@ -62,6 +62,8 @@ function CardClasaOrar({ clasa, getOrar }) {
         setErrors(prev => ({...prev, expired: true}));
       } else if(+dateCheck === 0 && hourCheck === 0 && 0 > +minutesCheck){
         setErrors(prev => ({...prev, expired: true}));
+      } else {
+        setErrors(prev => ({...prev, expired: false}));
       }
     }
     
@@ -84,8 +86,8 @@ function CardClasaOrar({ clasa, getOrar }) {
     } else {
       setErrors(prev => ({...prev, noAerobic: true }));
     }
-    getOrar();
-  }, []);
+    // getOrar();
+  }, [calendarDate]);
 
   return (
     <div className="relative font-finlandica flex flex-col gap-1 text-[12px] md:text-[14px] min-h-16 md:min-h-20 ring-1 p-2 rounded-xs">
@@ -112,7 +114,7 @@ function CardClasaOrar({ clasa, getOrar }) {
               }}
             />
           </div>
-          {errors.noAerobic === false && user !== undefined && errors.expired === false ? (
+          {errors.noAerobic === false && user !== undefined && errors.expired === false &&
           <button
             onClick={
               errors.dejaInscris
@@ -128,7 +130,7 @@ function CardClasaOrar({ clasa, getOrar }) {
             {errors.dejaInscris
               ? "Renunță"
               : `Înscrie-te ${clasa.inscrisi.length} / ${clasa.capacitate}`}
-          </button>) : null}
+          </button>}
         </div>
       </div>
     </div>

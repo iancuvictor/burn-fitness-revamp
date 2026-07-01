@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import userRoutes from './routes/users.js';
 import classesRoutes from './routes/classes.js';
 import abonamenteRoutes from './routes/subscriptions.js';
+import publicRoutes from './routes/publicPages.js';
 import cors from 'cors'
 import cookieParser from "cookie-parser";
 
@@ -27,6 +28,7 @@ mongoose
 server.use('/api/users', userRoutes);
 server.use('/api/classes', classesRoutes);
 server.use('/api/abonamente', abonamenteRoutes);
+server.use('/api/publicPages', publicRoutes);
 
 server.listen(port, () => {
       console.log(`Server up and running on ${port}`);

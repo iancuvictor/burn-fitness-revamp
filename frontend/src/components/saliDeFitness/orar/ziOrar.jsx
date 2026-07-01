@@ -1,12 +1,6 @@
-import axios from "axios";
-import { useState, useContext } from "react";
-import { AuthContext } from "../../../context/AuthContext";
 import CardClasaOrar from "./cardClasaOrar";
 
-const API_URL = import.meta.env.VITE_BACKEND_URL
-
-function ZiOrar({ dataOrar, zi, data, getOrar, filtre }) {
-  const { user } = useContext(AuthContext);
+function ZiOrar({ dataOrar, zi, data, getOrar, filtre, calendarDate }) {
 
   let classesArray = [];
   for (let clasa of dataOrar) {
@@ -27,7 +21,7 @@ function ZiOrar({ dataOrar, zi, data, getOrar, filtre }) {
         {classesArray.length > 0 ? (checkFilter.length > 0 ?
           checkFilter.map((clasa, index) => {
               if (classesArray.length > 0) {
-                return <CardClasaOrar key={index} clasa={clasa} getOrar={getOrar} />
+                return <CardClasaOrar key={index} clasa={clasa} getOrar={getOrar} data={data} calendarDate={calendarDate}/>
               }
             })
         : (

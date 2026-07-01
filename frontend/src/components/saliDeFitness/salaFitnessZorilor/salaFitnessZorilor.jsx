@@ -1,167 +1,53 @@
-import { useContext, useEffect, useState } from "react";
-import axios from "axios";
-import ZiOrar from "../orar/ziOrar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCheckCircle as faCheckCircleSolid,
-  faFilter,
-  faSquareCaretLeft,
-  faSquareCaretRight,
-} from "@fortawesome/free-solid-svg-icons";
-import { faCheckCircle as faCheckCircleRegular } from "@fortawesome/free-regular-svg-icons";
-import { Filtre } from "../../index";
-
-// calendar functions
-import { changeCalendarWeek, setDateOrar } from "../orar/utils";
-import { AuthContext } from "../../../context/AuthContext";
+import { faSquareCaretLeft } from "@fortawesome/free-solid-svg-icons";
 import { NavLink } from "react-router";
+import CalendarOrar from "../orar/calendarOrar";
+import BlockContact from "../../contact/blockContact/blockContact";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../../context/AuthContext";
+import PopUpAdaugaAntrenor from "../../AdminDashboard/adminPaginiPublice/popUpAdaugaAntrenor";
+import ZonaAntrenori from "../zonaAntrenori/zonaAntrenori";
 
-const API_URL = import.meta.env.VITE_BACKEND_URL;
 
 function SalaFitnessZorilor() {
-  const { user, selectors } = useContext(AuthContext);
-  const [filtre, setFiltre] = useState({
-    antrenor: [],
-    clasa: [],
-    open: false,
-  });
-  const [dataOrar, setDataOrar] = useState([]);
-  const [dateCalendar, setDateCalendar] = useState(setDateOrar());
-  const [errors, setErrors] = useState({
-    noAerobic: "",
-  });
-
-  async function getOrar() {
-    let response = await axios.get(
-      `${API_URL}/classes/orarClase?locatie=zorilor`,
-    );
-    // console.log(response.data);
-    setDataOrar(response.data);
-  }
-  useEffect(() => {
-    if (user !== undefined) {
-      if (
-        user.activeSubscriptions.some((subscription) =>
-          subscription.subscriptionName.toLowerCase().includes("aerobic"),
-        )
-      ) {
-        setErrors({ ...errors, noAerobic: false });
-      } else {
-        setErrors({ ...errors, noAerobic: true });
-      }
-    } else {
-      setErrors({ ...errors, noAerobic: true });
-    }
-
-    getOrar();
-  }, []);
+  const [adminMenuDisplay, setAdminMenuDisplay] = useState({
+    adaugaAntrenor: false,
+  })
+  const {isAdmin} = useContext(AuthContext);
 
   return (
-    <div className="h-fit flex flex-col items-center font-finlandica pb-[50px]">
-      {filtre.open && <Filtre filtre={filtre} setFiltre={setFiltre}/>}
+    <div className="h-fit flex flex-col items-center font-finlandica pb-[50px] gap-10 pl-5 pr-5">
       <div className="relative h-fit flex items-center gap-3 pb-5 pt-5">
-        <NavLink to='/orar-clase' className="block md:hidden text-white font-[600] justify-self-start ring-1 rounded-xs p-1"><FontAwesomeIcon icon={faSquareCaretLeft}/> Înapoi</NavLink>
+        <NavLink to='/clase/orar' className="block md:hidden text-white font-[600] justify-self-start ring-1 rounded-xs p-1">
+          <FontAwesomeIcon icon={faSquareCaretLeft} /> Înapoi</NavLink>
         <h1 className="text-[20px] md:text-[35px] font-[700] text-center text-white justify-self-center">
-        Sala fitness ZORILOR
+          Sala fitness ZORILOR
         </h1>
       </div>
-      <div
-        id="orar"
-        className="h-fit flex flex-col items-center shadow-xl p-[25px] rounded-xl bg-white gap-5"
-      >
-        <div className="flex flex-row items-center gap-5">
-          <button onClick={() => setFiltre({...filtre, open: true})} 
-          className="cursor-pointer bg-black p-2 rounded-md text-white text-[14px] font-[500]">FILTRE <FontAwesomeIcon icon={faFilter} /></button>
-          <div className="flex flex-col items-center">
-            <span>
-              {dateCalendar[0].toLocaleDateString()} -{" "}
-              {dateCalendar[6].toLocaleDateString()}
-            </span>
-            <div className="flex justify-center items-center gap-3">
-              <button
-                onClick={() =>
-                  changeCalendarWeek("substract", dateCalendar, setDateCalendar)
-                }
-                className="cursor-pointer"
-              >
-                <FontAwesomeIcon icon={faSquareCaretLeft} />
-              </button>
-              <h2 className="text-[16px] md:text-[20px] font-[700]">
-                ORAR-CLASE
-              </h2>
-              <button
-                onClick={() =>
-                  changeCalendarWeek("add", dateCalendar, setDateCalendar)
-                }
-                className="cursor-pointer"
-              >
-                <FontAwesomeIcon icon={faSquareCaretRight} />
-              </button>
-            </div>
-          </div>
+      <div className="flex flex-row gap-10">
+        <div className="flex flex-col gap-3 text-white">
+          <h1 className="text-[24px] font-[700]">Ce oferim la Burn Fitness Zorilor?</h1>
         </div>
-          <span
-            className={`${errors.noAerobic ? "block" : "hidden"} text-red-500`}
-          >
-            Ai nevoie de abonament AEROBIC pentru a te înscrie
-          </span>
-        <div
-          className="flex flex-row gap-2 text-[14px]
-          md:text-[16px]"
-        >
-        </div>
-        <div className="h-fit flex flex-col md:grid md:grid-cols-4 gap-10 md:gap-5">
-          <ZiOrar
-            dataOrar={dataOrar}
-            zi="Luni"
-            data={dateCalendar[0].toLocaleDateString()}
-            getOrar={getOrar}
-            filtre={filtre}
-          />
-          <ZiOrar
-            dataOrar={dataOrar}
-            zi="Marți"
-            data={dateCalendar[1].toLocaleDateString()}
-            getOrar={getOrar}
-            filtre={filtre}
-          />
-          <ZiOrar
-            dataOrar={dataOrar}
-            zi="Miercuri"
-            data={dateCalendar[2].toLocaleDateString()}
-            getOrar={getOrar}
-            filtre={filtre}
-          />
-          <ZiOrar
-            dataOrar={dataOrar}
-            zi="Joi"
-            data={dateCalendar[3].toLocaleDateString()}
-            getOrar={getOrar}
-            filtre={filtre}
-          />
-          <ZiOrar
-            dataOrar={dataOrar}
-            zi="Vineri"
-            data={dateCalendar[4].toLocaleDateString()}
-            getOrar={getOrar}
-            filtre={filtre}
-          />
-          <ZiOrar
-            dataOrar={dataOrar}
-            zi="Sâmbătă"
-            data={dateCalendar[5].toLocaleDateString()}
-            getOrar={getOrar}
-            filtre={filtre}
-          />
-          <ZiOrar
-            dataOrar={dataOrar}
-            zi="Duminică"
-            data={dateCalendar[6].toLocaleDateString()}
-            getOrar={getOrar}
-            filtre={filtre}
-          />
-        </div>
+        <BlockContact
+          locatie="Zorilor"
+          nrTel="0771 511 431"
+          adresa="Louis Pasteur 58, Cluj-Napoca"
+          linkAdresa='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10933.941538443678!2d23.557627201080333!3d46.75532824825045!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47490e78b14ef555%3A0x82da4b4e100cf036!2sBurn%20Cluj!5e0!3m2!1sen!2sro!4v1780302279546!5m2!1sen!2sro"'
+          programLuniVineri="06:00 - 23:00"
+          programSambata="9:00 - 18:00"
+          programDuminica="10:00 - 17:00"
+        />
       </div>
+
+
+      {/* sectiune antrenori */}
+        <ZonaAntrenori/>
+        {isAdmin && <button onClick={() => {
+          setAdminMenuDisplay({...adminMenuDisplay, adaugaAntrenor: true})
+        document.body.style.overflow = 'hidden'}} 
+        className="text-white cursor-pointer">ADAUGĂ ANTRENOR</button>}
+        {adminMenuDisplay.adaugaAntrenor && <PopUpAdaugaAntrenor adminMenuDisplay={adminMenuDisplay} setAdminMenuDisplay={setAdminMenuDisplay}/>}
+      <CalendarOrar locatie='zorilor' />
     </div>
   );
 }

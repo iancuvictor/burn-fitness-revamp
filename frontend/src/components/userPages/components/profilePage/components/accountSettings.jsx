@@ -30,8 +30,8 @@ function AccountSettings() {
     data.append("displayName", formData.displayName);
     data.append("email", formData.email);
     data.append("nrTelefon", formData.nrTelefon);
-    (data.append("dataNasterii", formData.dataNasterii),
-      data.append("pozaProfil", formData.pozaProfil));
+    data.append("dataNasterii", formData.dataNasterii);
+    data.append("pozaProfil", formData.pozaProfil);
     try {
       await axios.post(`${API_URL}/users/updateProfile`, data, {
         withCredentials: true,

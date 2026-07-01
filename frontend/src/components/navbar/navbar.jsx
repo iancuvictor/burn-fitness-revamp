@@ -19,7 +19,7 @@ function Navbar({menuState, setMenuState}){
         <div className='hidden md:flex flex-wrap text-gray-500 text-[16px] gap-2.5 xl:gap-5 items-center justify-end md:pr-[20px]'>
             <NavLink to="/" className={buttonClass}>Acasa</NavLink>
             <NavLink to="/abonamente" className={buttonClass}>Abonamente</NavLink>
-            <NavLink to="/clase" className={buttonClass}>Clase</NavLink>
+            <NavLink to="/clase" end className={buttonClass}>Clase</NavLink>
             <NavLink to="/clase/orar" className={buttonClass}>Orar Clase</NavLink>
             <NavLink to="/salidefitness" className={buttonClass}>Săli fitness</NavLink>
             {/* <NavLink to="/blog" className={buttonClass}>Blog</NavLink> */}

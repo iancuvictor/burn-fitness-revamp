@@ -45,7 +45,7 @@ export default function Filtre({ filtre, setFiltre }) {
                 <div className="w-full flex flex-col gap-2 items-start">
                     <div className="flex flex-col w-full">
                         <button onClick={() => setFilterUI({ ...filterUI, clase: !filterUI.clase, antrenori: false })}
-                            className="flex justify-between w-full font-[700] text-[16px]"><span>CLASE: </span><FontAwesomeIcon icon={filterUI.clase ? faCaretDown : faCaretUp} /></button>
+                            className="cursor-pointer flex justify-between w-full font-[700] text-[16px]"><span>CLASE: </span><FontAwesomeIcon icon={filterUI.clase ? faCaretDown : faCaretUp} /></button>
                         <span className="text-[13px] text-gray-700 font-[400">
                             {filtre.clasa.map((filtru, index) => {
                                 return <span key={index}>{filtru} | </span>
@@ -66,7 +66,7 @@ export default function Filtre({ filtre, setFiltre }) {
                     </div>
                     <div className="flex flex-col w-full">
                         <button onClick={() => setFilterUI({ ...filterUI, antrenori: !filterUI.antrenori, clase: false })}
-                            className="flex justify-between w-full font-[700] text-[16px">
+                            className="cursor-pointer flex justify-between w-full font-[700] text-[16px">
                             <span>ANTRENORI: </span>
                             <FontAwesomeIcon icon={filterUI.antrenori ? faCaretDown : faCaretUp} /></button>
                         <span className="text-[13px] text-gray-700 font-[400]">
@@ -96,8 +96,10 @@ export default function Filtre({ filtre, setFiltre }) {
                 toast.success('Filtrele au fost șterse');
                 setFiltre({ ...filtre, antrenor: [], clasa: [] })
             }}
-                className={`${filtre.clasa.length !== 0 || filtre.antrenor.length !== 0 ? 'flex p-3 opacity-100' : 'h-0 p-0 opacity-0'}
-                 cursor-pointer bg-rose-500 text-white w-full rounded-md duration-300 ease-out`}>Șterge filtrele</button>
+                className={`${filtre.clasa.length !== 0 || filtre.antrenor.length !== 0 ? 'p-3 opacity-100' : 'h-0 p-0 opacity-0'}
+                 cursor-pointer bg-black text-white w-full rounded-md duration-300 ease-out`}>Șterge filtrele</button>
+                 <button onClick={() => setFiltre({...filtre, open: false })}
+                    className="cursor-pointer bg-rose-500 p-3 w-full rounded-md text-white">Închide filtrele</button>
         </div>
     </div>
 }

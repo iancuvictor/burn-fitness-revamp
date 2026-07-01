@@ -20,7 +20,7 @@ export {default as AdminDashboard} from './AdminDashboard/adminDashboard.jsx';
 export {default as AdminUsers} from './AdminDashboard/adminUsers.jsx';
 export {default as AdminOrar} from './AdminDashboard/adminOrar/adminOrar.jsx';
 export {default as AdminAbonamente} from './AdminDashboard/adminAbonamente/adminAbonamente.jsx';
-export {default as FreeTrial} from './freeTrial/freeTrial.jsx';
+export {default as AdminPaginiPublice} from './AdminDashboard/adminPaginiPublice/adminPaginiPublice.jsx';
 export {default as AdminLayout} from './AdminDashboard/adminLayout.jsx';
 export {default as WrapperAbonamente} from './userPages/components/profilePage/components/abonamente/wrapperAbonamente.jsx';
 export {default as ProfilePage} from './userPages/components/profilePage/profilePage.jsx';
@@ -28,3 +28,4 @@ export {default as AccountSettings} from './userPages/components/profilePage/com
 export {default as MetodePlata} from './userPages/components/profilePage/components/metodePlata.jsx';
 export {default as QrCode} from './userPages/components/profilePage/qrCode.jsx';
 export {default as Filtre } from './filtre/filtre.jsx';
+export {default as FreeTrial} from './freeTrial/freeTrial.jsx';

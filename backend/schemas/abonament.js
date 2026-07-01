@@ -1,4 +1,4 @@
-import mongoose, { Schema, model } from "mongoose";
+import { Schema, model } from "mongoose";
 
 const abonament = new Schema({
     highlighted: {type: Boolean, required: false},

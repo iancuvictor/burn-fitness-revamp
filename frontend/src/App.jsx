@@ -30,7 +30,8 @@ import {
   WrapperAbonamente,
   AccountSettings,
   MetodePlata,
-  QrCode
+  QrCode,
+  AdminPaginiPublice
 } from "./components";
 import "./App.css";
 
@@ -85,6 +86,7 @@ function App() {
               <Route path="clienti" element={<AdminRoute><AdminUsers /></AdminRoute>} />
               <Route path="orar" element={<AdminRoute><AdminOrar /></AdminRoute>} />
               <Route path="abonamente" element={<AdminRoute><AdminAbonamente /></AdminRoute>} />
+              <Route path="paginiPublice" element={<AdminRoute><AdminPaginiPublice /></AdminRoute>} />
           </Route>
           {/* <Route path="/regulamentul-de-functionare-a-centrelor-de-fitness-burn" element={<Regulament />} /> */}
         </Routes>
