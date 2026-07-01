@@ -25,7 +25,6 @@ const upload = multer({storage});
 
 router.post('/antrenori/adaugaAntrenor', admin, upload.single('pozaProfil'), async (req, res) => {
     try {
-
         await AntrenorSala.create({
             nume: req.body.nume,
             sali: JSON.parse(req.body.sali),
@@ -37,7 +36,9 @@ router.post('/antrenori/adaugaAntrenor', admin, upload.single('pozaProfil'), asy
         console.log(`Trainer with name: ${req.body.nume} was created.`);
         res.status(201).json(`Trainer with name: ${req.body.nume} was created.`);
     } catch(err) {
-        res.status(err.response.status).json(`Failed with status: ${err.response.status}`)
+        console.log(err)
+        console.log(`Trainer with name ${req.body.nume} already exists`);
+        res.status(409).json(`Failed with status: 409`)
     }
 })
 
@@ -60,19 +61,14 @@ router.put('/antrenori/updateAntrenor', admin, upload.single('pozaProfil'), asyn
     if(req.file !== undefined){
         updateData.pozaProfil = req.file.filename
     }
-    if(await AntrenorSala.findOne({nume: req.body.nume}) === undefined){
-
-        try{
-            await AntrenorSala.updateOne({_id: req.body.id}, {$set: updateData})
+    
+    try{
+        await AntrenorSala.updateOne({_id: req.body.id}, {$set: updateData})
         console.log(`Antrenor with name: ${req.body.nume} was updated`)
         res.status(200).json('Update worked');
     } catch(err) {
         res.status(err.response.status).json(`Failed with status: ${err.response.status}`)
     }
-    } else {
-        console.log(`Există deja un antrenor cu numele ${req.body.nume}`);
-        res.status(409).json(`Există deja un antrenor cu numele ${req.body.nume}`)
-    }   
 })
 
 export default router; 

@@ -3,17 +3,26 @@ import { faSquareCaretLeft } from "@fortawesome/free-solid-svg-icons";
 import { NavLink } from "react-router";
 import CalendarOrar from "../orar/calendarOrar";
 import BlockContact from "../../contact/blockContact/blockContact";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../context/AuthContext";
 import PopUpAdaugaAntrenor from "../../AdminDashboard/adminPaginiPublice/popUpAdaugaAntrenor";
 import ZonaAntrenori from "../zonaAntrenori/zonaAntrenori";
+import { useLocation } from "react-router";
 
 
 function SalaFitnessZorilor() {
+  let location = useLocation()
   const [adminMenuDisplay, setAdminMenuDisplay] = useState({
     adaugaAntrenor: false,
   })
   const {isAdmin} = useContext(AuthContext);
+
+  useEffect(() => {
+    setTimeout(() => {
+    document.querySelector(`#orar`).scrollIntoView({ behavior: 'smooth' })
+}, 50);
+  }, [])
+
 
   return (
     <div className="h-fit flex flex-col items-center font-finlandica pb-[50px] gap-10 pl-5 pr-5">

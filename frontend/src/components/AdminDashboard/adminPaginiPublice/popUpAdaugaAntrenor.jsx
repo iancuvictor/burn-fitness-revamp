@@ -25,7 +25,6 @@ export default function PopUpAdaugaAntrenor({adminMenuDisplay, setAdminMenuDispl
 
     const updateArray = (field, value, index) => {
         const key = Object.keys(formData[field][0])[0]; 
-        console.log(key);
         setFormData({...formData, [field]: formData[field].map((item, i) => {
         return index === i ? {[key]: value} : item;
         })})

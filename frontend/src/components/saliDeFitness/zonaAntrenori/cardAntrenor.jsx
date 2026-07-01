@@ -2,16 +2,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useContext, useRef } from "react";
 import { AuthContext } from "../../../context/AuthContext";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from 'axios';
 
 const API_URL = import.meta.env.VITE_BACKEND_URL
 
 export default function CardAntrenor({ antrenor }) {
     const uploadImage = useRef(null);
+    const cardRef = useRef(null);
+    const [details, setDetails] = useState(false);
     const defaultForm = {
         id: antrenor._id,
         nume: antrenor.nume || '',
+        sali: antrenor.sali || '',
         functii: antrenor.functii || '',
         calificari: antrenor.calificari || '',
         descriere: antrenor.descriere || '',
@@ -24,18 +27,11 @@ export default function CardAntrenor({ antrenor }) {
         setForm({ ...form, [field]: value });
     }
 
-    const updateFunctii = (value, index) => {
+    const updateArrays = (field, value, index) => {
+        const key = Object.keys(form[field][0])[0]; 
         setForm({
-            ...form, functii: form.functii.map((functie, i) => {
-                return index === i ? { ...functie, functie: value } : functie
-            })
-        })
-    }
-
-    const updateCalificari = (value, index) => {
-        setForm({
-            ...form, calificari: form.calificari.map((calificare, i) => {
-                return index === i ? { ...calificare, calificare: value } : calificare
+            ...form, [field]: form[field].map((item, i) => {
+                return index === i ? {[key]: value } : item
             })
         })
     }
@@ -44,6 +40,7 @@ export default function CardAntrenor({ antrenor }) {
         let data = new FormData();
         data.append('id', form.id)
         data.append('nume', form.nume)
+        data.append('sali', JSON.stringify(form.sali))
         data.append('functii', JSON.stringify(form.functii))
         data.append('calificari', JSON.stringify(form.calificari))
         data.append('descriere', form.descriere)
@@ -51,7 +48,17 @@ export default function CardAntrenor({ antrenor }) {
         await axios.put(`${API_URL}/publicPages/antrenori/updateAntrenor`, data, { withCredentials: true })
     }
 
-    console.log(form.functii);
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if(cardRef.current && !cardRef.current.contains(e.target)){
+                setDetails(false);
+                
+            }
+        }
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    },  [])
 
 
     if (isAdmin) {
@@ -67,16 +74,24 @@ export default function CardAntrenor({ antrenor }) {
             </div>
             <div className="w-full">
                 <div className='flex flex-row gap-2 text-gray-400'>
-                    {form.functii.map((functie, index) => {
-                        return <span key={index}> <input onChange={((e) => updateFunctii(e.target.value, index))} type="text" value={functie.functie} placeholder="introdu funcția" /> | </span>
+                    {form.sali.map((sala, index) => {
+                        return <span key={index}> <input onChange={((e) => updateArrays('sali', e.target.value, index))} 
+                        type="text" value={sala.sala} placeholder="introdu sala" /> | </span>
                     })}
-                    <button onClick={() => setForm({ ...form, functii: [...form.functii, { functie: '' }] })}
+                    <button onClick={() => setForm({ ...form, sali: [...form.sali, { sala: '' }] })}
                         className="cursor-pointer bg-white text-black p-1"><FontAwesomeIcon icon={faPlus} /></button>
                     <button onClick={() => updateCard()} className="bg-rose-500 p-2 text-white cursor-pointer">SALVEAZĂ SCHIMBĂRILE</button>
                 </div>
+                <div className='flex flex-row gap-2 text-gray-400'>
+                    {form.functii.map((functie, index) => {
+                        return <span key={index}> <input onChange={((e) => updateArrays('functii', e.target.value, index))} type="text" value={functie.functie} placeholder="introdu funcția" /> | </span>
+                    })}
+                    <button onClick={() => setForm({ ...form, functii: [...form.functii, { functie: '' }] })}
+                        className="cursor-pointer bg-white text-black p-1"><FontAwesomeIcon icon={faPlus} /></button>
+                </div>
                 <div className='text-white flex flex-col'>
                     {form.calificari.map((calificare, index) => {
-                        return <span key={index}><FontAwesomeIcon icon={faChevronRight} /> <input onChange={((e) => updateCalificari(e.target.value, index))} type="text" value={calificare.calificare}
+                        return <span key={index}><FontAwesomeIcon icon={faChevronRight} /> <input onChange={((e) => updateArrays('calificari', e.target.value, index))} type="text" value={calificare.calificare}
                             className='w-fit' /></span>
                     })}
                     <button onClick={() => setForm({ ...form, calificari: [...form.calificari, { calificare: '' }] })}
@@ -89,14 +104,15 @@ export default function CardAntrenor({ antrenor }) {
     } else {
 
         // pentru utilizatori
-        return <div className='flex flex-col items-center md:flex-row w-full gap-5 md:w-4xl'>
+        return <div ref={cardRef} className={`${details ? 'gap-5' : ''}flex flex-col items-center md:flex-row`}>
             <div className='bg-white text-black p-5 flex flex-col items-center justify-center gap-5 rounded-md w-fit'>
-                <div className="w-50 h-50 md:w-100 md:h-100">
+                <div onClick={() => setDetails(!details)} className="w-50 h-50 md:w-80 md:h-80">
                 <img src={`${API_URL}/uploads/POZEPROFIL/ANTRENORI/${antrenor.pozaProfil}`} alt="" className='h-full w-full object-cover' />
                 </div>
                 <h1 className='font-[700] md:text-[25px]'>{antrenor.nume}</h1>
             </div>
-            <div className="w-full">
+            <div className={`${details ? 'w-150 h-100 overflow opacity-100' : 'overflow-hidden w-0 h-0 opacity-0'}
+             flex flex-col justify-center duration-200 ease-out`}>
                 <div className='text-gray-400'>
                     {antrenor.functii.map((functie, index) => {
                         return <span key={index}>{functie.functie} | </span>

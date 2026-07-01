@@ -193,6 +193,7 @@ router.post('/extindeOrarul', admin, async (req, res) => {
       denumire: clasa.denumire,
       antrenor: clasa.antrenor,
       capacitate: clasa.capacitate,
+      expiryDate: new Date(new Date(clasa.expiryDate).setDate(new Date(clasa.expiryDate).getDate() + 7))
     })
   }
   res.status(201).json({message: 'orarul a fost extins/timetable has been extended'});

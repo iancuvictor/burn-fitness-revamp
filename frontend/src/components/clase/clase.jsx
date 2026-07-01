@@ -9,7 +9,7 @@ function Clase() {
 
   return (
     <div className="flex flex-col justify-center gap-2 items-center pb-[50px] pl-5 pr-5 font-finlandica">
-      <h1 className="text-[20px] text-white md:text-[35px] font-[700] pt-[30px] text-center">Clase</h1>
+      <h1 className="text-[20px] text-white md:text-[35px] font-[700] pb-3 text-center">CLASE DISPONIBILE</h1>
     <div className={`w-full md:flex flex-row flex-wrap justify-center items-center gap-2 duration-400 ease-out`}>
       <CardClase
         title="Fitness & Bodybuilding"

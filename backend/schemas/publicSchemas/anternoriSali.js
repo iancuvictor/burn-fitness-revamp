@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose';
 
 const antrenorSala = new Schema({
-    nume: {type: String, required: true},
+    nume: {type: String, required: true, unique: true},
     sali: [
         {sala: {type: String, required: true}}
     ],
