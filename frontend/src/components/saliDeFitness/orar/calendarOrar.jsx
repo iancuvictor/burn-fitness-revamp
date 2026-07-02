@@ -19,7 +19,7 @@ export default function CalendarOrar({locatie}) {
   const [filtre, setFiltre] = useState({
     antrenor: [],
     clasa: [],
-    expirata: false,
+    viewExpired: true,
     open: false,
   });
 

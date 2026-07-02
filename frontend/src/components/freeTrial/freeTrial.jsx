@@ -30,10 +30,14 @@ function FreeTrial(){
     }
 
     return <div className="flex flex-col gap-2 justify-center items-center
-    h-160 w-full bg-black font-finlandica text-white pt-15 md:pt-20">
-        <div className={`${error.status === 200 ? 'hidden' : 'flex'} flex flex-col shadow-xl p-5 shadow-redishPinkDark/40 ring-white ring-1 rounded-md gap-5`}>
-            <div>
+    h-160 w-full bg-black font-finlandica text-white p-5">
+        <div  className={`${error.status === 200 ? 'hidden' : 'flex'} flex flex-col shadow-xl p-5 shadow-redishPinkDark/40 ring-white ring-1 rounded-md gap-5`}>
+            <div className='relative w-full'>
             <h1 className='font-[600] text-[30px] text-center'>ȘEDINȚA <span className='italic'>GRATUITĂ</span></h1>
+            <div className='p-1'>
+            <p className='text-gray-400 text-[12px] text-justify w-full'>Pentru a putea revendica această ședință, email-ul tău trebuie să nu mai fii fost asociat vreunui cont BURN FITNESS CLUJ-NAPOCA</p>
+            <span className='text-[12px] text-center w-full'>ȘEDINȚA ESTE VALABILĂ O SINGURĂ DATĂ</span>
+            </div>
             <Input title='Email' setForm={setForm} form={form} setError={setError} error={error}/>
             </div>
 

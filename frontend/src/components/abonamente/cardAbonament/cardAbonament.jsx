@@ -58,7 +58,7 @@ useEffect(() => {
   }
   if (tier === 'regular') {
     return (
-      <div ref={cardRef} className={`${buying === false ? 'max-h-60' : 'max-h-200'} 
+      <div ref={cardRef} className={`${buying === false ? 'max-h-70' : 'max-h-200'} 
       pt-[10px]
       md:pt-[20px]
       ring-1 ring-lime-400 shadow-md shadow-lime-400 hover:shadow-lg w-xs md:w-xs rounded-xl overflow-hidden 

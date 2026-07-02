@@ -71,13 +71,85 @@ function Locatii() {
         </span>
       </h1>
     </div>
+    <h1 className="text-white font-[700] text-[30px]">Selectează o locație BURN Fitness!</h1>
     <div className="flex flex-col md:flex-row gap-5 items-center justify-center w-full">
       <button onClick={() => setMap(!map)} 
       className="block md:hidden active:bg-rose-400 text-white bg-rose-500 p-3 w-full rounded-md duration-75 ease-out">
         <FontAwesomeIcon icon={faCompass}/>  {map ? 'ÎNCHIDE HARTA' : 'SELECTEAZĂ O SALĂ'}
       </button>
-
-      <div className={`${map ? 'h-96 ring-3' : 'h-0 ring-0'} overflow-hidden md:h-110 w-full md:w-150 ring-rose-500 rounded-xl duration-200 ease-out`}>
+      <div className="flex">
+        <div
+          className={`${viewLocatie === 'zorilor' ? "block" : "hidden"}`}
+          id="zorilor"
+        >
+          <BlockContact
+            locatie="Zorilor"
+            nrTel="0771 511 431"
+            adresa="Louis Pasteur 58, Cluj-Napoca"
+            linkAdresa='https://maps.app.goo.gl/CWpT3mchqSxTFtUs9'
+            programLuniVineri="06:00 - 23:00"
+            programSambata="9:00 - 18:00"
+            programDuminica="10:00 - 17:00"
+          />
+        </div>
+        <div
+          className={`${viewLocatie === 'manastur' ? "block" : "hidden"}`}
+          id="manastur"
+        >
+          <BlockContact
+            locatie="Mănăștur"
+            nrTel="0771 262 348"
+            adresa="Mehedinți 82, Cluj-Napoca"
+            linkAdresa="https://maps.app.goo.gl/RGKPkNX5SQUrQkUV6"
+            programLuniVineri="07:00 - 22:00"
+            programSambata="9:00 - 18:00"
+            programDuminica="10:00 - 17:00"
+          />
+        </div>
+        <div
+          className={`${viewLocatie === 'marasti' ? "block" : "hidden"}`}
+          id="marasti"
+        >
+          <BlockContact
+            locatie="Mărăști"
+            nrTel="0770 886 179"
+            adresa="București 55, Cluj-Napoca"
+            linkAdresa="https://maps.app.goo.gl/axVxQmcjqXbPW9cL7"
+            programLuniVineri="06:00 - 22:00"
+            programSambata="9:00 - 18:00"
+            programDuminica="10:00 - 17:00"
+          />
+        </div>
+        <div
+          className={`${viewLocatie === 'flora' ? "block" : "hidden"}`}
+          id="flora"
+        >
+          <BlockContact
+            locatie="Flora"
+            nrTel="0774 519 047"
+            adresa="Aleea Padin 21, Cluj-Napoca"
+            linkAdresa="https://maps.app.goo.gl/R8bf2PTXGnaMPwJE8"
+            programLuniVineri="07:00 - 22:00"
+            programSambata="9:00 - 18:00"
+            programDuminica="10:00 - 17:00"
+          />
+        </div>
+        <div
+          className={`${viewLocatie === 'sigma' ? "block" : "hidden"}`}
+          id="sigma"
+        >
+          <BlockContact
+            locatie="Sigma"
+            nrTel="0772 269 959"
+            adresa="Republici 109, Cluj-Napoca"
+            linkAdresa="https://maps.app.goo.gl/7XkkeyycY7Xagew79"
+            programLuniVineri="06:00 - 23:00"
+            programSambata="9:00 - 18:00"
+            programDuminica="10:00 - 17:00"
+          />
+        </div>
+      </div>
+      <div className={`${map ? 'h-75 ring-3' : 'h-0 ring-0'} overflow-hidden w-full md:h-75 md:w-150 ring-rose-500 rounded-xl duration-200 ease-out`}>
 
         <MapContainer center={location} zoom={13} scrollWheelZoom={true} className="h-full w-full rounded-xl">
           <TileLayer
@@ -121,78 +193,6 @@ function Locatii() {
             </Popup>
           </Marker>
         </MapContainer>
-      </div>
-      <div className="flex">
-        <div
-          className={`${viewLocatie === 'zorilor' ? "block" : "hidden"}`}
-          id="zorilor"
-        >
-          <BlockContact
-            locatie="Zorilor"
-            nrTel="0771 511 431"
-            adresa="Louis Pasteur 58, Cluj-Napoca"
-            linkAdresa='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10933.941538443678!2d23.557627201080333!3d46.75532824825045!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47490e78b14ef555%3A0x82da4b4e100cf036!2sBurn%20Cluj!5e0!3m2!1sen!2sro!4v1780302279546!5m2!1sen!2sro"'
-            programLuniVineri="06:00 - 23:00"
-            programSambata="9:00 - 18:00"
-            programDuminica="10:00 - 17:00"
-          />
-        </div>
-        <div
-          className={`${viewLocatie === 'manastur' ? "block" : "hidden"}`}
-          id="manastur"
-        >
-          <BlockContact
-            locatie="Mănăștur"
-            nrTel="0771 262 348"
-            adresa="Mehedinți 82, Cluj-Napoca"
-            linkAdresa="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10934.911512077115!2d23.54288358715819!3d46.75054749999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47490e710ed8555d%3A0x9f7559ad01b5033d!2zQnVybiBGaXRuZXNzIE3Eg27Eg8iZdHVy!5e0!3m2!1sen!2sro!4v1780302434502!5m2!1sen!2sro"
-            programLuniVineri="07:00 - 22:00"
-            programSambata="9:00 - 18:00"
-            programDuminica="10:00 - 17:00"
-          />
-        </div>
-        <div
-          className={`${viewLocatie === 'marasti' ? "block" : "hidden"}`}
-          id="marasti"
-        >
-          <BlockContact
-            locatie="Mărăști"
-            nrTel="0770 886 179"
-            adresa="București 55, Cluj-Napoca"
-            linkAdresa="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10928.736424217188!2d23.586169587158203!3d46.78097650000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47490dd0c1753165%3A0x537832fe3ac04bd5!2sBurn%20Fitness%20Marasti!5e0!3m2!1sen!2sro!4v1780302499127!5m2!1sen!2sro"
-            programLuniVineri="06:00 - 22:00"
-            programSambata="9:00 - 18:00"
-            programDuminica="10:00 - 17:00"
-          />
-        </div>
-        <div
-          className={`${viewLocatie === 'flora' ? "block" : "hidden"}`}
-          id="flora"
-        >
-          <BlockContact
-            locatie="Flora"
-            nrTel="0774 519 047"
-            adresa="Aleea Padin 21, Cluj-Napoca"
-            linkAdresa="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10934.911512077115!2d23.54288358715819!3d46.75054749999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47490f0053b19629%3A0x2ca9d2227b941a30!2sBurn%20Fitness%20Flora!5e0!3m2!1sen!2sro!4v1780302470670!5m2!1sen!2sro"
-            programLuniVineri="07:00 - 22:00"
-            programSambata="9:00 - 18:00"
-            programDuminica="10:00 - 17:00"
-          />
-        </div>
-        <div
-          className={`${viewLocatie === 'sigma' ? "block" : "hidden"}`}
-          id="sigma"
-        >
-          <BlockContact
-            locatie="Sigma"
-            nrTel="0772 269 959"
-            adresa="Republici 109, Cluj-Napoca"
-            linkAdresa="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10928.736424217188!2d23.586169587158203!3d46.78097650000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47490d8a754ba55f%3A0x72502b8e8d4d7f18!2sBurn%20Fitness%20Sigma!5e0!3m2!1sen!2sro!4v1780302519691!5m2!1sen!2sro"
-            programLuniVineri="06:00 - 23:00"
-            programSambata="9:00 - 18:00"
-            programDuminica="10:00 - 17:00"
-          />
-        </div>
       </div>
     </div>
   </div>

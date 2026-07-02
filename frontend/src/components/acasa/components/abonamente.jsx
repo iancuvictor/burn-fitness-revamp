@@ -21,8 +21,10 @@ function AbonamenteAcasa() {
     }
     getData();
   }, []);
+
+  let array = data.filter((abonament) => abonament.highlighted === true)
   return (
-    <div className="relative h-fit pb-10 w-full flex flex-col items-center overflow-hidden gap-5 font-finlandica">
+    <div className="relative h-fit pb-10 w-full flex flex-col items-center overflow-hidden gap-10 font-finlandica">
       <div
         className="flex w-full justify-around gap-4
             animate-[infoBar_8s_linear_infinite_reverse]
@@ -94,8 +96,21 @@ function AbonamenteAcasa() {
               (minim un membru al familiei trebuie să aibă un
                 abonament <span className="text-white underline underline-offset-4">ACTIV</span> pentru reducerea de familie)</span>
           </div>
-          <div className="flex flex-col gap-10 md:grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 md:gap-10">
-            {data.filter((abonament) => abonament.tier === 'premium').map((abonament, index) => {
+          <div className={`flex flex-col gap-10 md:grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-${array.length} md:gap-10`}>
+            {array.map((abonament, index) => {
+                return (
+                  <CardAbonament
+                    tier={abonament.tier}
+                    titlu={abonament.titlu}
+                    type={abonament.tierName}
+                    desc={abonament.desc}
+                    preturi={abonament.preturi}
+                    key={index}
+                    viewPreturi={viewPreturi.viewPreturi}
+                  />
+                );
+            })}
+            {/* {data.filter((abonament) => abonament.tier === 'regular').map((abonament, index) => {
               if (abonament.highlighted === true) {
                 return (
                   <CardAbonament
@@ -109,22 +124,7 @@ function AbonamenteAcasa() {
                   />
                 );
               }
-            })}
-            {data.filter((abonament) => abonament.tier === 'regular').map((abonament, index) => {
-              if (abonament.highlighted === true) {
-                return (
-                  <CardAbonament
-                    tier={abonament.tier}
-                    titlu={abonament.titlu}
-                    type={abonament.tierName}
-                    desc={abonament.desc}
-                    preturi={abonament.preturi}
-                    key={index}
-                    viewPreturi={viewPreturi.viewPreturi}
-                  />
-                );
-              }
-            })}
+            })} */}
           </div>
         </div>
       </div>

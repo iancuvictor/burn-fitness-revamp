@@ -21,11 +21,11 @@ function ZiOrar({ dataOrar, zi, data, getOrar, filtre, calendarDate }) {
     (filtre.antrenor.length === 0 || filtre.antrenor.includes(clasa.antrenor))
 )
 
-let finalFilter = filtre.expirata 
+    let finalFilter = !filtre.viewExpired 
     ? checkFilter.filter(clasa => !isExpired(clasa)) 
     : checkFilter;
 
-  if(finalFilter.length !== 0)
+if(finalFilter.length !== 0)
   return (
     <div className="font-finlandica">
       <h1 className="text-[28px] font-[700]">{zi} <span className="font-[500] text-[16px]">[{data}]</span></h1>

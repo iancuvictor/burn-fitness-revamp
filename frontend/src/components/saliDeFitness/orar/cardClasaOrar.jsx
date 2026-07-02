@@ -111,7 +111,7 @@ function CardClasaOrar({ clasa, getOrar, calendarDate, filtre}) {
             disabled={errors.noAerobic}
 
             className={`${errors.dejaInscris || errors.classFull ? "bg-gray-700" : "bg-rose-500"} 
-          w-[40%] md:w-35 text-[13px] cursor-pointer rounded-xs text-white p-1`}
+          w-[40%] md:w-35 text-[12px] cursor-pointer rounded-xs text-white p-1`}
           >
             {errors.dejaInscris
               ? "Renunță"

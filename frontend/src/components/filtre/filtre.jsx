@@ -92,8 +92,8 @@ export default function Filtre({ filtre, setFiltre }) {
                     </div>
                     <div>
                         <span className="flex items-center gap-1">
-                            <span className="font-[500]">Ignoră clasele expirate: </span>
-                            <input onChange={(e) => setFiltre({...filtre, expirata: e.target.checked})} checked={filtre.expirata}
+                            <span className="font-[500]">Vezi clasele care au expirat: </span>
+                            <input onChange={(e) => setFiltre({...filtre, viewExpired: e.target.checked})} checked={filtre.viewExpired}
                              type="checkbox" className="accent-rose-500"/>
                         </span>
                     </div>

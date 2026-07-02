@@ -10,6 +10,8 @@ const buttonClass = ({isActive}) => `${isActive ? 'z-1 text-white underline unde
      'hover:text-white hover:underline underline-offset-5 duration-150'} 
      w-50 md:w-fit pt-2 pb-2 flex items-center justify-center gap-2`
 
+const profileCheck = ({isActive}) => `${isActive ? 'text-rose-500' : 'text-white'} text-[25px] md:text-[30px]`
+
 function Navbar({menuState, setMenuState}){
     const { isAdmin } = useContext(AuthContext)
     return <>
@@ -30,7 +32,7 @@ function Navbar({menuState, setMenuState}){
                 <a href="https://www.facebook.com/BurnFitnessCluj" target='_blank'><FontAwesomeIcon icon={faFacebookSquare} className='text-[#6096D6] hover:text-[#1877F2] duration-150 text-[30px]'/></a>
             </div>
         </div>
-        <NavLink to="/profile" className='text-gray-500'><FontAwesomeIcon icon={faCircleUser} className='text-[30px] hover:text-white'/></NavLink>
+        <NavLink to="/profile"  className={profileCheck}><FontAwesomeIcon icon={faCircleUser}/></NavLink>
     </div>
 
     {/* mobile navbar */}
@@ -38,8 +40,7 @@ function Navbar({menuState, setMenuState}){
         {/* <div className="z-[-1] h-full absolute inset-0 bg-gradient-to-b from-black from-0% via-black via-50% to-black via-70% to-transparent to-100%"></div> */}
     <NavLink to='/'><img src={BurnLogo} alt="burn fitness logo" className='md:hidden w-40 m-[10px]'/></NavLink>
     <div className='justify-center items-center flex gap-3'>
-        <NavLink to="/profile" className='text-white'><FontAwesomeIcon icon={faCircleUser} className={`${menuState ? 'opacity-0' :
-         'opacity-100'} text-[25px] duration-100 ease-out`}/></NavLink>
+        <NavLink to="/profile" className={profileCheck}><FontAwesomeIcon icon={faCircleUser}/></NavLink>
         <button 
         onClick={() => setMenuState(!menuState)}
         className={`${menuState ? 'w-10 opacity-0' : 'opacity-100 w-10 md:hidden cursor-pointer text-white'} text-[25px] pr-[50px] duration-100 ease-out`}
