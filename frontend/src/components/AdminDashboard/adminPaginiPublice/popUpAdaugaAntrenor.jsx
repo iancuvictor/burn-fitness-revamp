@@ -78,11 +78,14 @@ export default function PopUpAdaugaAntrenor({adminMenuDisplay, setAdminMenuDispl
                 })}
             <button onClick={() => setFormData({...formData, 'calificari': [...formData['calificari'], {calificare: ''}]})}
                 className={buttonStyle}>Adaugă calificări</button>
+                <div className='flex flex-wrap gap-2'>
+
                 {formData.calificari.map((calificare, index) => {
                     return <input className={inputStyle}
                     onChange={(e) => updateArray('calificari', e.target.value, index)} type="text" value={calificare.calificare} 
                     placeholder='Introdu calificarea'/>
                 })}
+                </div>
             <textarea className={inputStyle} onChange={(e) => updateForm('descriere', e.target.value)} name="" id="" placeholder='Descriere'></textarea>
             <input onChange={(e) => updateForm('pozaProfil', e.target.files[0])} type="file" name="" id="" />
         </div>

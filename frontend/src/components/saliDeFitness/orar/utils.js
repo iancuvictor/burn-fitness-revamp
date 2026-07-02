@@ -32,3 +32,19 @@ export function changeCalendarWeek(type, dateCalendar, setDateCalendar){
       setDateCalendar(newArray);
     }
   }
+
+export function increment(type, field, display, setDisplay, array){
+        if(type === 'add'){
+            if(display[field] >= 0 && display[field] !== array.length - 1){
+                setDisplay({...display, [field]: display[field] + 1})
+            } else if(+display[field] === array.length - 1){
+                setDisplay({...display, [field]: 0 })
+            }
+        } else if(type === 'substract'){
+            if(display[field] > 0){
+                setDisplay({...display, [field]: display[field] - 1})
+            } else if(display[field] === 0){
+                setDisplay({...display, [field]: array.length - 1});
+            }
+        }
+    }

@@ -15,17 +15,18 @@ function SalaFitnessZorilor() {
   const [adminMenuDisplay, setAdminMenuDisplay] = useState({
     adaugaAntrenor: false,
   })
-  const {isAdmin} = useContext(AuthContext);
 
   useEffect(() => {
-    setTimeout(() => {
-    document.querySelector(`#orar`).scrollIntoView({ behavior: 'smooth' })
-}, 50);
+    if(location.hash !== ''){
+      setTimeout(() => {
+        document.querySelector(location.hash).scrollIntoView({ behavior: 'smooth' })
+      }, 50);
+    }
   }, [])
 
 
   return (
-    <div className="h-fit flex flex-col items-center font-finlandica pb-[50px] gap-10 pl-5 pr-5">
+    <div className="h-fit flex flex-col items-center font-finlandica pb-[50px] gap-5 pl-5 pr-5">
       <div className="relative h-fit flex items-center gap-3 pb-5 pt-5">
         <NavLink to='/clase/orar' className="block md:hidden text-white font-[600] justify-self-start ring-1 rounded-xs p-1">
           <FontAwesomeIcon icon={faSquareCaretLeft} /> Înapoi</NavLink>
@@ -33,7 +34,7 @@ function SalaFitnessZorilor() {
           Sala fitness ZORILOR
         </h1>
       </div>
-      <div className="flex flex-col md:flex-row gap-10">
+      <div className="flex flex-col md:flex-row gap-5">
         <div className="flex flex-col gap-3 text-white">
           <h1 className="text-[24px] font-[700]">Ce oferim la Burn Fitness Zorilor?</h1>
         </div>
@@ -49,16 +50,15 @@ function SalaFitnessZorilor() {
       </div>
       {/* sectiune antrenori */}
       <div className="pl-1 pr-1">
-
-        <ZonaAntrenori/>
-        {isAdmin && <button onClick={() => {
+        <ZonaAntrenori locatie='ZORILOR'/>
+        {/* {isAdmin && <button onClick={() => {
           setAdminMenuDisplay({...adminMenuDisplay, adaugaAntrenor: true})
           document.body.style.overflow = 'hidden'}} 
           className="cursor-pointer bg-white text-black p-3">ADAUGĂ ANTRENOR</button>}
-        {adminMenuDisplay.adaugaAntrenor && <PopUpAdaugaAntrenor adminMenuDisplay={adminMenuDisplay} setAdminMenuDisplay={setAdminMenuDisplay}/>}
-          </div>
+        {adminMenuDisplay.adaugaAntrenor && <PopUpAdaugaAntrenor adminMenuDisplay={adminMenuDisplay} setAdminMenuDisplay={setAdminMenuDisplay}/>} */}
           <div id='orar' className="w-full">
         <CalendarOrar locatie='zorilor' />
+      </div>
           </div>
     </div>
   );

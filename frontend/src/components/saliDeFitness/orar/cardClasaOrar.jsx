@@ -5,7 +5,7 @@ import axios from "axios";
 
 const API_URL = import.meta.env.VITE_BACKEND_URL;
 
-function CardClasaOrar({ clasa, getOrar, calendarDate }) {
+function CardClasaOrar({ clasa, getOrar, calendarDate, filtre}) {
   const { user } = useContext(AuthContext);
   const [errors, setErrors] = useState({
     dejaInscris: false,
@@ -41,33 +41,16 @@ function CardClasaOrar({ clasa, getOrar, calendarDate }) {
   
   useEffect(() => { 
     // get the data
- let dateToday = new Date();
- let monthNow = dateToday.getMonth();
- let dateNow = dateToday.getDate();
- let hourNow = dateToday.getHours();
- let minutesNow = dateToday.getMinutes();
-
- // checks
- let monthCheck = new Date(clasa.data).getMonth() - +monthNow;
- let dateCheck = new Date(clasa.data).getDate() - +dateNow;
- let hourCheck = +clasa.ora.split(':')[0] - +hourNow;
- let minutesCheck = +clasa.ora.split(':')[1] - +minutesNow;
- 
-    function checkExpiry(){
-      if(0 > +monthCheck){
-        setErrors(prev => ({...prev, expired: true}));
-      } else if(+monthCheck === 0 && 0 > +dateCheck){
-        setErrors(prev => ({...prev, expired: true}));
-      } else if(+dateCheck === 0 && 0 > +hourCheck){
-        setErrors(prev => ({...prev, expired: true}));
-      } else if(+dateCheck === 0 && hourCheck === 0 && 0 > +minutesCheck){
-        setErrors(prev => ({...prev, expired: true}));
-      } else {
-        setErrors(prev => ({...prev, expired: false}));
-      }
+    let dateToday = new Date();
+    let classDate = new Date(clasa.data);
+    classDate.setHours(...clasa.ora.split(':'))
+    console.log(dateToday);
+    console.log(classDate);
+    if(classDate <= dateToday){
+      setErrors(prev => ({...prev, expired: true}));
+    } else {
+      setErrors(prev => ({...prev, expired: false}));
     }
-    
-    checkExpiry();
     
     if (user !== undefined) {
       function checkAvailability() {
@@ -89,6 +72,9 @@ function CardClasaOrar({ clasa, getOrar, calendarDate }) {
     // getOrar();
   }, [calendarDate]);
 
+  if(filtre.expirata === true && errors.expired === true){
+    return null;
+  } else {
   return (
     <div className="relative font-finlandica flex flex-col gap-1 text-[12px] md:text-[14px] min-h-16 md:min-h-20 ring-1 p-2 rounded-xs">
       <div className={`${errors.expired ? 'flex' : 'hidden'} absolute top-0 left-0 w-full h-full bg-black/80 z-1 
@@ -135,6 +121,7 @@ function CardClasaOrar({ clasa, getOrar, calendarDate }) {
       </div>
     </div>
   );
+}
 }
 
 export default CardClasaOrar;

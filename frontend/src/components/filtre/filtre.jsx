@@ -35,6 +35,8 @@ export default function Filtre({ filtre, setFiltre }) {
         }
     }, [])
 
+    console.log(filtre);
+
     return <div className={`fixed z-4 flex fixed top-0 left-0 h-full w-full items-center justify-center bg-black/40
                             pt-5 pb-5 pl-2 pr-2`}>
 
@@ -87,6 +89,13 @@ export default function Filtre({ filtre, setFiltre }) {
                                         </div>
                                 })}
                         </div>
+                    </div>
+                    <div>
+                        <span className="flex items-center gap-1">
+                            <span className="font-[500]">Ignoră clasele expirate: </span>
+                            <input onChange={(e) => setFiltre({...filtre, expirata: e.target.checked})} checked={filtre.expirata}
+                             type="checkbox" className="accent-rose-500"/>
+                        </span>
                     </div>
                 </div>
             </div>

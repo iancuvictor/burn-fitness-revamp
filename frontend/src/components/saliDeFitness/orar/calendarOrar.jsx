@@ -19,6 +19,7 @@ export default function CalendarOrar({locatie}) {
   const [filtre, setFiltre] = useState({
     antrenor: [],
     clasa: [],
+    expirata: false,
     open: false,
   });
 
@@ -54,9 +55,9 @@ export default function CalendarOrar({locatie}) {
     {filtre.open && <Filtre filtre={filtre} setFiltre={setFiltre} />}
     <div className="flex flex-row items-center gap-5">
       <button onClick={() => setFiltre({ ...filtre, open: true })}
-        className="cursor-pointer bg-black p-2 rounded-md text-white text-[14px] font-[500]">FILTRE <FontAwesomeIcon icon={faFilter} /></button>
+        className="cursor-pointer bg-black p-2 rounded-md text-white text-[12px] md:text-[14px] font-[500]">FILTRE <FontAwesomeIcon icon={faFilter} /></button>
       <div className="flex flex-col items-center">
-        <span>
+        <span className='text-[13px] md:text-[16px]'>
           {dateCalendar[0].toLocaleDateString()} -{" "}
           {dateCalendar[6].toLocaleDateString()}
         </span>

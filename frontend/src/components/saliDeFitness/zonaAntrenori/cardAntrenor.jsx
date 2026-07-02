@@ -1,13 +1,14 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronRight, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faChevronRight, faPlus, faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { useContext, useRef } from "react";
 import { AuthContext } from "../../../context/AuthContext";
 import { useState, useEffect } from "react";
+import { increment } from "../orar/utils";
 import axios from 'axios';
 
 const API_URL = import.meta.env.VITE_BACKEND_URL
 
-export default function CardAntrenor({ antrenor }) {
+export default function CardAntrenor({ antrenor, display, setDisplay, filteredArray}) {
     const uploadImage = useRef(null);
     const cardRef = useRef(null);
     const [details, setDetails] = useState(false);
@@ -104,28 +105,39 @@ export default function CardAntrenor({ antrenor }) {
     } else {
 
         // pentru utilizatori
-        return <div ref={cardRef} className={`${details ? 'gap-5' : ''}flex flex-col items-center md:flex-row`}>
-            <div className='bg-white text-black p-5 flex flex-col items-center justify-center gap-5 rounded-md w-fit'>
-                <div onClick={() => setDetails(!details)} className="w-50 h-50 md:w-80 md:h-80">
-                <img src={`${API_URL}/uploads/POZEPROFIL/ANTRENORI/${antrenor.pozaProfil}`} alt="" className='h-full w-full object-cover' />
+        return <div ref={cardRef} className={`flex flex-col items-center justify-end gap-5
+         md:flex-row animate-fade-in 150 ease-out h-140`}>
+            <div className='bg-black text-white md:ring-1 p-2 md:p-5 
+            flex flex-col items-center justify-center gap-1 md:gap-5 rounded-md w-fit'>
+                <div onClick={() => setDetails(!details)} className="w-50 h-50 md:w-80 md:h-90">
+                <img src={`${API_URL}/uploads/POZEPROFIL/ANTRENORI/${antrenor.pozaProfil}`} alt=""
+                 className='h-full w-full object-cover rounded-md' />
                 </div>
-                <h1 className='font-[700] md:text-[25px]'>{antrenor.nume}</h1>
             </div>
-            <div className={`${details ? 'w-150 h-100 overflow opacity-100' : 'overflow-hidden w-0 h-0 opacity-0'}
-             flex flex-col justify-center duration-200 ease-out`}>
-                <div className='text-gray-400'>
+            <div className={`w-full md:w-150 overflow opacity-100
+             flex flex-col duration-200 ease-out`}>
+                <div className='text-[11px] w-full text-gray-400'>
                     {antrenor.functii.map((functie, index) => {
                         return <span key={index}>{functie.functie} | </span>
                     })}
                 </div>
-                <div className='text-white flex flex-col'>
+                
+                <div className='text-[11px] text-white flex flex-col overflow-scroll max-h-30'>
                     {antrenor.calificari.map((calificare, index) => {
                         return <span key={index}><FontAwesomeIcon icon={faChevronRight} /> {calificare.calificare} | </span>
                     })}
                 </div>
                 <div className="w-full h-[2px] mt-2 mb-2 bg-white rounded-md"></div>
-                <p className='text-white text-[16px] text-justify'>{antrenor.descriere}</p>
+                <p className='text-white text-[11px] md:text-[16px] text-justify'>{antrenor.descriere}</p>
             </div>
+            <div className="flex items-center gap-2 p-2 rounded-md bg-black w-full justify-between">
+                    <button className='active:bg-gray-400 bg-white text-black rounded-md text-[20px] md:text-[30px] cursor-pointer duration-75 ease-out'
+                    onClick={() => increment('substract', 'cardAntrenori', display, setDisplay, filteredArray)}><FontAwesomeIcon icon={faAngleLeft}/></button>
+                    <h1 className='font-[700] md:text-[25px] text-white'>{antrenor.nume}</h1>
+                    <button className='active:bg-gray-400 bg-white text-black rounded-md text-[20px] md:text-[30px] cursor-pointer duration-75 ease-out' 
+                    onClick={() => increment('add', 'cardAntrenori', display, setDisplay, filteredArray)}>
+            <FontAwesomeIcon icon={faAngleRight}/></button>
+                </div>
         </div>
     }
 }
