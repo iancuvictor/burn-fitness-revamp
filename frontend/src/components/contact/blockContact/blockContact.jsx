@@ -21,7 +21,8 @@ function BlockContact(props) {
         </div>
         <div className="flex justify-between gap-2 w-full text-[14px] md:text-[16px]">
 
-        <a href={props.linkAdresa} className="p-2 bg-rose-500 text-white rounded-md w-[70%] text-center">Deschide în Google Maps</a>
+        <a href={props.linkAdresa} className="p-2 bg-rose-500 text-white rounded-md w-[70%] text-center"
+        target="_blank" rel="noreferrer noopener">Deschide în Google Maps</a>
         <NavLink to={`/salidefitness/sala-fitness-${props.locatie.toLowerCase().normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")}/`} className="p-2 bg-rose-500 text-white rounded-md w-[30%] text-center">Vezi detalii</NavLink>
         </div>

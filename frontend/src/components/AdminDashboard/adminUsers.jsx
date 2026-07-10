@@ -24,7 +24,7 @@ function AdminUsers(){
     console.log(userList);
 
 
-    return <div className="flex flex-col items-center w-full">
+    return <div className="flex flex-col items-center w-full bg-white min-h-screen">
         <h1>Listă clienți</h1>
         <div>
 

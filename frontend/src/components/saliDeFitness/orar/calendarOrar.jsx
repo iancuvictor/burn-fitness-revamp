@@ -96,6 +96,7 @@ export default function CalendarOrar({locatie}) {
         data={dateCalendar[0].toLocaleDateString()}
         filtre={filtre}
         calendarDate={dateCalendar}
+        getOrar={getOrar}
       />
       <ZiOrar
         dataOrar={dataOrar}
@@ -103,6 +104,7 @@ export default function CalendarOrar({locatie}) {
         data={dateCalendar[1].toLocaleDateString()}
         filtre={filtre}
         calendarDate={dateCalendar}
+        getOrar={getOrar}
       />
       <ZiOrar
         dataOrar={dataOrar}
@@ -110,6 +112,7 @@ export default function CalendarOrar({locatie}) {
         data={dateCalendar[2].toLocaleDateString()}
         filtre={filtre}
         calendarDate={dateCalendar}
+        getOrar={getOrar}
       />
       <ZiOrar
         dataOrar={dataOrar}
@@ -117,6 +120,7 @@ export default function CalendarOrar({locatie}) {
         data={dateCalendar[3].toLocaleDateString()}
         filtre={filtre}
         calendarDate={dateCalendar}
+        getOrar={getOrar}
       />
       <ZiOrar
         dataOrar={dataOrar}
@@ -124,6 +128,7 @@ export default function CalendarOrar({locatie}) {
         data={dateCalendar[4].toLocaleDateString()}
         filtre={filtre}
         calendarDate={dateCalendar}
+        getOrar={getOrar}
       />
       <ZiOrar
         dataOrar={dataOrar}
@@ -131,6 +136,7 @@ export default function CalendarOrar({locatie}) {
         data={dateCalendar[5].toLocaleDateString()}
         filtre={filtre}
         calendarDate={dateCalendar}
+        getOrar={getOrar}
       />
       <ZiOrar
         dataOrar={dataOrar}
@@ -138,6 +144,7 @@ export default function CalendarOrar({locatie}) {
         data={dateCalendar[6].toLocaleDateString()}
         filtre={filtre}
         calendarDate={dateCalendar}
+        getOrar={getOrar}
       />
     </div>
   </div>

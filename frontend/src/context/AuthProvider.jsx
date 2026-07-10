@@ -33,7 +33,7 @@ function AuthProvider({children}){
             try {
                 let response = await axios.get(`${API_URL}/users/profile`, { withCredentials: true });
                 let userData = response.data.userData;
-                let resStatus = response.data.status;
+                let resStatus = response.data.message;
                 if(resStatus === 'authorised' && userData.isAdmin === false){
                     setLoggedIn(true);
                     setUser(userData);

@@ -56,7 +56,7 @@ function SalaFitnessZorilor() {
           document.body.style.overflow = 'hidden'}} 
           className="cursor-pointer bg-white text-black p-3">ADAUGĂ ANTRENOR</button>}
         {adminMenuDisplay.adaugaAntrenor && <PopUpAdaugaAntrenor adminMenuDisplay={adminMenuDisplay} setAdminMenuDisplay={setAdminMenuDisplay}/>} */}
-          <div id='orar' className="w-full">
+          <div id='orar' className="w-full md:pl-15 md:pr-15">
         <CalendarOrar locatie='zorilor' />
       </div>
           </div>

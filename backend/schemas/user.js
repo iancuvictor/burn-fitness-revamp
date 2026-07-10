@@ -3,12 +3,15 @@ const { Schema, model } = mongoose;
 
 const user = new Schema({
     id: Number,
-    username: {type: String, required: true},
-    displayName: {type: String, required: false},
-    password: {type: String, required: true},
-    email: {type: String, required: true},
     isAdmin: { type: Boolean, default: false },
+    username: {type: String, required: true, unique: true},
+    displayName: {type: String, required: false},
+    email: {type: String, required: true, unique: true},
     phone: {type: String, required: true},
+    password: {type: String, required: true},
+    active: {type: Boolean, required: true, default: false},
+
+    // extras
     profilePhoto: {type: String, required: false},
     dataNasterii: {type: Date, required: false},
     activeSubscriptions: [

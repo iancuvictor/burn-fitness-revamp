@@ -28,3 +28,4 @@ export {default as MetodePlata} from './userPages/components/profilePage/compone
 export {default as QrCode} from './userPages/components/profilePage/qrCode.jsx';
 export {default as Filtre } from './filtre/filtre.jsx';
 export {default as FreeTrial} from './freeTrial/freeTrial.jsx';
+export {default as Activate} from './userPages/activate.jsx';

@@ -2,6 +2,7 @@ import { React, useContext, useEffect, useState } from "react";
 import { memo } from "react";
 import { AuthContext } from "../../../context/AuthContext";
 import axios from "axios";
+import { toast } from "sonner";
 
 const API_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -26,6 +27,7 @@ function CardClasaOrar({ clasa, getOrar, calendarDate, filtre}) {
     } else {
       setErrors({ ...errors, classFull: true });
     }
+    toast.success('Clasa a fost adăugată')
   };
   
   const renuntaLaClasa = async (id) => {
@@ -34,6 +36,12 @@ function CardClasaOrar({ clasa, getOrar, calendarDate, filtre}) {
       { _id: id },
       { withCredentials: true },
     );
+    toast.success('Ai renunțat cu succes la clasa', {
+  style: {
+    backgroundColor: '#dc2626',
+    color: '#ffffff',
+    borderColor: '#b91c1c'
+  }})
     // console.log(response);
     getOrar();
     setErrors({ ...errors, dejaInscris: false });
@@ -44,8 +52,6 @@ function CardClasaOrar({ clasa, getOrar, calendarDate, filtre}) {
     let dateToday = new Date();
     let classDate = new Date(clasa.data);
     classDate.setHours(...clasa.ora.split(':'))
-    console.log(dateToday);
-    console.log(classDate);
     if(classDate <= dateToday){
       setErrors(prev => ({...prev, expired: true}));
     } else {
@@ -69,22 +75,21 @@ function CardClasaOrar({ clasa, getOrar, calendarDate, filtre}) {
     } else {
       setErrors(prev => ({...prev, noAerobic: true }));
     }
-    // getOrar();
   }, [calendarDate]);
 
   if(filtre.expirata === true && errors.expired === true){
     return null;
   } else {
   return (
-    <div className="relative font-finlandica flex flex-col gap-1 text-[12px] md:text-[14px] min-h-16 md:min-h-20 ring-1 p-2 rounded-xs">
+    <div className="relative font-finlandica flex flex-col gap-1 text-[12px] md:text-[14px] min-h-16 md:min-h-16 ring-1 p-2 rounded-xs">
       <div className={`${errors.expired ? 'flex' : 'hidden'} absolute top-0 left-0 w-full h-full bg-black/80 z-1 
       text-rose-500 font-[700]
       items-center justify-center`}>CLASA A EXPIRAT</div>
       <div className="flex justify-between items-center gap-2">
         <div className="flex md:flex-row flex-wrap gap-1 items-center justify-center">
-          <span>[{clasa.ora}]</span>
-          <span className="font-[600] text-[14px] underline underline-offset-2">{clasa.denumire}</span>
-          <span className="text-rose-500 font-[600]">{clasa.antrenor}</span>
+          <span className="text-[12px]">[{clasa.ora}]</span>
+          <span className="font-[600] text-[12px] underline underline-offset-2">{clasa.denumire}</span>
+          <span className="text-rose-500 text-[12px] font-[600]">{clasa.antrenor}</span>
         </div>
       </div>
       <div className="flex flex-col">
@@ -111,7 +116,7 @@ function CardClasaOrar({ clasa, getOrar, calendarDate, filtre}) {
             disabled={errors.noAerobic}
 
             className={`${errors.dejaInscris || errors.classFull ? "bg-gray-700" : "bg-rose-500"} 
-          w-[40%] md:w-35 text-[12px] cursor-pointer rounded-xs text-white p-1`}
+          w-[40%] md:w-35 text-[11px] cursor-pointer rounded-xs text-white p-1`}
           >
             {errors.dejaInscris
               ? "Renunță"

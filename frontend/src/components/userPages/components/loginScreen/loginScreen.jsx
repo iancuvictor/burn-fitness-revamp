@@ -7,10 +7,13 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import InputLogin from "./input";
+import { useContext } from "react";
+import { AuthContext } from "../../../../context/AuthContext";
 
 const API_URL = import.meta.env.VITE_BACKEND_URL
 
 function LoginScreen() {
+  const {setLoggedIn} = useContext(AuthContext)
   const loginObj = {
     username: "",
     password: "",
@@ -43,6 +46,7 @@ function LoginScreen() {
         let response = await axios.post(`${API_URL}/users/login`, loginForm)
         if(response.data.message !== 'wrongPass'){
           window.location.reload();
+          setLoggedIn(true);
         } else if(response.data.message === 'wrongPass') {
           setError({...error, password: true});
         }
@@ -64,7 +68,7 @@ function LoginScreen() {
     try {
       if(signUpForm.password === signUpForm.passwordConfirm){
         await axios.post(`${API_URL}/users/register`, signUpForm)
-        await axios.post(`${API_URL}/users/login`, {username: signUpForm.username,password: signUpForm.password});
+        await axios.post(`${API_URL}/users/login`, {username: signUpForm.username, password: signUpForm.password});
         window.location.reload();
       } else {
         setError({...error, passwordConfirm: true});

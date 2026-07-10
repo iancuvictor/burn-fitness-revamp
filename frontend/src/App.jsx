@@ -31,7 +31,8 @@ import {
   AccountSettings,
   MetodePlata,
   QrCode,
-  AdminPaginiPublice
+  AdminPaginiPublice,
+  Activate
 } from "./components";
 import "./App.css";
 
@@ -72,6 +73,7 @@ function App() {
           <Route path="/salidefitness/sala-fitness-flora" element={<SalaFitnessFlora />} />
           <Route path="/salidefitness/sala-fitness-marasti" element={<SalaFitnessMarasti />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/activate" element={<Activate />} />
           <Route path="/profile" element={<UserPages />}>
             <Route element={<ProfilePage />}>
               <Route path="" element={<WrapperAbonamente />} />

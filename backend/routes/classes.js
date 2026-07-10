@@ -158,6 +158,20 @@ router.post('/antrenor', admin, async (req, res) => {
   }
 });
 
+// Deleting trainers
+
+router.delete('/antrenor', admin, async (req, res) => {
+  let antrenor = await Antrenor.findOne({_id: req.body._id});
+  try{
+    await Antrenor.deleteOne({_id: req.body._id});
+    console.log(`Antrenorul cu numele: ${antrenor.numeAntrenor} a fost șters`)
+    res.status(204).json(`Antrenorul cu numele: ${antrenor.numeAntrenor} a fost șters`);
+  } catch(err) {
+    console.log(err);
+    res.status(500).json('A intervenit o eroare');
+  }
+})
+
 // Adding classes (admin panel)
 
 router.post('/clasa', admin, async (req, res) => {
@@ -174,6 +188,14 @@ router.post('/clasa', admin, async (req, res) => {
     res.status(409).json('failed')
   }
 });
+
+// Deleting classes 
+
+router.delete('/clasa', admin, async (req, res) => {
+  let clasa = await Clasa.find({_id: req.body._id})
+  console.log(clasa);
+  res.json('Instance deleted');
+})
 
 router.get('/getSelectors', async (req, res) => {
   let antrenor = await Antrenor.find({});
