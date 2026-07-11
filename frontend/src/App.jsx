@@ -78,7 +78,7 @@ function App() {
             <Route element={<ProfilePage />}>
               <Route path="" element={<WrapperAbonamente />} />
               <Route path="setariCont" element={<AccountSettings />} />
-              <Route path="metodePlata" element={<MetodePlata />} />
+              {/* <Route path="metodePlata" element={<MetodePlata />} /> */}
               <Route path="qrCode" element={<QrCode />} />
             </Route>
           </Route>

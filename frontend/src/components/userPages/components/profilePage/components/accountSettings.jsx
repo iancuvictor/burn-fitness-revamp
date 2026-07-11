@@ -74,6 +74,8 @@ function AccountSettings() {
     updateData();
   }, [formData.pozaProfil]);
 
+  console.log(user);
+
   return (
     <div className="min-h-screen flex flex-col items-center gap-2 pt-5 pb-20 pr-5 pl-5 w-full ">
       <div className="w-full md:w-100 flex flex-col gap-5">

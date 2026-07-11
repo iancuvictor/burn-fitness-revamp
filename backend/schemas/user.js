@@ -10,7 +10,6 @@ const user = new Schema({
     phone: {type: String, required: true},
     password: {type: String, required: true},
     active: {type: Boolean, required: true, default: false},
-
     // extras
     profilePhoto: {type: String, required: false},
     dataNasterii: {type: Date, required: false},

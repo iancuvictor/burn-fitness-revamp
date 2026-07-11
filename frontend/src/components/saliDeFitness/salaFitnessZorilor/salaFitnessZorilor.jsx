@@ -17,7 +17,7 @@ function SalaFitnessZorilor() {
   })
 
   useEffect(() => {
-    if(location.hash !== ''){
+    if (location.hash !== '') {
       setTimeout(() => {
         document.querySelector(location.hash).scrollIntoView({ behavior: 'smooth' })
       }, 50);
@@ -50,16 +50,11 @@ function SalaFitnessZorilor() {
       </div>
       {/* sectiune antrenori */}
       <div className="pl-1 pr-1">
-        <ZonaAntrenori locatie='ZORILOR'/>
-        {/* {isAdmin && <button onClick={() => {
-          setAdminMenuDisplay({...adminMenuDisplay, adaugaAntrenor: true})
-          document.body.style.overflow = 'hidden'}} 
-          className="cursor-pointer bg-white text-black p-3">ADAUGĂ ANTRENOR</button>}
-        {adminMenuDisplay.adaugaAntrenor && <PopUpAdaugaAntrenor adminMenuDisplay={adminMenuDisplay} setAdminMenuDisplay={setAdminMenuDisplay}/>} */}
-          <div id='orar' className="w-full md:pl-15 md:pr-15">
-        <CalendarOrar locatie='zorilor' />
+        <ZonaAntrenori locatie='ZORILOR' />
       </div>
-          </div>
+        <div id='orar' className="w-full md:pl-10 md:pr-10">
+          <CalendarOrar locatie='zorilor' />
+        </div>
     </div>
   );
 }

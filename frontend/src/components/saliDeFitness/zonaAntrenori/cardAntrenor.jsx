@@ -49,22 +49,10 @@ export default function CardAntrenor({ antrenor, display, setDisplay, filteredAr
         await axios.put(`${API_URL}/publicPages/antrenori/updateAntrenor`, data, { withCredentials: true })
     }
 
-    useEffect(() => {
-        const handleClickOutside = (e) => {
-            if (cardRef.current && !cardRef.current.contains(e.target)) {
-                setDetails(false);
-
-            }
-        }
-
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, [])
-
 
     if (isAdmin) {
         // pt admin
-        return <div className={`flex flex-col items-center justify-end gap-3 animate-fade-in 150 ease-out h-130`}>
+        return <div className={`flex flex-col items-center justify-end gap-3 animate-fade-in duration-150 ease-out h-fit md:h-130`}>
             <div className="flex flex-col items-center justify-end md:flex-row gap-5">
             <div className='bg-black text-white p-2 md:p-5 
             flex flex-col items-center justify-center rounded-md w-fit h-100'>
@@ -123,7 +111,7 @@ export default function CardAntrenor({ antrenor, display, setDisplay, filteredAr
     } else {
 
         // pentru utilizatori
-        return <div ref={cardRef} className={`flex flex-col items-center justify-end gap-3 animate-fade-in 150 ease-out h-130`}>
+        return <div ref={cardRef} className={`flex flex-col items-center justify-end gap-3 animate-fade-in 150 ease-out h-fit md:h-130`}>
             <div className="flex flex-col items-center justify-end md:flex-row gap-5">
 
             <div className='bg-black text-white p-2 md:p-5 

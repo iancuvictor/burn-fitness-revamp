@@ -43,7 +43,6 @@ router.post("/adaugaAbonament", admin, async (req, res) => {
 //Buying subscriptions
 
 router.post('/cumparaAbonament', protect, async (req, res) => {
-    console.log(req.body);
     try {
         let abonament = await Abonament.findOne({_id: req.body.id});
         await User.updateOne(

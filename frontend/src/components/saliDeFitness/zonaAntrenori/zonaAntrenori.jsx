@@ -1,5 +1,3 @@
-import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 import { useContext } from 'react';
 import { useEffect } from 'react';
@@ -33,7 +31,7 @@ export default function ZonaAntrenori({locatie}){
     return <div className='flex flex-col items-center gap-5 w-full'>
         <h1 className='text-white text-[28px] md:text-[30px] font-[700]'>Antrenorii sălii noastre</h1>
         <div className={`${isAdmin ? 'flex-col' : 'flex-row'} flex justify-center items-center gap-5`}>
-            <div className='flex items-center gap-5 bg-zinc-900 p-4 rounded-t-xl'>
+            <div className='flex items-center gap-5 bg-zinc-900 p-4 rounded-t-xl h-fit'>
         {data !== undefined && filteredArray.map((antrenor, index) => {
             return display.cardAntrenori === index && 
             <CardAntrenor key={index} antrenor={antrenor} display={display} setDisplay={setDisplay} filteredArray={filteredArray}/>

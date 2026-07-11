@@ -6,6 +6,7 @@ import userRoutes from './routes/users.js';
 import classesRoutes from './routes/classes.js';
 import abonamenteRoutes from './routes/subscriptions.js';
 import publicRoutes from './routes/publicPages.js';
+import payments from './routes/payments.js';
 import cors from 'cors'
 import cookieParser from "cookie-parser";
 
@@ -14,8 +15,9 @@ const server = express();
 let port = process.env.PORT;
 server.use(cors({ origin: ['http://localhost:5173', 'http://192.168.0.220:5173', 'http://192.168.0.220:3000'], credentials: true }))
 
-server.use(express.json())
 server.use(cookieParser())
+server.use('/api/payments', payments);
+server.use(express.json())
 server.use('/api/uploads', express.static('./uploads'));
 
 mongoose

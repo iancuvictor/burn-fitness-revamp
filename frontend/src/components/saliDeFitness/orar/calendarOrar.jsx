@@ -50,7 +50,7 @@ export default function CalendarOrar({locatie}) {
 
   return <div
     id="orar"
-    className="h-fit flex flex-col items-center shadow-xl p-[25px] rounded-xl bg-white gap-5 w-full"
+    className="h-fit flex flex-col items-center shadow-xl p-5 rounded-xl bg-white gap-5 w-full"
   >
     {filtre.open && <Filtre filtre={filtre} setFiltre={setFiltre} />}
     <div className="flex flex-row items-center gap-5">
