@@ -28,7 +28,7 @@ function CardListaAbonamente({ dataAbonament }) {
                     {dataAbonament.subscriptionName}
                   </h1>
                 </div>
-                <span className="text-[14px]">
+                <span className="text-[16px]">
                   {zileRamase === 0 ? (
                     <span className="text-red-500 font-[600]">EXPIRAT</span>
                   ) : (
@@ -50,20 +50,19 @@ function CardListaAbonamente({ dataAbonament }) {
                 >
                   {detalii === false ? 'Vezi mai multe detalii' : 'Vezi mai puține detalii'}
                 </button>
-              <div className={`${detalii === true ? 'opacity-100 h-18' : 'opacity-0 h-0'} flex flex-col justify-between text-[14px]
+              <div className={`${detalii === true ? 'opacity-100 h-18' : 'opacity-0 h-0'} flex flex-col justify-between text-[15px]
               duration-150 ease-out`}>
                 <span>Durație: {dataAbonament.duration} {dataAbonament.duration > 1 ? 'Luni' : 'Lună'}</span>
-                <span>Preț: {dataAbonament.price} lei</span>
+                <span>Plătit: {dataAbonament.price} lei</span>
                 <span>Cumpărat în: {new Date(dataAbonament.purchaseDate).toLocaleDateString()}</span>
                 <span>Expiră în: {new Date(dataAbonament.expiryDate).toLocaleDateString()}</span>
               </div>
-              <div className="flex gap-2 text-[14px]">
+              <div className="flex gap-2 text-[16px]">
                 <button
                   className={`${zileRamase === 0 ? "block" : "hidden"} bg-rose-500 rounded-md text-white p-2`}
                 >
                   Reînnoiește abonamentul
                 </button>
-                {/* <button className="bg-rose-500 rounded-md text-white p-2">Elimină abonamentul</button> */}
               </div>
             </div>
 }

@@ -19,8 +19,11 @@ function WrapperAbonamente(){
       if(sessionId !== null){
         try{
           let response = await axios.post(`${API_URL}/payments/checkSession`, {sessionId: sessionId}, {withCredentials: true})
+          console.log(response.data);
           if(response.data.toast === 'success'){
             toast.success(`Abonamentul a fost adăugat cu succes!`)
+          } else if(response.data.toast === 'error'){
+            toast.error(`Abonamentul nu a fost adăugat`)
           }
         } catch(err) {
           console.log(err.response.data);

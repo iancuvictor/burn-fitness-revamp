@@ -70,13 +70,17 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
       const expiry = new Date();
       expiry.setMonth(expiry.getMonth() + +session.metadata.duration);
 
+      console.log(session);
+      console.log(session.amount_total);
+      console.log(session.amount_total / 100);
+
       try{
         await User.updateOne(
           {_id: session.client_reference_id}, 
           {$push: { activeSubscriptions: {
             subscriptionId: abonament._id, 
             subscriptionName: abonament.titlu,
-            price: +session.metadata.price,
+            price: +session.amount_total / 100,
             duration: session.metadata.duration,
             purchaseDate: new Date(),
             expiryDate: expiry,
@@ -95,16 +99,16 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
 
 router.post('/checkSession', express.json(), protect, async (req, res) => {
   let session = await stripe.checkout.sessions.retrieve(req.body.sessionId);
-  // console.log(session);
-  // console.log(session.client_reference_id)
-  // console.log(req.user.userId);
   let user = await User.findOne({'activeSubscriptions.subscriptionId' : session.metadata.subscriptionId});
 
+  // console.log(session);
+  // console.log(amount_total)
+  // console.log(user);
   if(session.client_reference_id === req.user.userId){
     if(user !== null){
       res.status(200).json({message: 'Abonamentul a fost adăugat cu succes!', toast: 'success'});
     } else {
-      res.status(200).json({message: 'Abonamentul nu a fost adăugat.'})
+      res.status(200).json({message: 'Abonamentul nu a fost adăugat.', toast: 'error'})
     }
   } else {
     res.status(401).json({message: 'The checkout session does not correspond to this user'});
