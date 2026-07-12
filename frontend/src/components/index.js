@@ -16,7 +16,7 @@ export {default as SalaFitnessMarasti} from './saliDeFitness/salaFitnessMarasti/
 export {default as UserPages} from './userPages/userPages.jsx';
 export {default as PopUp} from './popUps/popUp.jsx';
 export {default as AdminDashboard} from './AdminDashboard/adminDashboard.jsx';
-export {default as AdminUsers} from './AdminDashboard/adminUsers.jsx';
+export {default as AdminUsers} from './AdminDashboard/adminUsers/adminUsers.jsx';
 export {default as AdminOrar} from './AdminDashboard/adminOrar/adminOrar.jsx';
 export {default as AdminAbonamente} from './AdminDashboard/adminAbonamente/adminAbonamente.jsx';
 export {default as AdminPaginiPublice} from './AdminDashboard/adminPaginiPublice/adminPaginiPublice.jsx';

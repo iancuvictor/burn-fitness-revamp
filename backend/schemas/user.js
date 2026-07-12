@@ -13,6 +13,7 @@ const user = new Schema({
     // extras
     profilePhoto: {type: String, required: false},
     dataNasterii: {type: Date, required: false},
+    dataAbsolvireStudent: {type: Date, required: false},
     activeSubscriptions: [
         {
             subscriptionId: {type: String, required: true},

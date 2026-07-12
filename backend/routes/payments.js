@@ -11,6 +11,8 @@ const endpointWebhook = process.env.STRIPE_WEBHOOK;
 
 router.post('/createPayment', express.json(), protect, async (req, res) => {
   let user = await User.findOne({"activeSubscriptions.subscriptionName" : req.body.subscriptionName});
+  let abonament = await Abonament.findOne({_id: req.body.id, reducereAplicabila: true})
+  let allowPromoCodeBoolean = abonament !== null;
   if(user === null){
     const session = await stripe.checkout.sessions.create({
       line_items: [
@@ -27,8 +29,7 @@ router.post('/createPayment', express.json(), protect, async (req, res) => {
         },
       ],
       mode: 'payment',
-      allow_promotion_codes: true,
-      
+      allow_promotion_codes: allowPromoCodeBoolean,
       success_url: `http://localhost:5173/profile?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `http://localhost:5173/abonamente`,
       client_reference_id: req.user.userId,
