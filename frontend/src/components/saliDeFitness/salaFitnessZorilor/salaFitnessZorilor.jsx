@@ -28,9 +28,9 @@ function SalaFitnessZorilor() {
   return (
     <div className="h-fit flex flex-col items-center font-finlandica pb-[50px] gap-5 pl-5 pr-5">
       <div className="relative h-fit flex items-center gap-3 pb-5 pt-5">
-        <NavLink to='/clase/orar' className="block md:hidden text-white font-[600] justify-self-start ring-1 rounded-xs p-1">
-          <FontAwesomeIcon icon={faSquareCaretLeft} /> Înapoi</NavLink>
-        <h1 className="text-[20px] md:text-[35px] font-[700] text-center text-white justify-self-center">
+        {/* <NavLink to='/clase/orar' className="block md:hidden text-white font-[600] justify-self-start ring-1 rounded-xs p-1">
+          <FontAwesomeIcon icon={faSquareCaretLeft} /> Înapoi</NavLink> */}
+        <h1 className="text-[24px] md:text-[35px] font-[700] text-center text-white justify-self-center">
           Sala fitness ZORILOR
         </h1>
       </div>
@@ -38,6 +38,16 @@ function SalaFitnessZorilor() {
         <div className="flex flex-col gap-3 text-white">
           <h1 className="text-[24px] font-[700]">Ce oferim la Burn Fitness Zorilor?</h1>
         </div>
+      </div>
+      {/* sectiune antrenori */}
+      <div className="pl-1 pr-1">
+        <ZonaAntrenori locatie='ZORILOR' />
+      </div>
+      <div id='orar' className="w-full md:pl-10 md:pr-10">
+        <CalendarOrar locatie='zorilor' />
+      </div>
+      <div className="flex flex-col items-center justify-center gap-5">
+        <h1 className="text-white text-[24px] font-[700]">Date contact</h1>
         <BlockContact
           locatie="Zorilor"
           nrTel="0771 511 431"
@@ -48,13 +58,6 @@ function SalaFitnessZorilor() {
           programDuminica="10:00 - 17:00"
         />
       </div>
-      {/* sectiune antrenori */}
-      <div className="pl-1 pr-1">
-        <ZonaAntrenori locatie='ZORILOR' />
-      </div>
-        <div id='orar' className="w-full md:pl-10 md:pr-10">
-          <CalendarOrar locatie='zorilor' />
-        </div>
     </div>
   );
 }

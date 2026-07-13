@@ -6,13 +6,10 @@ const buttonStyle = ({isActive}) => `${isActive ? 'text-black bg-white' : 'text-
 flex items-center justify-center w-[25%] pt-4 pb-4 duration-75 ease-out`
 
 function MobileAccountNavbar({logOut}){
-    return <div className="z-1 flex justify-between fixed bottom-0 bg-black w-full text-[20px]">
+    return <div className="md:hidden z-1 flex justify-between fixed bottom-0 bg-black w-full text-[20px]">
         <NavLink to='.' end className={buttonStyle}>
             <FontAwesomeIcon icon={faBasketShopping}/>
         </NavLink>
-        {/* <NavLink to='metodePlata' className={buttonStyle}>
-            <FontAwesomeIcon icon={faWallet}/>
-        </NavLink> */}
         <NavLink to='qrCode' className={buttonStyle}>
             <FontAwesomeIcon icon={faQrcode}/>
         </NavLink>

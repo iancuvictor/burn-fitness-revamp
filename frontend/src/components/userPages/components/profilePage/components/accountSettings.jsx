@@ -174,7 +174,9 @@ function AccountSettings() {
           </div>
         </div>
         <button
-          onClick={() => updateData()}
+          onClick={() => {
+            refreshUser()
+            updateData()}}
           className="cursor-pointer bg-rose-500 text-white p-2 rounded-xs"
         >
           Salvează modificările

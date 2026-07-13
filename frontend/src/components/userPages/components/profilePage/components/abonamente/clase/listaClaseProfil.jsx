@@ -23,13 +23,5 @@ function ListaClaseProfil({data}){
       )}
     </div>
 }
-// let dateToday = new Date();
-//     let classDate = new Date(clasa.data);
-//     classDate.setHours(...clasa.ora.split(':'))
-//     if(classDate <= dateToday){
-//       setErrors(prev => ({...prev, expired: true}));
-//     } else {
-//       setErrors(prev => ({...prev, expired: false}));
-//     }
 
 export default ListaClaseProfil;

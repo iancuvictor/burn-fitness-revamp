@@ -36,13 +36,7 @@ function CardClasaOrar({ clasa, getOrar, calendarDate, filtre}) {
       { _id: id },
       { withCredentials: true },
     );
-    toast.success('Ai renunțat cu succes la clasa', {
-  style: {
-    backgroundColor: '#dc2626',
-    color: '#ffffff',
-    borderColor: '#b91c1c'
-  }})
-    // console.log(response);
+    toast.success('Ai renunțat cu succes la clasa')
     getOrar();
     setErrors({ ...errors, dejaInscris: false });
   };

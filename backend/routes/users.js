@@ -128,7 +128,6 @@ router.get("/profile", protect, async (req, res) => {
 });
 
 router.post("/updateProfile", protect, upload.single('pozaProfil'), async (req, res) => {
-  console.log(req.file.filename);
   const updateData = {
     username: req.body.username,
     displayName: req.body.displayName,

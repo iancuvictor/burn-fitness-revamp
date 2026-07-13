@@ -11,16 +11,10 @@ const API_URL = import.meta.env.VITE_BACKEND_URL;
 function ProfilePage() {
 
   const [ display, setDisplay ] = useState('abonamente');
-  const { setLoggedIn, setUser } = useContext(AuthContext);
+  const { logOut, setUser} = useContext(AuthContext);
   const [alert, setAlert] = useState({
     logOut: false,
   });
-
-  const logOut = () => {
-    axios.post(`${API_URL}/users/logout`);
-    setLoggedIn(false);
-    setUser();
-  };
 
   useEffect(() => {
         async function checkCookie(){

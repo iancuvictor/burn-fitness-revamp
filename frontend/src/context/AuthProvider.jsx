@@ -15,7 +15,6 @@ function AuthProvider({children}){
     clase: []
     })
 
-
     const refreshUser = async () => {
         let response = await axios.get(`${API_URL}/users/profile`, { withCredentials: true });
         let userData = response.data.userData;
@@ -26,6 +25,15 @@ function AuthProvider({children}){
       let response = await axios.get(`${API_URL}/classes/getSelectors`, {withCredentials: true});
       setSelectors({...selectors, antrenori: response.data.antrenori, clase: response.data.clase})
     }
+
+    const logOut = async (alert, setAlert) => {
+    await axios.post(`${API_URL}/users/logout`);
+    setLoggedIn(false);
+    setUser();
+    if(alert && setAlert){
+        setAlert({ ...alert, logOut: false })
+    }
+    };
 
     useEffect(() => {
     getSelectors();
@@ -53,7 +61,7 @@ function AuthProvider({children}){
 
     return (
         <AuthContext.Provider value={{loggedIn, setLoggedIn, user, setUser, isAdmin, setIsAdmin, 
-        loading, setLoading, refreshUser, selectors, getSelectors}}>
+        loading, setLoading, refreshUser, selectors, getSelectors, logOut}}>
             {children}
         </AuthContext.Provider>
     )

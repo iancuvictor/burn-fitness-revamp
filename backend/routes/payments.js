@@ -8,6 +8,7 @@ const router = express.Router();
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 const endpointWebhook = process.env.STRIPE_WEBHOOK;
+const BACKEND_URL = process.env.BACKEND_URL;
 
 router.post('/createPayment', express.json(), protect, async (req, res) => {
   let userCheck = await User.findOne({_id: req.user.userId, "activeSubscriptions.subscriptionName" : req.body.subscriptionName});
@@ -39,8 +40,8 @@ router.post('/createPayment', express.json(), protect, async (req, res) => {
       ],
       mode: 'payment',
       discounts: discountParams,
-      success_url: `http://localhost:5173/profile?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `http://localhost:5173/abonamente`,
+      success_url: `${BACKEND_URL}/profile?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${BACKEND_URL}/abonamente`,
       client_reference_id: req.user.userId,
       metadata: {
         subscriptionId: req.body.id,
