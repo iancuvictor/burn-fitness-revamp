@@ -10,10 +10,19 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 const endpointWebhook = process.env.STRIPE_WEBHOOK;
 
 router.post('/createPayment', express.json(), protect, async (req, res) => {
-  let user = await User.findOne({"activeSubscriptions.subscriptionName" : req.body.subscriptionName});
-  let abonament = await Abonament.findOne({_id: req.body.id, reducereAplicabila: true})
-  let allowPromoCodeBoolean = abonament !== null;
-  if(user === null){
+  let userCheck = await User.findOne({_id: req.user.userId, "activeSubscriptions.subscriptionName" : req.body.subscriptionName});
+  let user = await User.findOne({_id: req.user.userId });
+  let subscriptionCheck = await Abonament.findOne({_id: req.body.id, reducereAplicabila: true})
+  //discounts
+  let couponName;
+  let discountParams;
+  if(user.dataAbsolvireStudent !== undefined && subscriptionCheck !== null){
+    couponName = 'RfLpN0nA';
+    discountParams = [{
+          coupon: couponName
+      }]
+  }
+  if(userCheck === null){
     const session = await stripe.checkout.sessions.create({
       line_items: [
         {
@@ -29,7 +38,7 @@ router.post('/createPayment', express.json(), protect, async (req, res) => {
         },
       ],
       mode: 'payment',
-      allow_promotion_codes: allowPromoCodeBoolean,
+      discounts: discountParams,
       success_url: `http://localhost:5173/profile?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `http://localhost:5173/abonamente`,
       client_reference_id: req.user.userId,
@@ -41,7 +50,8 @@ router.post('/createPayment', express.json(), protect, async (req, res) => {
     });
     res.status(200).json({ url: session.url });
   } else {
-    console.log('User already has this subscription');
+  // console.log(couponName)
+    console.log(`User ${user.username} already has this subscription`);
     res.status(409).json({message: 'Subscription already active', error: 'subscriptionAlreadyBought'})
   }
 });

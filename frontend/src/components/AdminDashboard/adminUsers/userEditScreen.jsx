@@ -14,7 +14,7 @@ export default function UserEditScreen({ user, editScreen, setEditScreen }) {
 
     return <div className="fixed top-0 left-0 z-2 h-full w-full flex items-center justify-center pt-5 pb-5 pl-10 pr-10
      bg-black/80 font-finlandica">
-        <div className="relative bg-white h-full w-300 rounded-lg p-5 flex flex-col gap-5">
+        <div className="relative bg-white h-full w-300 rounded-lg p-5 flex flex-col justify-between gap-5">
             <div className="overflow-y-scroll p-2">
                 <div className="flex gap-10 items-center h-50">
                     <span className="h-50 w-50">

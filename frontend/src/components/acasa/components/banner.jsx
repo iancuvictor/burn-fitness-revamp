@@ -24,8 +24,7 @@ function Banner() {
             />
             <div>
               <h1 className="flex gap-1">Ești student? Ai reducere 13% la ORICE abonament!
-                <span className="hidden md:block"> Folosește codul EDU la checkout 
-                  în aplicație sau prezintă-te la recepția sălii unde te vei antrena
+                <span className="hidden md:block"> Prezintă-ți legitimația de student la orice recepție Burn Fitness Cluj-Napoca
                 </span>
               </h1>
             </div>
