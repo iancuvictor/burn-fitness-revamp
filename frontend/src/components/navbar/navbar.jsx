@@ -11,7 +11,7 @@ const buttonClass = ({ isActive }) => `${isActive ? 'z-1 text-white underline un
     'hover:text-white hover:underline underline-offset-5 duration-150'} 
      w-50 md:w-fit pt-2 pb-2 flex items-center justify-center gap-2`
 
-const profileCheck = ({ isActive }) => `${isActive ? 'text-rose-500' : 'text-white'} text-[25px] md:text-[30px] flex gap-1 items-center justify-center`
+const profileCheck = ({ isActive }) => `${isActive ? 'text-rose-500' : 'text-white'} text-[28px] md:text-[30px] flex gap-1 items-center justify-center`
 const dropdownButtonStyle = ({ isActive }) => `${isActive ? 'text-rose-400' : 'text-white'} text-[16px] pt-1 pb-1`;
 
 const API_URL = import.meta.env.VITE_BACKEND_URL;
@@ -70,14 +70,14 @@ function Navbar({ menuState, setMenuState }) {
             </div>
             <div ref={dropDownMenu} className='relative'>
                 <button onClick={() => setDisplayDropDown(!displayDropDown)}
-                    className={`
+                    className={`${user ? 'w-60' : ''}
                     flex items-center justify-center gap-2 cursor-pointer
-                    rounded-md p-2 w-60 outline-none`}>
-                    <span className='text-white text-[16px]'>Conectat: {user.username}</span>
-                    {user !== undefined ? <div className='relative h-10 w-10'>
+                    rounded-md p-2 outline-none`}>
+                    {user && <span className='text-white text-[16px]'>Conectat: {user.username}</span>}
+                    {user !== undefined ? <div className='relative h-10 w-10 '>
                         <img className='rounded-full h-full w-full' src={`${API_URL}/uploads/POZEPROFIL/${user.profilePhoto}?t=${Date.now()}`} alt="" />
                     </div>
-                        : <span className='text-white text-[30px]'><FontAwesomeIcon icon={faCircleUser} /></span>}
+                        : <NavLink to='/profile' className={profileCheck}><FontAwesomeIcon icon={faCircleUser} /></NavLink>}
                 </button>
                 {user !== undefined && displayDropDown &&
                     <div 
@@ -102,19 +102,23 @@ function Navbar({ menuState, setMenuState }) {
         {/* mobile navbar */}
         <div className={`${isAdmin === false ? 'flex' : 'hidden'} bg-black/95 sticky top-0 w-full h-15 z-4 md:hidden justify-between items-center`}>
             <NavLink to='/'><img src={BurnLogo} alt="burn fitness logo" className='md:hidden w-40 m-[10px]' /></NavLink>
-            <div className='justify-center items-center flex gap-3'>
-                <NavLink to="/profile" className={profileCheck}><FontAwesomeIcon icon={faCircleUser} /></NavLink>
+            <div className='flex justify-center items-center gap-3'>
+                {user !== undefined ? <NavLink to='/profile' 
+                        className={({ isActive }) => `relative h-8 w-8 rounded-full ${isActive ? 'ring-2 ring-white' : ''}`}>
+                        <img className='rounded-full h-full w-full object-cover object-center' src={`${API_URL}/uploads/POZEPROFIL/${user.profilePhoto}?t=${Date.now()}`} alt="Profile Picture" />
+                        </NavLink>
+                        : <NavLink to='/profile' className={profileCheck}><FontAwesomeIcon icon={faCircleUser} /></NavLink>}
                 <button
                     onClick={() => {
                         document.body.style.overflow = 'hidden';
                         setMenuState(true)
                     }}
-                    className={`${menuState ? 'w-10 opacity-0' : 'opacity-100 w-10 md:hidden cursor-pointer text-white'} text-[25px] pr-[50px] duration-100 ease-out`}
+                    className={`${menuState ? 'w-10 opacity-0' : 'opacity-100 w-10 md:hidden cursor-pointer text-white'} text-[28px] pr-[50px] duration-100 ease-out`}
                 ><FontAwesomeIcon icon={faBars} /></button>
             </div>
             <div id='mobileBurger' className={menuState ? `z-3 animate-fade-in flex flex-col fixed top-0 justify-center 
         items-center w-full h-full bg-black font-finlandica font-bold text-gray-500 text-[25px] md:hidden gap-1` : 'animate-fade-out hidden'}>
-                <div onClick={() => setMenuState(false)} className='fixed z-[-1] h-full w-full'></div>
+                <div onClick={() => closeMenu(setMenuState)} className='fixed z-[-1] h-full w-full'></div>
                 <img src={BurnLogo} alt="burn fitness logo" className='w-40 pb-3 box-border' onClick={() => closeMenu(setMenuState)} />
                 <NavLink to="/" className={buttonClass} onClick={() => closeMenu(setMenuState)}>Acasa</NavLink>
                 <NavLink to="/abonamente" className={buttonClass} onClick={() => closeMenu(setMenuState)}>Abonamente</NavLink>
@@ -124,7 +128,7 @@ function Navbar({ menuState, setMenuState }) {
                 {/* <NavLink to="/blog" className={buttonClass} onClick={() => setMenuState(!menuState)}>Blog</NavLink> */}
                 {/* <NavLink to="/galerie" className={buttonClass} onClick={() => setMenuState(!menuState)}>Galerie foto</NavLink> */}
                 <NavLink to="/contact" className={buttonClass} onClick={() => closeMenu(setMenuState)}>Contact</NavLink>
-                <NavLink to="/profile" className={buttonClass} onClick={() => closeMenu(setMenuState)}>Cont</NavLink>
+                {/* <NavLink to="/profile" className={buttonClass} onClick={() => closeMenu(setMenuState)}>Cont</NavLink> */}
                 <div className='pt-2'>
                     <a href="https://www.instagram.com/burnfitnesscluj/" target='_blank'><FontAwesomeIcon icon={faInstagramSquare} className='text-[#E06397] hover:text-[#DB2777] duration-150 text-4xl' /></a>
                     <a href="https://www.facebook.com/BurnFitnessCluj" target='_blank'><FontAwesomeIcon icon={faFacebookSquare} className='text-[#6096D6] hover:text-[#1877F2] duration-150 text-4xl' /></a>
