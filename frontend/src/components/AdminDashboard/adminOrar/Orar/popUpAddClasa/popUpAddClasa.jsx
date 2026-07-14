@@ -7,7 +7,7 @@ const API_URL = import.meta.env.VITE_BACKEND_URL;
 function PopUpAddClasa({locatie, zi, ziOrar, displayedMenus, setDisplayedMenus, getOrar}) {
   const { selectors } = useContext(AuthContext);
   const parts = ziOrar.split('.');
-  ziOrar = `${parts[2]}-${parts[1]}-${parts[0]}`;
+  let ziOrarParsed = `${parts[2]}-${parts[1]}-${parts[0]}`;
 
     let defaultFormData = {
         ora: '',
@@ -25,7 +25,7 @@ function PopUpAddClasa({locatie, zi, ziOrar, displayedMenus, setDisplayedMenus, 
         locatie: locatie.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""),
         zi: zi.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""),
         ora: formData.ora,
-        data: new Date(ziOrar),
+        data: new Date(ziOrarParsed),
         denumire: formData.denumire,
         antrenor: formData.antrenor,
         capacitate: +formData.capacitate
@@ -52,15 +52,15 @@ function PopUpAddClasa({locatie, zi, ziOrar, displayedMenus, setDisplayedMenus, 
       <h1 className="text-[20px]">Adaugă clasă: <span className="font-[500]">{zi}</span></h1>
       <form action="" className="flex flex-col gap-5">
         <div className="flex flex-col gap-2">
-        <input onChange={(e) => updateForm('data', e.target.value)} type="date" defaultValue={ziOrar}/>
+        <input onChange={(e) => updateForm('data', e.target.value)} type="date" defaultValue={ziOrarParsed}/>
         <input onChange={(e) => updateForm('ora', e.target.value)} type="time" value={formData.ora} placeholder="Ora"/>
         <div className="relative w-full border">
           <input onChange={(e) => updateForm('denumire', e.target.value)} type="text" value={formData.denumire} placeholder="Denumire"
           className="peer w-full p-2"/>
           <div className={`hidden peer-focus:flex absolute overflow-auto h-fit w-full z-1 
             bg-white flex-col gap-2 p-2 shadow-lg/20 border`}>
-            {selectors.clase.filter((clasa) => clasa.numeClasa.toLowerCase().includes(formData.denumire.toLowerCase())).map((clasa, index) => {
-            return <div key={index} onMouseDown={() => updateForm('denumire', clasa.numeClasa)} className="cursor-pointer">{clasa.numeClasa}</div>
+            {selectors.clase.filter((clasa) => clasa.nume.toLowerCase().includes(formData.denumire.toLowerCase())).map((clasa, index) => {
+            return <div key={index} onMouseDown={() => updateForm('denumire', clasa.nume)} className="cursor-pointer">{clasa.nume}</div>
           })}
           </div>
         </div>

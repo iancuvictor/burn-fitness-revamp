@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import Orar from "./Orar/orar";
 import axios from "axios";
-import AdaugaAntrenoriClase from "./adaugaAntrenoriClase";
+import MeniuAntrenori from "./meniuAntrenori";
+import MeniuClase from "./meniuClase";
 
 const API_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -53,8 +54,8 @@ function AdminOrar() {
           </select>
         </div>
         <div className="flex flex-row gap-5">
-          <AdaugaAntrenoriClase type='antrenor'/>
-          <AdaugaAntrenoriClase type='clasa'/>
+          <MeniuAntrenori/>
+          <MeniuClase/>
         </div>
       </div>
       <div id="editorWrap">

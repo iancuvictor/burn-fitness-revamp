@@ -8,6 +8,7 @@ import {
   Acasa,
   Abonamente,
   Clase,
+  PaginaClase,
   OrarClase,
   Blog,
   Galerie,
@@ -29,12 +30,12 @@ import {
   FreeTrial,
   WrapperAbonamente,
   AccountSettings,
-  MetodePlata,
   QrCode,
   AdminPaginiPublice,
   Activate
 } from "./components";
 import "./App.css";
+import AdminNavbar from "./components/AdminDashboard/adminNavbar";
 
 function AdminRoute({children}){
     const { isAdmin, loading } = useContext(AuthContext)
@@ -43,13 +44,12 @@ function AdminRoute({children}){
 }
 
 function App() {
+  const { isAdmin, loading } = useContext(AuthContext)
   const [menuState, setMenuState] = useState(false);
-  const { loading } = useContext(AuthContext)
 
   if(loading){
     return null
   } else {
-
     return (
       <BrowserRouter>
       <ScrollToTop/>
@@ -57,12 +57,12 @@ function App() {
         id="appWrapper"
         className="relative flex flex-col justify-between bg-gray-100 w-full" 
         >
-        <Navbar menuState={menuState} setMenuState={setMenuState} />
-
+        {isAdmin ? <AdminNavbar/> : <Navbar menuState={menuState} setMenuState={setMenuState} />}
         <Routes>
           <Route path="/" element={<Acasa />} />
           <Route path="/abonamente" element={<Abonamente />} />
           <Route path="/clase" element={<Clase />} />
+          <Route path="/clasa/:idClasa" element={<PaginaClase />} />
           <Route path="/clase/orar" element={<OrarClase />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/galerie" element={<Galerie />} />

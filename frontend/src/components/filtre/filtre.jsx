@@ -57,11 +57,11 @@ export default function Filtre({ filtre, setFiltre }) {
                         <div className={`${filterUI.clase ? 'flex h-50 ring-1' : 'h-0 ring-0'} z-1 overflow-scroll left-0 w-full bg-white
                     peer-focus-within:animate-fade-in duration-150 ease-out flex-col`}>
                             {selectors.clase.map((clasa, index) => {
-                                    return <div key={index} onMouseDown={() => seteazaFiltrele('clasa', clasa.numeClasa)}
-                                        className={`${filtre.clasa.includes(clasa.numeClasa) ? 'bg-rose-500 text-white' : 'bg-white'}
+                                    return <div key={index} onMouseDown={() => seteazaFiltrele('clasa', clasa.nume)}
+                                        className={`${filtre.clasa.includes(clasa.nume) ? 'bg-rose-500 text-white' : 'bg-white'}
                                         cursor-pointer p-3 duration-75 ease-out text-[14px] flex justify-between`}>
-                                        <span>{clasa.numeClasa}</span>
-                                        <FontAwesomeIcon icon={filtre.clasa.includes(clasa.numeClasa) ? faCheckCircleSolid : faCheckCircleRegular} />
+                                        <span>{clasa.nume}</span>
+                                        <FontAwesomeIcon icon={filtre.clasa.includes(clasa.nume) ? faCheckCircleSolid : faCheckCircleRegular} />
                                         </div>
                                 })}
                         </div>

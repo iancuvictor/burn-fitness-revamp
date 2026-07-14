@@ -24,7 +24,7 @@ const data = [
 ]
 
 function SaliDeFitness(){
-    return <div className='min-h-screen font-finlandica flex flex-col items-center pb-[50px]'>
+    return <div className='min-h-[calc(100vh-5rem)] font-finlandica flex flex-col items-center pb-[50px]'>
         <h1 className='text-[20px] text-center md:text-[35px] font-[700] pb-5 pt-5 text-white'>DESCOPERĂ LOCAȚIILE FITNESS <span className='underline underline-offset-5'>BURN CLUJ-NAPOCA</span></h1>
         <div className='relative flex flex-wrap gap-10 justify-center items-center pl-[20px] pr-[20px]'>
         {data.map((sala, index) => {

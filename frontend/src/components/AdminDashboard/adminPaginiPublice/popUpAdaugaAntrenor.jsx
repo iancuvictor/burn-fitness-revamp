@@ -62,7 +62,7 @@ export default function PopUpAdaugaAntrenor({ adminMenuDisplay, setAdminMenuDisp
             document.body.style.overflow = 'hidden'
         }} className='bg-rose-500 rounded-md p-3 text-white cursor-pointer'>Adaugă antrenor</button>
         <div className={`${adminMenuDisplay.adaugaAntrenor ? 'fixed' : 'hidden'} 
-        z-1 h-screen w-full top-0 left-0 flex items-center justify-center bg-black/80`}>
+        z-2 h-screen w-full top-0 left-0 flex items-center justify-center bg-black/80`}>
             <div className='flex flex-col gap-3 bg-white w-200 h-[90%] rounded-md p-5 overflow-y-scroll'>
                 <div className='flex flex-col gap-2'>
                     <span className='font-[600]'>Nume:</span>

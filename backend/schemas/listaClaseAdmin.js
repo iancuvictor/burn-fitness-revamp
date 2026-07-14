@@ -1,7 +1,9 @@
 import {Schema, model} from 'mongoose';
 
 let clasa = new Schema({
-    numeClasa: {type: String, required: true}
+    nume: {type: String, required: true},
+    imagine: {type: String, required: true, default: ''},
+    descriere: {type: String, required: true, default: ''},
 });
 
 const Clasa = model('Clase', clasa);

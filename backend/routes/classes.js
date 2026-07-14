@@ -9,6 +9,22 @@ import Clasa from "../schemas/listaClaseAdmin.js";
 import cron from 'node-cron';
 const router = express.Router();
 
+import multer from 'multer';
+const CLASE_UPLOAD_PATH = process.env.FOLDER_UPLOADS_CLASE;
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, CLASE_UPLOAD_PATH);
+  },
+  filename: (req, file, cb) => {
+    const parts = file.originalname.split('.');
+    const ext = parts[parts.length - 1];
+    cb(null, req.body.nume + '_pozaClasa.' + ext);
+  }
+})
+
+const upload = multer({storage});
+
 // might add cron scheduler sometimes in the future
 
 // cron.schedule('0 0 1 * * ', () => {
@@ -42,7 +58,12 @@ router.post("/orarClase", admin, async (req, res) => {
 });
 
 router.get("/orarClase", async (req, res) => {
-  let dataClase = await Orar.find({ locatie: req.query.locatie });
+  let dataClase;
+  if(req.query.locatie !== undefined){
+    dataClase = await Orar.find({ locatie: req.query.locatie });
+  } else if(req.query.clasa) {
+    dataClase = await Orar.find({ denumire: req.query.clasa });
+  }
   res.json(dataClase);
 });
 
@@ -174,18 +195,36 @@ router.delete('/antrenor', admin, async (req, res) => {
 
 // Adding classes (admin panel)
 
-router.post('/clasa', admin, async (req, res) => {
-
+router.post('/clasa', admin, upload.single('imagine'), async (req, res) => {
+  console.log(req.file);
   try{
-    let result = await Clasa.create({
-      numeClasa: req.body.numeClasa
+    await Clasa.create({
+      nume: req.body.nume,
+      descriere: req.body.descriere || '',
+      imagine: req.file.filename || ''
     })
-    console.log(result);
-    res.status(201).json('clasaAdaugata')
-    console.log(`Clasă adăugată: ${req.body.numeAntrenor}`);
+    console.log(`Clasă adăugată: ${req.body.nume}`);
+    res.status(201).json('Clasa adaugata')
   } catch(err) {
     console.log(err);
     res.status(409).json('failed')
+  }
+});
+
+// Updating classes
+
+router.put('/clasa', admin, upload.single('imagine'), async (req, res) => {
+  let data = {
+    id: req.body.id,
+    nume: req.body.nume,
+    descriere: req.body.descriere,
+    imagine: req.file?.filename || req.body.imagine
+  }
+  try{
+    await Clasa.updateOne({_id: data.id}, {$set: data});
+    res.status(201).json({message:'Clasa a fost updatata'})
+  } catch(err) {
+    res.json({message: 'O eroare a aparut'});
   }
 });
 
@@ -193,8 +232,14 @@ router.post('/clasa', admin, async (req, res) => {
 
 router.delete('/clasa', admin, async (req, res) => {
   let clasa = await Clasa.find({_id: req.body._id})
-  console.log(clasa);
-  res.json('Instance deleted');
+  try{
+    await Clasa.deleteOne({_id: req.body._id});
+    console.log(`Clasa cu numele: ${clasa.nume} a fost ștearsă`)
+    res.status(204).json(`Antrenorul cu numele: ${clasa.nume} a fost șters`);
+  } catch(err) {
+    console.log(err);
+    res.status(500).json('A intervenit o eroare');
+  }
 })
 
 router.get('/getSelectors', async (req, res) => {

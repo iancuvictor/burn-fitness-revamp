@@ -79,7 +79,7 @@ function LoginScreen() {
   };
 
   return (
-    <div className="relative h-150 min-h-150 flex justify-center items-center gap-10 font-finlandica">
+    <div className="relative min-h-[calc(100vh-5rem)] flex justify-center items-center gap-10 font-finlandica">
       <div
         className={`${userExists ? "flex" : "hidden"} h-full w-full md:w-fit shadow-xl flex flex-col gap-6 bg-white 
         rounded-xl p-4`}

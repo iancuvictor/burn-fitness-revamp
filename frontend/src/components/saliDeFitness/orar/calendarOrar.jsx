@@ -24,11 +24,14 @@ export default function CalendarOrar({locatie}) {
   });
 
   async function getOrar() {
-    let response = await axios.get(
-      `${API_URL}/classes/orarClase?locatie=${locatie}`,
-    );
-    // console.log(response.data);
-    setDataOrar(response.data);
+    try{
+      let response = await axios.get(
+        `${API_URL}/classes/orarClase?locatie=${locatie}`,
+      );
+      setDataOrar(response.data);
+    } catch(err) {
+      console.log(err);
+    }
   }
   useEffect(() => {
     if (user !== undefined) {

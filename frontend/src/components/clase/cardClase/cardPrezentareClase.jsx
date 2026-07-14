@@ -2,13 +2,11 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../context/AuthContext";
 import axios from "axios";
 import { toast } from "sonner";
-import { useLocation } from "react-router";
 
 const API_URL = import.meta.env.VITE_BACKEND_URL;
 
-function CardClasaOrar({ clasa, getOrar, calendarDate}) {
-  let location = useLocation();
-  const { user } = useContext(AuthContext);
+export default function CardPrezentareClase(){
+    const { user } = useContext(AuthContext);
   const [errors, setErrors] = useState({
     dejaInscris: false,
     classFull: false,
@@ -72,15 +70,13 @@ function CardClasaOrar({ clasa, getOrar, calendarDate}) {
     }
   }, [calendarDate]);
 
-  return (
-    <div className="relative font-finlandica flex flex-col gap-1 text-[12px] md:text-[14px] min-h-16 md:min-h-16 ring-1 p-2 rounded-xs max-w-100">
+    return (
+    <div className="relative font-finlandica flex flex-col gap-1 text-[12px] md:text-[14px] min-h-16 md:min-h-16 ring-1 p-2 rounded-xs">
       <div className={`${errors.expired ? 'flex' : 'hidden'} absolute top-0 left-0 w-full h-full bg-black/80 z-1 
       text-rose-500 font-[700]
       items-center justify-center`}>CLASA A EXPIRAT</div>
       <div className="flex justify-between items-center gap-2">
-        <div className="flex md:flex-row flex-wrap gap-1 items-center">
-          {location.pathname.split('/')[1] === 'clasa' && <span className="text-[12px] font-[600]">[{clasa.locatie.toUpperCase()}]</span>}
-          {location.pathname.split('/')[1] === 'clasa' && <span className="text-[12px] font-[600]">[{clasa.data.split('T')[0]}]</span>}
+        <div className="flex md:flex-row flex-wrap gap-1 items-center justify-center">
           <span className="text-[12px]">[{clasa.ora}]</span>
           <span className="font-[600] text-[12px] underline underline-offset-2">{clasa.denumire}</span>
           <span className="text-rose-500 text-[12px] font-[600]">{clasa.antrenor}</span>
@@ -121,5 +117,3 @@ function CardClasaOrar({ clasa, getOrar, calendarDate}) {
     </div>
   );
 }
-
-export default CardClasaOrar;

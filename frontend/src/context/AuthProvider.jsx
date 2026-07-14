@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import axios from 'axios';
 import { AuthContext } from './AuthContext'
+import { toast } from "sonner";
 
 const API_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -27,9 +28,10 @@ function AuthProvider({children}){
     }
 
     const logOut = async (alert, setAlert) => {
-    await axios.post(`${API_URL}/users/logout`);
+    await axios.post(`${API_URL}/users/logout`, {withCredentials: true});
     setLoggedIn(false);
     setUser();
+    toast.success(`Te-ai deconectat cu succes`)
     if(alert && setAlert){
         setAlert({ ...alert, logOut: false })
     }

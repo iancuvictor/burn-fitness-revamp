@@ -2,6 +2,7 @@ export {default as Acasa} from './acasa/acasa.jsx';
 export {default as Abonamente} from './abonamente/abonamente';
 export {default as Contact} from './contact/contact';
 export {default as Clase} from './clase/clase.jsx';
+export {default as PaginaClase} from './clase/cardClase/paginaClase.jsx';
 export {default as OrarClase} from './orarClase/orarClase.jsx';
 export {default as Blog} from './blog/blog';
 export {default as Galerie} from './galerieFoto/galerieFoto';
