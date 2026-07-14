@@ -1,8 +1,9 @@
 import { AuthContext } from "../../../../../context/AuthContext";
 import { useContext, useEffect, useRef, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
-import TemporaryPopUp from "../../../../popUps/temporaryPopUp";
 import { toast } from "sonner";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 const inputWrapper =
   "text-black text-[14px] border rounded-md box-content pt-2 pb-2 pl-3 pr-3 md:pl-5 md:pr-5";
@@ -23,6 +24,11 @@ function AccountSettings() {
     dataNasterii: user.dataNasterii || "",
     pozaProfil: user.profilePhoto || "",
   });
+
+  const [viewPassword, setViewPassword] = useState({
+    password: false,
+    confirmPassword: false,
+  })
 
   const updateData = async () => {
     let data = new FormData();
@@ -185,23 +191,31 @@ function AccountSettings() {
           <h1 className="font-[700] text-[20px]">Schimbă parola:</h1>
           <div className={inputWrapper}>
             <span>Parolă nouă:</span>
+            <span className="flex items-center justify-center">
             <input
               onChange={(e) => updateField("password", e.target.value)}
               className={inputStyle}
-              type="password"
+              type={viewPassword.password ? 'text' : 'password'}
               name=""
               id=""
-            />
+              />
+            <FontAwesomeIcon onClick={() => setViewPassword({...viewPassword, password: !viewPassword.password})} 
+            icon={viewPassword.password ? faEye : faEyeSlash} className="cursor-pointer text-[18px]"/>
+              </span>
           </div>
           <div className={inputWrapper}>
             <span>Confirmă parola nouă:</span>
+            <span className="flex items-center justify-center">
             <input
               onChange={(e) => updateField("confirmPassword", e.target.value)}
               className={inputStyle}
-              type="password"
+              type={viewPassword.confirmPassword ? 'text' : 'password'}
               name=""
               id=""
-            />
+              />
+            <FontAwesomeIcon onClick={() => setViewPassword({...viewPassword, confirmPassword: !viewPassword.confirmPassword})} 
+            icon={viewPassword.confirmPassword ? faEye : faEyeSlash} className="cursor-pointer text-[18px]"/>
+              </span>
           </div>
         </div>
         <button

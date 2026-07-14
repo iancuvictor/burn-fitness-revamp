@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router';
 import BurnLogo from './assets/burnLogo.svg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faBasketShopping, faCircleUser, faGear, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faBasketShopping, faCircleUser, faGear, faL, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { faFacebookSquare, faInstagramSquare } from '@fortawesome/free-brands-svg-icons';
 import { AuthContext } from "../../context/AuthContext";
 import { useContext, useState, useRef, useEffect } from 'react';
@@ -21,9 +21,13 @@ function Navbar({ menuState, setMenuState }) {
     const [alert, setAlert] = useState({
         logOut: false,
     });
-    const [displayDropDown, setDisplayDropDown] = useState(false);
+    const [displayDropDown, setDisplayDropDown] = useState({
+        user: false,
+        orar: false
+    });
     const { isAdmin } = useContext(AuthContext)
-    const dropDownMenu = useRef(null);
+    const dropDownMenuUser = useRef(null);
+    const dropDownMenuOrar = useRef(null);
 
     const closeMenu = (setMenuState) => {
         document.body.style.overflow = '';
@@ -31,15 +35,23 @@ function Navbar({ menuState, setMenuState }) {
     }
 
     useEffect(() => {
-        function handleClickOutsideMenu(e) {
-            if (dropDownMenu.current && !dropDownMenu.current.contains(e.target)) {
-                setDisplayDropDown(false);
-            }
+    function handleClickOutsideMenu(e, ref, target) {
+        if (ref.current && !ref.current.contains(e.target)) {
+            setDisplayDropDown(prev => ({ ...prev, [target]: false }));
         }
+    }
 
-        document.addEventListener('mousedown', handleClickOutsideMenu);
-        return () => document.removeEventListener('mousedown', handleClickOutsideMenu);
-    }, [])
+    const handleUserClick = (e) => handleClickOutsideMenu(e, dropDownMenuUser, 'user');
+    const handleOrarClick = (e) => handleClickOutsideMenu(e, dropDownMenuOrar, 'orar');
+
+    document.addEventListener('mousedown', handleUserClick);
+    document.addEventListener('mousedown', handleOrarClick);
+
+    return () => {
+        document.removeEventListener('mousedown', handleUserClick);
+        document.removeEventListener('mousedown', handleOrarClick);
+    };
+}, []);
 
     return <>
         <div id='navbar' className={`${isAdmin === false ? 'md:flex' : 'hidden'} 
@@ -58,7 +70,21 @@ function Navbar({ menuState, setMenuState }) {
                 <NavLink to="/" className={buttonClass}>Acasa</NavLink>
                 <NavLink to="/abonamente" className={buttonClass}>Abonamente</NavLink>
                 <NavLink to="/clase" end className={buttonClass}>Clase</NavLink>
-                <NavLink to="/clase/orar" className={buttonClass}>Orar Clase</NavLink>
+                <div ref={dropDownMenuOrar} className='relative'>
+                    <button onClick={() => setDisplayDropDown({...displayDropDown, orar: !displayDropDown.orar})} 
+                    className={`${displayDropDown.orar ? 'text-white' : ''} cursor-pointer hover:text-white`}>Orar Clase</button>
+                    {displayDropDown.orar &&
+                        <div className={`flex flex-col gap-2 absolute top-10 animate-fade-in duration-75 ease-out bg-black 
+                                        pb-3 pl-3 pr-3 -mb-3 -ml-3 -mr-3 pt-2 min-w-40 rounded-b-md`}>
+                            <NavLink to='/salidefitness/sala-fitness-zorilor#orar' 
+                            onClick={() => setDisplayDropDown({...displayDropDown, orar: false})}
+                            className={`hover:text-white duration-75 ease-out`}>Orar Zorilor</NavLink>
+                            {/* <NavLink to='/salidefitness/sala-fitness-sigma' className={`hover:text-white duration-75 ease-out`}>Orar Sigma</NavLink>
+                            <NavLink to='/salidefitness/sala-fitness-manastur' className={`hover:text-white duration-75 ease-out`}>Orar Mănăștur</NavLink>
+                            <NavLink to='/salidefitness/sala-fitness-flora' className={`hover:text-white duration-75 ease-out`}>Orar Flora</NavLink>
+                            <NavLink to='/salidefitness/sala-fitness-marasti' className={`hover:text-white duration-75 ease-out`}>Orar Mărăști</NavLink> */}
+                        </div>}
+                </div>
                 <NavLink to="/salidefitness" className={buttonClass}>Săli fitness</NavLink>
                 {/* <NavLink to="/blog" className={buttonClass}>Blog</NavLink> */}
                 {/* <NavLink to="/galerie" className={buttonClass}>Galerie foto</NavLink> */}
@@ -68,26 +94,26 @@ function Navbar({ menuState, setMenuState }) {
                     <a href="https://www.facebook.com/BurnFitnessCluj" target='_blank'><FontAwesomeIcon icon={faFacebookSquare} className='text-[#6096D6] hover:text-[#1877F2] duration-150 text-[30px]' /></a>
                 </div>
             </div>
-            <div ref={dropDownMenu} className='relative'>
-                <button onClick={() => setDisplayDropDown(!displayDropDown)}
+            <div ref={dropDownMenuUser} className='relative'>
+                <button onClick={() => setDisplayDropDown({...displayDropDown, user: !displayDropDown.user})}
                     className={`${user ? 'w-60' : ''}
                     flex items-center justify-center gap-2 cursor-pointer
                     rounded-md p-2 outline-none`}>
                     {user && <span className='text-white text-[16px]'>Conectat: {user.username}</span>}
-                    {user !== undefined ? <div className='relative h-10 w-10 '>
-                        <img className='rounded-full h-full w-full' src={`${API_URL}/uploads/POZEPROFIL/${user.profilePhoto}?t=${Date.now()}`} alt="" />
+                    {user ? <div className='relative h-10 w-10 '>
+                        <img className='rounded-full h-full w-full object-cover object-center' src={`${API_URL}/uploads/POZEPROFIL/${user.profilePhoto}?t=${Date.now()}`} alt="" />
                     </div>
                         : <NavLink to='/profile' className={profileCheck}><FontAwesomeIcon icon={faCircleUser} /></NavLink>}
                 </button>
-                {user !== undefined && displayDropDown &&
-                    <div 
-                    className={`
+                {user && displayDropDown.user &&
+                    <div
+                        className={`
                     flex flex-col gap-2 absolute animate-fade-in duration-75 ease-out bg-black 
                     pb-3 pl-3 pr-3 w-60 rounded-b-md`}>
-                        <NavLink onClick={() => setDisplayDropDown(false)} to='/profile' end className={dropdownButtonStyle}>
+                        <NavLink to='/profile' onClick={() => setDisplayDropDown({...displayDropDown, user: false})} end className={dropdownButtonStyle}>
                             <FontAwesomeIcon icon={faBasketShopping} /> Abonamente/Clase
                         </NavLink>
-                        <NavLink onClick={() => setDisplayDropDown(false)} to='/profile/setariCont' className={dropdownButtonStyle}>
+                        <NavLink to='/profile/setariCont' onClick={() => setDisplayDropDown({...displayDropDown, user: false})} className={dropdownButtonStyle}>
                             <FontAwesomeIcon icon={faGear} /> Setări cont
                         </NavLink>
                         <button onClick={() => setAlert({ ...alert, logOut: true })}
@@ -103,11 +129,11 @@ function Navbar({ menuState, setMenuState }) {
         <div className={`${isAdmin === false ? 'flex' : 'hidden'} bg-black/95 sticky top-0 w-full h-15 z-4 md:hidden justify-between items-center`}>
             <NavLink to='/'><img src={BurnLogo} alt="burn fitness logo" className='md:hidden w-40 m-[10px]' /></NavLink>
             <div className='flex justify-center items-center gap-3'>
-                {user !== undefined ? <NavLink to='/profile' 
-                        className={({ isActive }) => `relative h-8 w-8 rounded-full ${isActive ? 'ring-2 ring-white' : ''}`}>
-                        <img className='rounded-full h-full w-full object-cover object-center' src={`${API_URL}/uploads/POZEPROFIL/${user.profilePhoto}?t=${Date.now()}`} alt="Profile Picture" />
-                        </NavLink>
-                        : <NavLink to='/profile' className={profileCheck}><FontAwesomeIcon icon={faCircleUser} /></NavLink>}
+                {user !== undefined ? <NavLink to='/profile'
+                    className={({ isActive }) => `relative h-8 w-8 rounded-full ${isActive ? 'ring-2 ring-white' : ''}`}>
+                    <img className='rounded-full h-full w-full object-cover object-center' src={`${API_URL}/uploads/POZEPROFIL/${user.profilePhoto}?t=${Date.now()}`} alt="Profile Picture" />
+                </NavLink>
+                    : <NavLink to='/profile' className={profileCheck}><FontAwesomeIcon icon={faCircleUser} /></NavLink>}
                 <button
                     onClick={() => {
                         document.body.style.overflow = 'hidden';
