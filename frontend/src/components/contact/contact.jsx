@@ -10,23 +10,35 @@ function Contact() {
   const obj = {
     nume: "",
     email: "",
-    nrTelefon: "",
-    mesajClient: "",
+    telefon: "",
+    mesaj: "",
   };
   const [formContent, setFormContent] = useState(obj);
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const phoneRegex = /^\+?[0-9]{1,4}?[-.\s]?\(?[0-9]{1,3}?\)?[-.\s]?[0-9]{1,4}[-.\s]?[0-9]{1,4}[-.\s]?[0-9]{1,9}$/;
 
   const setFormData = (field, data) => {
     setFormContent({ ...formContent, [field]: data });
   };
 
   const sendEmail = async () => {
-    try{
-      await axios.post(`${API_URL}/publicPages/contact`, formContent)
-      toast.success(`Emailul a fost trimis!`)
-    } catch(err) {
-      toast.error(`A intervenit o eroare. Ne pare rău!`)
-    }
+    if(emailRegex.test(formContent.email) && phoneRegex.test(formContent.telefon) && formContent.mesaj.length >= 50){
+      try{
+        await axios.post(`${API_URL}/publicPages/contact`, formContent)
+        toast.success(`Emailul a fost trimis!`)
+        setFormContent(obj);
+      } catch(err) {
+        toast.error(`A intervenit o eroare. Ne pare rău!`)
+      }
+    } else {
+      if(!emailRegex.test(formContent.email)){
+        toast.error(`Email invalid!`);
+      } else if(!phoneRegex.test(formContent.telefon)){
+        toast.error(`Telefon invalid!`);
+      } else if(formContent.mesaj.length < 50){
+        toast.error(`Mesajul trebuie să fie mai lung de 50 de caractere.`)
+      }
+    } 
   };
 
   return (
@@ -50,8 +62,8 @@ function Contact() {
               onChange={(e) => setFormData("nume", e.target.value)}
               type="text"
               name="nume"
-              id=""
               required
+              value={formContent.nume}
               className={inputStyle}
             />
             <span>Email:</span>
@@ -59,25 +71,25 @@ function Contact() {
               onChange={(e) => setFormData("email", e.target.value)}
               type="text"
               name="email"
-              id=""
               required
+              value={formContent.email}
               className={inputStyle}
             />
             <span>Telefon:</span>
             <input
-              onChange={(e) => setFormData("nrTelefon", e.target.value)}
+              onChange={(e) => setFormData("telefon", e.target.value)}
               type="text"
-              name="nrTelefon"
-              id=""
+              name="telefon"
               required
+              value={formContent.telefon}
               className={inputStyle}
             />
             <span>Mesajul:</span>
             <textarea
-              onChange={(e) => setFormData("mesajClient", e.target.value)}
-              name="mesajClient"
-              id=""
+              onChange={(e) => setFormData("mesaj", e.target.value)}
+              name="mesaj"
               required
+              value={formContent.mesaj}
               className={`${inputStyle} min-h-30`}
             ></textarea>
           </form>

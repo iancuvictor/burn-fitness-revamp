@@ -3,11 +3,11 @@ import mongoose from 'mongoose';
 import { admin } from './auth.js';
 import AntrenorSala from '../schemas/publicSchemas/anternoriSali.js';
 import PaginaSala from '../schemas/publicSchemas/paginaSala.js';
+import nodemailer from 'nodemailer';
 import multer from 'multer';
 const router = express.Router()
 
 const UPLOAD_PATH = process.env.FOLDER_UPLOADS;
-
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         if(file.fieldname  === 'pozaProfil'){
@@ -20,8 +20,15 @@ const storage = multer.diskStorage({
         cb(null, req.body.nume + '_' + file.fieldname  + '.' + ext);
     }
 })
-
 const upload = multer({storage});
+
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: "burnclujfake@gmail.com",
+    pass: process.env.MAIL_PASS,
+  },
+});
 
 
 router.post('/antrenori/adaugaAntrenor', admin, upload.single('pozaProfil'), async (req, res) => {
@@ -92,8 +99,6 @@ router.get('/paginaSala', async (req, res) => {
     res.json(datePagina);
 })
 
-
-
 // Reviews
 router.post('/reviews', admin, async (req, res) => {
     console.log(req.body);
@@ -104,8 +109,23 @@ router.post('/reviews', admin, async (req, res) => {
 // contact form
 
 router.post('/contact', async (req, res) => {
-    console.log(req.body);
-    res.status(200).json('Emailul a fost trimis!');
+    try{
+        await transporter.sendMail({
+            from: 'burnclujfake@gmail.com',
+            to: 'burnclujfake@gmail.com',
+            replyTo: req.body.email,
+            subject: `Mesaj de la: ${req.body.nume} [${req.body.telefon}]`,
+            text: req.body.mesaj,
+        })
+        console.log(`Email primit de la ${req.body.email}`)
+        res.status(200).json('Emailul a fost trimis!');
+    } catch(err){
+        if(err.status){
+            res.status(err.status.code).json({message: 'A intervenit o eroare'});
+        } else {
+            res.json('Error');
+        }
+    }
 })
 
 export default router; 
