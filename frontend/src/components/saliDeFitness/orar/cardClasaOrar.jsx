@@ -73,7 +73,8 @@ function CardClasaOrar({ clasa, getOrar, calendarDate}) {
   }, [calendarDate]);
 
   return (
-    <div className="relative font-finlandica flex flex-col gap-1 text-[12px] md:text-[14px] min-h-16 md:min-h-16 ring-1 p-2 rounded-xs max-w-100">
+    <div className="relative font-finlandica flex flex-col gap-1 
+    text-[12px] md:text-[14px] min-h-16 ring-1 p-2 rounded-xs max-w-100">
       <div className={`${errors.expired ? 'flex' : 'hidden'} absolute top-0 left-0 w-full h-full bg-black/80 z-1 
       text-rose-500 font-[700]
       items-center justify-center`}>CLASA A EXPIRAT</div>

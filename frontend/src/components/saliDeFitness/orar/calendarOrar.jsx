@@ -53,7 +53,7 @@ export default function CalendarOrar({locatie}) {
 
   return <div
     id="orar"
-    className="h-fit flex flex-col items-center shadow-xl p-5 rounded-xl bg-white gap-5 w-full"
+    className="h-fit flex flex-col items-center shadow-xl p-5 pb-20 rounded-xl bg-white gap-5 w-full"
   >
     {filtre.open && <Filtre filtre={filtre} setFiltre={setFiltre} />}
     <div className="flex flex-row items-center gap-5">
@@ -92,7 +92,7 @@ export default function CalendarOrar({locatie}) {
     >
       Ai nevoie de abonament AEROBIC pentru a te înscrie
     </span>
-    <div className="h-fit flex flex-col md:grid md:grid-cols-4 gap-10 md:gap-5">
+    <div className="h-fit flex flex-col md:grid md:grid-cols-4 gap-10 md:gap-5 w-full">
       <ZiOrar
         dataOrar={dataOrar}
         zi="Luni"

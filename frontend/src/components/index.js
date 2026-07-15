@@ -21,6 +21,7 @@ export {default as AdminUsers} from './AdminDashboard/adminUsers/adminUsers.jsx'
 export {default as AdminOrar} from './AdminDashboard/adminOrar/adminOrar.jsx';
 export {default as AdminAbonamente} from './AdminDashboard/adminAbonamente/adminAbonamente.jsx';
 export {default as AdminPaginiPublice} from './AdminDashboard/adminPaginiPublice/adminPaginiPublice.jsx';
+export {default as AdminReviewuri} from './AdminDashboard/adminReviewuri/adminReviewuri.jsx';
 export {default as AdminLayout} from './AdminDashboard/adminLayout.jsx';
 export {default as WrapperAbonamente} from './userPages/components/profilePage/components/abonamente/wrapperAbonamente.jsx';
 export {default as ProfilePage} from './userPages/components/profilePage/profilePage.jsx';

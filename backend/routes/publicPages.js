@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import { admin } from './auth.js';
 import AntrenorSala from '../schemas/publicSchemas/anternoriSali.js';
+import PaginaSala from '../schemas/publicSchemas/paginaSala.js';
 import multer from 'multer';
 const router = express.Router()
 
@@ -69,6 +70,42 @@ router.put('/antrenori/updateAntrenor', admin, upload.single('pozaProfil'), asyn
     } catch(err) {
         res.status(err.response.status).json(`Failed with status: ${err.response.status}`)
     }
+})
+
+router.put('/paginaSala', admin, async (req, res) => {
+    await PaginaSala.updateOne({
+        sala: req.query.locatie
+    }, {$set: req.body})
+    res.json({message: 'Pagina a fost actualizată'});
+})
+
+router.post('/paginaSala/create', admin, async (req, res) => {
+    await PaginaSala.create({
+        sala: req.body.sala
+    });
+    console.log('creat');
+    res.json({message: 'Pagina a fost actualizată'});
+})
+
+router.get('/paginaSala', async (req, res) => {
+    let datePagina = await PaginaSala.findOne({sala: req.query.locatie})
+    res.json(datePagina);
+})
+
+
+
+// Reviews
+router.post('/reviews', admin, async (req, res) => {
+    console.log(req.body);
+    res.status(201).json({message: 'Review adaugat'})
+});
+
+
+// contact form
+
+router.post('/contact', async (req, res) => {
+    console.log(req.body);
+    res.status(200).json('Emailul a fost trimis!');
 })
 
 export default router; 

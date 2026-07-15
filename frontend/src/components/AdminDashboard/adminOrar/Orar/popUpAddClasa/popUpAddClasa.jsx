@@ -53,7 +53,8 @@ function PopUpAddClasa({locatie, zi, ziOrar, displayedMenus, setDisplayedMenus, 
       <form action="" className="flex flex-col gap-5">
         <div className="flex flex-col gap-2">
         <input onChange={(e) => updateForm('data', e.target.value)} type="date" defaultValue={ziOrarParsed}/>
-        <input onChange={(e) => updateForm('ora', e.target.value)} type="time" value={formData.ora} placeholder="Ora"/>
+        <input onChange={(e) => updateForm('ora', e.target.value)} className="border p-2"
+        type="time" value={formData.ora} placeholder="Ora"/>
         <div className="relative w-full border">
           <input onChange={(e) => updateForm('denumire', e.target.value)} type="text" value={formData.denumire} placeholder="Denumire"
           className="peer w-full p-2"/>
@@ -75,8 +76,9 @@ function PopUpAddClasa({locatie, zi, ziOrar, displayedMenus, setDisplayedMenus, 
           })}
           </div>
         </div>
-        <input onChange={(e) => updateForm('capacitate', e.target.value)} type="number" value={formData.capacitate} placeholder="Capacitate"
-        className="border"/>
+        <input onChange={(e) => updateForm('capacitate', e.target.value)} 
+        type="number" value={formData.capacitate} placeholder="Capacitate"
+        className="border p-2"/>
         </div>
         <div className="flex justify-between">
         <button disabled={formData.ora !== '' 

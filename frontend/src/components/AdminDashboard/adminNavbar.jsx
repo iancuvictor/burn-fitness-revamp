@@ -53,8 +53,12 @@ function AdminNavbar() {
           className={`${displayDropDown.paginiPublice ? 'text-black' : ''} cursor-pointer hover:underline underline-offset-5`}>Pagini publice</button>
         {displayDropDown.paginiPublice && <div className="flex flex-col gap-2 absolute top-10 bg-white 
         pb-3 pl-3 pr-3 -mb-3 -ml-3 -mr-3 pt-2 min-w-40 rounded-b-md">
-          <NavLink to='/clase' className={({isActive}) => isActive ? 'underline underline-offset-3' : ''}>Clase</NavLink>
-          <NavLink to='/admin/paginiPublice' className={({isActive}) => isActive ? 'underline underline-offset-3' : ''}>Lista</NavLink>
+          <NavLink to='/clase' onClick={() => setDisplayDropDown({ ...displayDropDown, paginiPublice: false })}
+          className={({isActive}) => isActive ? 'underline underline-offset-3' : ''}>Clase</NavLink>
+          <NavLink to='/admin/paginiPublice' onClick={() => setDisplayDropDown({ ...displayDropDown, paginiPublice: false })}
+          className={({isActive}) => isActive ? 'underline underline-offset-3' : ''}>Lista</NavLink>
+          <NavLink to='/admin/reviewuri' onClick={() => setDisplayDropDown({ ...displayDropDown, paginiPublice: false })}
+          className={({isActive}) => isActive ? 'underline underline-offset-3' : ''}>Review-uri</NavLink>
         </div>}
       </div>
 

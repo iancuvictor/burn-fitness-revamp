@@ -32,7 +32,8 @@ import {
   AccountSettings,
   QrCode,
   AdminPaginiPublice,
-  Activate
+  Activate,
+  AdminReviewuri
 } from "./components";
 import "./App.css";
 import AdminNavbar from "./components/AdminDashboard/adminNavbar";
@@ -89,6 +90,7 @@ function App() {
               <Route path="orar" element={<AdminRoute><AdminOrar /></AdminRoute>} />
               <Route path="abonamente" element={<AdminRoute><AdminAbonamente /></AdminRoute>} />
               <Route path="paginiPublice" element={<AdminRoute><AdminPaginiPublice /></AdminRoute>} />
+              <Route path="reviewuri" element={<AdminRoute><AdminReviewuri /></AdminRoute>} />
           </Route>
           {/* <Route path="/regulamentul-de-functionare-a-centrelor-de-fitness-burn" element={<Regulament />} /> */}
         </Routes>

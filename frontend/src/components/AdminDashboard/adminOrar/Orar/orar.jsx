@@ -1,9 +1,11 @@
 import Zi from "./zi";
 import { setDateOrar, changeCalendarWeek } from "../../../saliDeFitness/orar/utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSquareCaretLeft, faSquareCaretRight } from "@fortawesome/free-solid-svg-icons";
+import { faCopy, faSquareCaretLeft, faSquareCaretRight } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import axios from 'axios';
+import { useEffect } from "react";
+import { toast } from "sonner";
 
 const API_URL = import.meta.env.VITE_BACKEND_URL
 
@@ -15,8 +17,16 @@ function Orar({ locatie, dataOrar, getOrar }) {
     for (let date of dataCalendar) {
       dateArr.push(date.toISOString().split('T')[0])
     }
-    let response = await axios.post(`${API_URL}/classes/extindeOrarul`, dateArr, { withCredentials: true });
-    console.log(response);
+    try{
+      let response = await axios.post(`${API_URL}/classes/extindeOrarul`, dateArr, { withCredentials: true });
+      getOrar();
+      toast.success(`Orarul a fost extins cu succes! (1 săptămână)`)
+      changeCalendarWeek('add', dataCalendar, setDataCalendar)
+    } catch(err) {
+      if(err.response.status === 409){
+        toast.error(`Orarul are deja clase alocate săptămâna viitoare`)
+      }
+    }
   }
 
   return (
@@ -25,7 +35,7 @@ function Orar({ locatie, dataOrar, getOrar }) {
         <span>{dataCalendar[0].toLocaleDateString()} - {dataCalendar[6].toLocaleDateString()}</span>
         <div className="flex justify-center items-center gap-3">
           <button onClick={() => extindeOrar()}
-            className="cursor-pointer bg-rose-500 p-2 rounded-md text-white">Clonează orarul pe întreaga lună</button>
+            className="cursor-pointer bg-rose-500 p-2 rounded-md text-white text-[14px]"><FontAwesomeIcon icon={faCopy}/> Clonează orarul (1 săptămână)</button>
           <button onClick={() => changeCalendarWeek('substract', dataCalendar, setDataCalendar)} className="cursor-pointer"><FontAwesomeIcon icon={faSquareCaretLeft} /></button>
           <h2 className="text-[16px] md:text-[20px] font-[700]">ORAR-CLASE</h2>
           <button onClick={() => changeCalendarWeek('add', dataCalendar, setDataCalendar)} className="cursor-pointer"><FontAwesomeIcon icon={faSquareCaretRight} /></button>

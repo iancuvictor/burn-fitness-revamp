@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { AuthContext } from '../../../context/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -19,19 +19,15 @@ export default function MeniuAntrenori() {
     });
     const [popUp, setPopUp] = useState(false);
 
-    const createInstance = async (type) => {
-        if (type === 'antrenor') {
-            await axios.post(`${API_URL}/classes/${type}`, { numeAntrenor: data.nume }, { withCredentials: true })
-        } else {
-            await axios.post(`${API_URL}/classes/${type}`, { nume: data.nume }, { withCredentials: true })
-        }
+    const createInstance = async () => {
+        await axios.post(`${API_URL}/classes/antrenor`, { numeAntrenor: data.nume }, { withCredentials: true })
         await getSelectors();
         setPopUp(false);
         setData({ ...data, nume: '' });
     }
 
-    const removeInstance = async (type, id) => {
-        await axios.delete(`${API_URL}/classes/${type}`, { data: { _id: id } }, { withCredentials: true })
+    const removeInstance = async (id) => {
+        await axios.delete(`${API_URL}/classes/antrenor`, { data: { _id: id } }, { withCredentials: true })
         await getSelectors();
     }
 

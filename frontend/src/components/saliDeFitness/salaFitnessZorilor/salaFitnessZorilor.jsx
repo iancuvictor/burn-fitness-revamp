@@ -1,22 +1,35 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSquareCaretLeft } from "@fortawesome/free-solid-svg-icons";
-import { NavLink } from "react-router";
 import CalendarOrar from "../orar/calendarOrar";
 import BlockContact from "../../contact/blockContact/blockContact";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../context/AuthContext";
-import PopUpAdaugaAntrenor from "../../AdminDashboard/adminPaginiPublice/popUpAdaugaAntrenor";
 import ZonaAntrenori from "../zonaAntrenori/zonaAntrenori";
 import { useLocation } from "react-router";
+import MDEditor from "@uiw/react-md-editor";
 
 import videoBanner from "../../../media/BurnClujZorilor1080p.mp4";
+import Markdown from "react-markdown";
+import axios from "axios";
+import { toast } from "sonner";
+import Review from "../review";
+
+const API_URL = import.meta.env.VITE_BACKEND_URL;
 
 
 function SalaFitnessZorilor() {
   let location = useLocation()
-  const [adminMenuDisplay, setAdminMenuDisplay] = useState({
-    adaugaAntrenor: false,
-  })
+  const {isAdmin} = useContext(AuthContext);
+
+  const [dataSala, setDataSala] = useState();
+
+  const updatePage = async () => {
+    try{
+      await axios.put(`${API_URL}/publicPages/paginaSala?locatie=zorilor`, dataSala, {withCredentials: true})
+      toast.success(`Pagina a fost actualizată`);
+    } catch(err) {
+      toast.success(`A apărut o eroare`);
+    }
+    // await axios.post(`${API_URL}/publicPages/paginaSala?locatie=${locatieSala}`, dataSala, {withCredentials: true})
+  }
 
   useEffect(() => {
     if (location.hash !== '') {
@@ -24,12 +37,19 @@ function SalaFitnessZorilor() {
         document.querySelector(location.hash).scrollIntoView({ behavior: 'smooth' })
       }, 50);
     }
+
+    async function getDateSala(){
+      let response = await axios.get(`${API_URL}/publicPages/paginaSala?locatie=zorilor`)
+      setDataSala(response.data);
+  }
+
+  getDateSala()
   }, [])
 
 
   return (
-    <div className="h-fit flex flex-col items-center font-finlandica pb-[50px] gap-5">
-      <div className="relative h-60 w-full z-0 top-0 overflow-hidden flex items-center justify-center">
+    <div className="h-fit flex flex-col items-center font-finlandica pb-[50px] gap-10">
+      <div className="relative h-40 w-full z-0 top-0 overflow-hidden flex items-center justify-center">
         <div className="z-1 absolute inset-0 bg-gradient-to-r from-black from-0% via-transparent via-20% to-transparent"></div>
         <div className="z-1 absolute inset-0 bg-gradient-to-t from-black from-0% via-transparent via-50% to-transparent"></div>
         <video
@@ -45,19 +65,16 @@ function SalaFitnessZorilor() {
       </h1>
       </div>
       <div className="flex flex-col md:flex-row gap-5">
-        <div className="flex flex-col gap-3 text-white">
-          <h1 className="text-[24px] font-[700]">Ce oferim la Burn Fitness Zorilor?</h1>
+        <div className="flex flex-col gap-3 text-white w-xl">
+          <h1 className="text-[24px] font-[700]">Ce oferim la Burn Fitness Zorilor?</h1>{isAdmin && <button onClick={() => updatePage()}
+        className="z-5 cursor-pointer text-white text-[14px] bg-rose-500 p-2">Salvează modificările</button>}
+          {isAdmin ? <MDEditor
+                                value={dataSala?.descriere}
+                                onChange={(value) => setDataSala({...dataSala, descriere: value})}
+                                height={400}
+                                />
+          : <Markdown>{dataSala?.descriere}</Markdown>}
         </div>
-      </div>
-      {/* sectiune antrenori */}
-      <div className="pl-1 pr-1">
-        <ZonaAntrenori locatie='ZORILOR' />
-      </div>
-      <div id='orar' className="w-full md:pl-10 md:pr-10">
-        <CalendarOrar locatie='zorilor' />
-      </div>
-      <div className="flex flex-col items-center justify-center gap-5">
-        <h1 className="text-white text-[24px] font-[700]">Date contact</h1>
         <BlockContact
           locatie="Zorilor"
           nrTel="0771 511 431"
@@ -67,6 +84,16 @@ function SalaFitnessZorilor() {
           programSambata="9:00 - 18:00"
           programDuminica="10:00 - 17:00"
         />
+      </div>
+      <div className="pl-1 pr-1">
+        <ZonaAntrenori locatie='ZORILOR' />
+      </div>
+      <div id='orar' className="w-full md:pl-10 md:pr-10">
+        <CalendarOrar locatie='zorilor' />
+      </div>
+      <div id='reviewuri'>
+        <h1 className="text-white text-[30px] font-[700]">Părerea clienților noștrii!</h1>
+        <Review/>
       </div>
     </div>
   );

@@ -1,6 +1,10 @@
 import { useState } from "react";
 import BlockContact from "./blockContact/blockContact";
-import emailjs from "@emailjs/browser";
+import axios from "axios";
+import { toast } from "sonner";
+
+const API_URL = import.meta.env.VITE_BACKEND_URL;
+const inputStyle = `ring-2 ring-gray-300 rounded-xs p-2 outline-none`
 
 function Contact() {
   const obj = {
@@ -9,8 +13,6 @@ function Contact() {
     nrTelefon: "",
     mesajClient: "",
   };
-  const [searchWord, setSearchWord] = useState("");
-  const [results, setResults] = useState([]);
   const [formContent, setFormContent] = useState(obj);
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -18,64 +20,22 @@ function Contact() {
     setFormContent({ ...formContent, [field]: data });
   };
 
-  const sendEmail = () => {
-    if (emailRegex.test(formContent.email)) {
-      emailjs
-        .send(
-          import.meta.env.VITE_EMAILJS_SERVICE_ID,
-          import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-          formContent,
-          {
-            publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
-          },
-        )
-        .then(
-          () => {
-            setFormContent(obj);
-            console.log("SUCCESS!");
-          },
-          (error) => {
-            console.log("FAILED...", error.text);
-          },
-        );
+  const sendEmail = async () => {
+    try{
+      await axios.post(`${API_URL}/publicPages/contact`, formContent)
+      toast.success(`Emailul a fost trimis!`)
+    } catch(err) {
+      toast.error(`A intervenit o eroare. Ne pare rău!`)
     }
   };
 
-  const searchGym = (word) => {
-    word = word
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .toLowerCase();
-    setSearchWord(word);
-    let arr = [
-      { locatie: "zorilor", adresa: "louis pasteur 58" },
-      { locatie: "manastur", adresa: "mehedinti 82" },
-      { locatie: "marasti", adresa: "bucuresti 55" },
-      { locatie: "flora", adresa: "aleea padin 21" },
-      { locatie: "sigma", adresa: "republicii 109" },
-    ];
-    let newArr = arr.filter(
-      (locatie) =>
-        locatie.locatie.startsWith(word) ||
-        locatie.adresa.split(" ").some((cuvant) => cuvant.startsWith(word)),
-    );
-    setResults(newArr);
-    console.log(results);
-  };
-
-  const checkSearch = (word) => {
-    let result =
-      results.some((item) => item.locatie.includes(word)) || searchWord === "";
-    return result;
-  };
-
   return (
-    <div className="h-full flex flex-col items-center pl-[20px] pr-[20px] border-box pb-[50px] font-finlandica">
-      <h1 className="mt-[25px] mb-[25px] text-[35px] font-[700]">Contact</h1>
+    <div className=" flex flex-col items-center pl-[20px] pr-[20px] border-box pb-10 font-finlandica">
+      <h1 className="mt-[25px] mb-[25px] text-[35px] font-[700] text-white">Contact</h1>
       <div className="flex flex-col gap-5 md:flex md:flex-row">
         <div
           id="sendEmail"
-          className="flex flex-col shadow-xl overflow-hidden h-fit md:w-[30%] bg-white content-box rounded-xl gap-2"
+          className="flex flex-col shadow-xl overflow-hidden h-fit md:w-150 bg-white content-box rounded-xl gap-2"
         >
           <h1 className="font-[500] pl-[20px] pt-[20px] pb-[20px]">
             Trimite un email{" "}
@@ -85,40 +45,40 @@ function Contact() {
             action=""
             className="flex flex-col gap-2 pl-[20px] pr-[20px] pb-[20px]"
           >
+            <span>Nume:</span>
             <input
               onChange={(e) => setFormData("nume", e.target.value)}
               type="text"
               name="nume"
               id=""
               required
-              placeholder="Nume"
-              className="outline content-box h-10 w-full pl-[10px] pr-[10px]"
+              className={inputStyle}
             />
+            <span>Email:</span>
             <input
               onChange={(e) => setFormData("email", e.target.value)}
               type="text"
               name="email"
               id=""
               required
-              placeholder="Email"
-              className="outline content-box h-10 w-full pl-[10px] pr-[10px]"
+              className={inputStyle}
             />
+            <span>Telefon:</span>
             <input
               onChange={(e) => setFormData("nrTelefon", e.target.value)}
               type="text"
               name="nrTelefon"
               id=""
               required
-              placeholder="Telefon"
-              className="outline content-box h-10 w-full pl-[10px] pr-[10px]"
+              className={inputStyle}
             />
+            <span>Mesajul:</span>
             <textarea
               onChange={(e) => setFormData("mesajClient", e.target.value)}
               name="mesajClient"
               id=""
               required
-              placeholder="Mesajul tău"
-              className="outline content-box h-10 w-full pl-[10px] pr-[10px]"
+              className={`${inputStyle} min-h-30`}
             ></textarea>
           </form>
           <button
@@ -130,81 +90,13 @@ function Contact() {
           </button>
         </div>
         <div className="md:w-[70%] md:overflow-y-auto md:h-[420px] flex flex-col gap-5">
-          <input
-            onChange={(e) => searchGym(e.target.value)}
-            type="text"
-            className="outline-none xs:hidden w-full border-box pl-[20px] pb-[10px] pr-[20px] pt-[10px] rounded-xl shadow-lg bg-white"
-            id=""
-            autoComplete="off"
-            inputMode="text"
-            placeholder="Caută sala după locație"
-          />
-          <div className="flex flex-col gap-10 justify-center items-baseline md:flex-row md:flex-wrap">
-            <div
-              className={checkSearch("zorilor") ? "block" : "hidden"}
-              id="zorilor"
-            >
+          <div className="flex flex-col gap-10 justify-center items-baseline md:flex-row md:flex-wrap p-2">
+            <div>
               <BlockContact
                 locatie="Zorilor"
                 nrTel="0771 511 431"
                 adresa="Louis Pasteur 58, Cluj-Napoca"
                 linkAdresa='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10933.941538443678!2d23.557627201080333!3d46.75532824825045!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47490e78b14ef555%3A0x82da4b4e100cf036!2sBurn%20Cluj!5e0!3m2!1sen!2sro!4v1780302279546!5m2!1sen!2sro"'
-                programLuniVineri="06:00 - 23:00"
-                programSambata="9:00 - 18:00"
-                programDuminica="10:00 - 17:00"
-              />
-            </div>
-            <div
-              className={checkSearch("manastur") ? "block" : "hidden"}
-              id="manastur"
-            >
-              <BlockContact
-                locatie="Mănăștur"
-                nrTel="0771 262 348"
-                adresa="Mehedinți 82, Cluj-Napoca"
-                linkAdresa="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10934.911512077115!2d23.54288358715819!3d46.75054749999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47490e710ed8555d%3A0x9f7559ad01b5033d!2zQnVybiBGaXRuZXNzIE3Eg27Eg8iZdHVy!5e0!3m2!1sen!2sro!4v1780302434502!5m2!1sen!2sro"
-                programLuniVineri="07:00 - 22:00"
-                programSambata="9:00 - 18:00"
-                programDuminica="10:00 - 17:00"
-              />
-            </div>
-            <div
-              className={checkSearch("marasti") ? "block" : "hidden"}
-              id="marasti"
-            >
-              <BlockContact
-                locatie="Mărăști"
-                nrTel="0770 886 179"
-                adresa="București 55, Cluj-Napoca"
-                linkAdresa="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10928.736424217188!2d23.586169587158203!3d46.78097650000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47490dd0c1753165%3A0x537832fe3ac04bd5!2sBurn%20Fitness%20Marasti!5e0!3m2!1sen!2sro!4v1780302499127!5m2!1sen!2sro"
-                programLuniVineri="06:00 - 22:00"
-                programSambata="9:00 - 18:00"
-                programDuminica="10:00 - 17:00"
-              />
-            </div>
-            <div
-              className={checkSearch("flora") ? "block" : "hidden"}
-              id="flora"
-            >
-              <BlockContact
-                locatie="Flora"
-                nrTel="0774 519 047"
-                adresa="Aleea Padin 21, Cluj-Napoca"
-                linkAdresa="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10934.911512077115!2d23.54288358715819!3d46.75054749999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47490f0053b19629%3A0x2ca9d2227b941a30!2sBurn%20Fitness%20Flora!5e0!3m2!1sen!2sro!4v1780302470670!5m2!1sen!2sro"
-                programLuniVineri="07:00 - 22:00"
-                programSambata="9:00 - 18:00"
-                programDuminica="10:00 - 17:00"
-              />
-            </div>
-            <div
-              className={checkSearch("sigma") ? "block" : "hidden"}
-              id="sigma"
-            >
-              <BlockContact
-                locatie="Sigma"
-                nrTel="0772 269 959"
-                adresa="Republici 109, Cluj-Napoca"
-                linkAdresa="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10928.736424217188!2d23.586169587158203!3d46.78097650000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47490d8a754ba55f%3A0x72502b8e8d4d7f18!2sBurn%20Fitness%20Sigma!5e0!3m2!1sen!2sro!4v1780302519691!5m2!1sen!2sro"
                 programLuniVineri="06:00 - 23:00"
                 programSambata="9:00 - 18:00"
                 programDuminica="10:00 - 17:00"

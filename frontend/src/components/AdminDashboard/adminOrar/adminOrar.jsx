@@ -25,12 +25,12 @@ function AdminOrar() {
 
   let locatii = ["Zorilor", "Sigma", "Mănăștur", "Flora", "Mărăști"];
 
-  useEffect(() => {
+  let filtruLocatie = datePagina.titluOrar
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase();
 
-    let filtruLocatie = datePagina.titluOrar
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .toLowerCase();
+  useEffect(() => {
       getOrar(filtruLocatie);
   }, []);
 
@@ -71,7 +71,7 @@ function AdminOrar() {
           <Orar
             locatie={datePagina.titluOrar}
             dataOrar={dataOrar}
-            getOrar={getOrar}
+            getOrar={() => getOrar(filtruLocatie)}
           />
         </div>
       </div>
