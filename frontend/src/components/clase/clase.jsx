@@ -1,9 +1,13 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import CardClase from "./cardClase/cardClase";
 import {AuthContext} from '../../context/AuthContext';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import MeniuClase from "../AdminDashboard/adminOrar/meniuClase";
 
 export default function Clase() {
-  const {selectors} = useContext(AuthContext);
+  const {selectors, isAdmin} = useContext(AuthContext);
+  const [meniuClase, setMeniuClase] = useState(false);
 
   return (
     <div className="flex flex-col justify-center gap-2 items-center pt-5 pb-10 pl-5 pr-5 font-finlandica">
@@ -12,6 +16,9 @@ export default function Clase() {
       {selectors.clase.map((clasa, index) => {
         return <CardClase data={clasa} key={index}/>
       })}
+      {isAdmin && <button onClick={() => setMeniuClase(true)}
+      className="cursor-pointer bg-rose-500 w-2xs h-70 p-10 text-[30px]"><FontAwesomeIcon icon={faPlus}/></button>}
+      {isAdmin && meniuClase && <MeniuClase setPopUp={setMeniuClase} popUp={meniuClase}/>}
     </div>
         </div>
   );

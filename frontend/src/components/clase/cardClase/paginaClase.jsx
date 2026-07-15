@@ -8,7 +8,7 @@ const API_URL = import.meta.env.VITE_BACKEND_URL;
 
 export default function PaginaClase() {
     const { idClasa } = useParams();
-    const { selectors, getSelectors, isAdmin } = useContext(AuthContext)
+    const { selectors, getSelectors, isAdmin} = useContext(AuthContext)
     let clasa = selectors.clase.find((clasa) => clasa._id === idClasa);
 
     const [dataClase, setDataClase] = useState([]);
@@ -31,13 +31,12 @@ export default function PaginaClase() {
             );
             setDataClase(response.data);
             console.log(dataClase);
-        }
+    }
 
     useEffect(() => {
-        setTimeout(() => {
-            getData()
-        }, 100);
-    }, [])
+        if (!clasa) return;
+            getData();
+    }, [clasa])
 
 
     if (isAdmin) {
@@ -82,7 +81,7 @@ export default function PaginaClase() {
                 <div className="flex flex-col gap-2 w-fit">
                 {dataClase.length > 0 ? dataClase.map((clasa, index) => {
                     return <CardClasaOrar clasa={clasa} getOrar={getData} key={index} filtre={selectors}/>
-                }) : <span>Nu există clase de {clasa.nume} programate</span>}
+                }) : <span>Nu există clase de {clasa?.nume} programate</span>}
                 </div>
                 </div>
             </div>

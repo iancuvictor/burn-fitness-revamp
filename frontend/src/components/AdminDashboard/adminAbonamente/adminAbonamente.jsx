@@ -22,7 +22,7 @@ function AdminAbonamente() {
   }, []);
 
   return (
-    <div className="w-full h-full flex flex-col items-center font-finlandica bg-gray-100 pt-10 pl-10 pr-10">
+    <div className="w-full h-full flex flex-col items-center font-finlandica bg-gray-100 pt-10 pb-10 pl-10 pr-10">
         <div
           className={`${displayedMenus.popUpAddAbonament ? "flex" : "hidden"} z-2 fixed`}
         >

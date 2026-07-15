@@ -10,7 +10,7 @@ const inputStyle = `p-2 border border-gray-400 text-[14px] w-80%`;
 const trashButton = 'cursor-pointer p-2 bg-rose-500 text-white';
 
 
-export default function MeniuClase() {
+export default function MeniuClase({popUp, setPopUp}) {
     const { selectors, getSelectors } = useContext(AuthContext);
     const [data, setData] = useState({
         nume: '',
@@ -18,7 +18,6 @@ export default function MeniuClase() {
         imagine: '',
     });
     // const [listaAntrenori, setListaAntrenori] = useState([]);
-    const [popUp, setPopUp] = useState(false);
 
     const createInstance = async () => {
         let sentData = new FormData();
@@ -38,13 +37,6 @@ export default function MeniuClase() {
     }
 
     return <div className='font-finlandica'>
-        <div>
-            <button onClick={() => {
-                setPopUp(true)
-                document.body.style.overflow = 'hidden'
-            }}
-                className='cursor-pointer p-3 bg-white shadow-md/20 rounded-md'>Gestionează clasele</button>
-        </div>
         <div className={`${popUp ? 'flex' : 'hidden'} justify-center items-center
         z-2 fixed top-0 left-0 h-full w-full bg-black/80`}>
             <div className='bg-white p-5 rounded-md flex flex-col gap-5 h-140 overflow-y-scroll'>

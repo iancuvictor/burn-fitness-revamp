@@ -8,6 +8,7 @@ const API_URL = import.meta.env.VITE_BACKEND_URL;
 
 function AdminOrar() {
   const [dataOrar, setDataOrar] = useState([]);
+  const [popUpClase, setPopUpClase] = useState(false);
   const [datePagina, setDatePagina] = useState({
     titluOrar: "Zorilor",
   });
@@ -55,7 +56,14 @@ function AdminOrar() {
         </div>
         <div className="flex flex-row gap-5">
           <MeniuAntrenori/>
-          <MeniuClase/>
+          <div>
+            <button onClick={() => {
+                setPopUpClase(true)
+                document.body.style.overflow = 'hidden'
+            }}
+                className='cursor-pointer p-3 bg-white shadow-md/20 rounded-md'>Gestionează clasele</button>
+          </div>
+          <MeniuClase setPopUp={setPopUpClase} popUp={popUpClase}/>
         </div>
       </div>
       <div id="editorWrap">

@@ -20,7 +20,7 @@ function Zi({locatie, dataOrar, zi, ziOrar, getOrar, selectors}) {
         getOrar(locatieAjustata);
     }
 
-  return <div className="w-full flex flex-col h-fit p-[20px] font-finlandica gap-5 shadow-xl">
+  return <div className="w-full flex flex-col min-h-100 p-[20px] font-finlandica gap-5 shadow-xl">
         <div className={`${displayedMenus.popUpAddClasa ? 'flex' : 'hidden'} fixed`}>
         <PopUpAddClasa selectors={selectors} locatie={locatie} zi={zi} ziOrar={ziOrar} displayedMenus={displayedMenus} setDisplayedMenus={setDisplayedMenus} getOrar={getOrar}/>
         </div>
@@ -34,7 +34,7 @@ function Zi({locatie, dataOrar, zi, ziOrar, getOrar, selectors}) {
       <div className='flex flex-col gap-1'>
         {dataOrar.filter((clasa) => new Date(clasa.data).toLocaleDateString() === ziOrar).sort((a, b) => a.ora.localeCompare(b.ora)).map((clasa, index) => {
             return (
-              <div key={index} className="border-b pb-[5px] flex w-full h-fit gap-2 text-[16px] h-10">
+              <div key={index} className="border-b pb-[5px] flex w-full h-fit gap-2 text-[13px] h-10">
                 <span className="w-[20%]">{clasa.ora}</span>
                 <span className="w-[30%]">{clasa.denumire}</span>
                 <span className="w-[20%]">{clasa.antrenor}</span>

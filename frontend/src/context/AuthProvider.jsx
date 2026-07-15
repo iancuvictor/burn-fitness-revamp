@@ -53,7 +53,7 @@ function AuthProvider({children}){
                     setIsAdmin(true);
                 }
                 setLoading(false);
-            } catch {
+            } catch(err) {
                 console.log('Error');
                 setLoading(false);
             }

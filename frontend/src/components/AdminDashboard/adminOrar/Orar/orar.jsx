@@ -31,7 +31,7 @@ function Orar({ locatie, dataOrar, getOrar }) {
           <button onClick={() => changeCalendarWeek('add', dataCalendar, setDataCalendar)} className="cursor-pointer"><FontAwesomeIcon icon={faSquareCaretRight} /></button>
         </div>
       </div>
-      <div className="relative w-full grid grid-cols-3 p-[20px] gap-4 w-full">
+      <div className="relative w-full grid grid-cols-4 p-[20px] gap-4 w-full">
         <Zi zi="Luni" locatie={locatie} ziOrar={dataCalendar[0].toLocaleDateString()} dataOrar={dataOrar} getOrar={getOrar} />
         <Zi zi="Marți" locatie={locatie} ziOrar={dataCalendar[1].toLocaleDateString()} dataOrar={dataOrar} getOrar={getOrar} />
         <Zi zi="Miercuri" locatie={locatie} ziOrar={dataCalendar[2].toLocaleDateString()} dataOrar={dataOrar} getOrar={getOrar} />
