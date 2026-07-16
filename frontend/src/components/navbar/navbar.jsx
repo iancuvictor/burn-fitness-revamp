@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router';
 import BurnLogo from './assets/burnLogo.svg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faBasketShopping, faCircleUser, faGear, faL, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faBasketShopping, faCircleUser, faGear, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { faFacebookSquare, faInstagramSquare } from '@fortawesome/free-brands-svg-icons';
 import { AuthContext } from "../../context/AuthContext";
 import { useContext, useState, useRef, useEffect } from 'react';

@@ -22,9 +22,12 @@ function Abonamente() {
 
   return (
     <div className="flex flex-col items-center min-h-screen w-full font-finlandica pt-5 gap-5 pb-10">
+      <span>
       <h1 className="text-[20px] text-white md:text-[35px] font-[700] text-center">
         ABONAMENTELE BURN FITNESS CLUJ-NAPOCA
       </h1>
+      <p className="text-[14px] text-center text-rose-500">Reducerile se aplică doar anumitor abonamente!</p>
+      </span>
       <div className="text-[14px] md:text-[18px] text-white flex flex-col items-center gap-3">
             <div className="flex bg-redishPinkDark p-[10px] rounded-md gap-1">
             <span>Vezi preturile:</span>
