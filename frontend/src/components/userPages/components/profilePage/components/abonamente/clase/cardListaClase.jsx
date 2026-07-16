@@ -19,8 +19,6 @@ function CardListaClase({clasa}) {
   const hh = String(d.getHours()).padStart(2, '0');
   const mm = String(d.getMinutes()).padStart(2, '0');
   const ora = `${hh}:${mm}`
-  console.log(clasa.date);
-  console.log(d);
   
   return <div
     className="flex flex-col gap-2 w-full md:w-fit

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import CardAbonament from "./cardAbonament/cardAbonament";
+import CardAbonamentRegular from "./cardAbonament/cardAbonamentRegular.jsx";
 import axios from 'axios';
+import CardAbonamentPremium from "./cardAbonament/cardAbonamentPremium.jsx";
 
 const API_URL = import.meta.env.VITE_BACKEND_URL
 // const IMAGE_PATH = import.meta.env.VITE_FOLDER_UPLOADS_ABONAMENTE
@@ -56,37 +57,26 @@ function Abonamente() {
         className="relative w-full flex flex-col flex-wrap items-center content-box justify-center gap-5"
       >
         <div id="abonamentePremium" className="relative w-full flex flex-row flex-wrap items-center justify-center gap-5">
-          {data.map((abonament, index) => {
+          {/* {data.map((abonament, index) => {
             if(abonament.tier === 'premium'){
-              return <CardAbonament
-              tier={abonament.tier}
-              titlu={abonament.titlu}
-              type={abonament.tierName}
-              desc={abonament.desc}
-              preturi={abonament.preturi}
-              viewPreturi={viewPreturi.viewPreturi}
-              reducereAplicabila={abonament.reducereAplicabila}
+              return <CardAbonamentPremium
+              data={abonament}
               key={index}
-              identifier={abonament._id}
+              viewPreturi={viewPreturi.viewPreturi}
               />
             }
-          })}
+          })} */}
         </div>
-        <div id="abonamenteRegular" className="relative w-full flex flex-row 
+        <div id="abonamenteRegular" className={`relative w-full flex flex-row
         justify-center flex-wrap gap-5 
         md:flex md:gap-10 md:flex-row md:flex-wrap md:justify-center 
-        lg:w-250 lg:justify-items-center lg:grid lg:grid-cols-3">
+        lg:w-fit justify-items-center lg:grid lg:grid-cols-3`}>
           {data.map((abonament, index) => {
             if(abonament.tier === 'regular'){
-              return <CardAbonament
-              tier={abonament.tier}
-              titlu={abonament.titlu}
-              desc={abonament.desc}
-              preturi={abonament.preturi}
-              viewPreturi={viewPreturi.viewPreturi}
-              reducereAplicabila={abonament.reducereAplicabila}
+              return <CardAbonamentRegular
+              data={abonament}
               key={index}
-              identifier={abonament._id}
+              viewPreturi={viewPreturi.viewPreturi}
               />
             }
           })}

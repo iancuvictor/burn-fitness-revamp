@@ -68,8 +68,8 @@ function SalaFitnessZorilor() {
           Sala fitness ZORILOR
         </h1>
       </div>
-      <div className="flex flex-col md:flex-row gap-5">
-        <div className="flex flex-col gap-3 text-white w-xl">
+      <div className="flex flex-col md:flex-row gap-5 pl-10 pr-10">
+        <div className="flex flex-col gap-3 text-white w-full md:w-xl">
           <h1 className="text-[24px] font-[700]">Ce oferim la Burn Fitness Zorilor?</h1>{isAdmin && <button onClick={() => updatePage()}
             className="cursor-pointer text-white text-[14px] bg-rose-500 p-2">Salvează modificările</button>}
           {isAdmin ? <MDEditor
@@ -77,7 +77,9 @@ function SalaFitnessZorilor() {
             onChange={(value) => setDataSala({ ...dataSala, descriere: value })}
             height={400}
           />
-            : <Markdown>{dataSala?.descriere}</Markdown>}
+            : <div className="text-justify [&_p]:mb-4 w-md">
+              <Markdown>{dataSala?.descriere}</Markdown>
+            </div>}
         </div>
         <BlockContact
           locatie="Zorilor"
@@ -97,11 +99,11 @@ function SalaFitnessZorilor() {
       </div>
       <div id='reviewuri' className="flex flex-col items-center gap-10">
         <h1 className="text-white text-[30px] font-[700]">Părerea clienților noștrii!</h1>
-        <div className="flex gap-10">
+        <div className="flex flex-col md:flex-row gap-10">
 
-        {reviews?.filter((review) => review.sala === 'zorilor').map((review, index) => {
-          return <Review review={review} key={index}/>
-        })}
+          {reviews?.filter((review) => review.sala === 'zorilor').map((review, index) => {
+            return <Review review={review} key={index} />
+          })}
         </div>
       </div>
     </div>

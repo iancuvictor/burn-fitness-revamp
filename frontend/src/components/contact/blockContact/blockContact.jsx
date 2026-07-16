@@ -3,8 +3,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NavLink } from "react-router";
 
 function BlockContact(props) {
-    return <div className="flex flex-col items-center justify-between gap-2 pl-5 pr-5 pt-3 pb-5 md:w-100 md:h-75 rounded-xl text-[16px] font-finlandica
-    ring-4 ring-redishPinkDark bg-black
+    return <div className="relative flex flex-col items-center justify-between gap-2 pl-5 pr-5 pt-3 pb-5 
+    md:h-75 rounded-xl text-[16px] font-finlandica
+    ring-4 ring-rose-500 bg-black
     text-white">
         <h1 className="text-[22px] font-[700] underline underline-offset-5 underline decoration-3 animate-fade-in duration-150 ease-out">SALĂ {props.locatie.toUpperCase()}</h1>
         <div className="w-full animate-fade-in duration-150 ease-out">

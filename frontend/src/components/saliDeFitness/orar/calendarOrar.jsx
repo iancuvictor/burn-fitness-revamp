@@ -92,7 +92,7 @@ export default function CalendarOrar({locatie}) {
     >
       Ai nevoie de abonament AEROBIC pentru a te înscrie
     </span>
-    <div className="h-fit flex flex-col md:grid md:grid-cols-4 gap-10 md:gap-5 w-full">
+    <div className="h-fit flex flex-col items-center md:items-start md:grid md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-5 md:gap-5 w-full">
       <ZiOrar
         dataOrar={dataOrar}
         zi="Luni"

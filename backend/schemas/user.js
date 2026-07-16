@@ -16,9 +16,10 @@ const user = new Schema({
     dataAbsolvireStudent: {type: Date, required: false},
     activeSubscriptions: [
         {
-            subscriptionId: {type: String, required: true},
+            id: {type: String, required: true},
             subscriptionName: {type: String, required: true},
             price: {type: Number, required: true},
+            pricePaid: {type: Number, required: true},
             duration: {type: Number, required: true},
             purchaseDate: {type: Date, required: true},
             expiryDate: {type: Date, required: true},

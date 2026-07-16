@@ -21,44 +21,31 @@ router.get("/", async (req, res) => {
   res.json(data);
 });
 
-router.post("/adaugaAbonament", admin, async (req, res) => {
-  console.log(req.body);
-  try {
-    await Abonament.create({
-      highlighted: req.body.highlighted,
-      reducereAplicabila: req.body.reducereAplicabila,
-      tier: req.body.tier,
-      tierName: req.body.tierName,
-      titlu: req.body.titlu,
-      desc: req.body.desc,
-      preturi: req.body.preturi,
-    });
-    res.json("test");
-  } catch (err) {
-    res.json("an error has occured");
-    console.log(err);
-  }
-});
 
 //Buying subscriptions
 
 router.post('/cumparaAbonament', protect, async (req, res) => {
-    try {
-        let abonament = await Abonament.findOne({_id: req.body.id});
-        await User.updateOne(
-            {_id: req.user.userId}, 
-            {$push: { activeSubscriptions: {
-                subscriptionId: req.body.id, 
-                subscriptionName: req.body.subscriptionName,
-                price: req.body.price,
-                duration: req.body.duration,
-                purchaseDate: req.body.purchaseDate,
-                expiryDate: req.body.expiryDate,
-            }}})
-            res.json('order placed, subscription given');
-        } catch(err) {
-            console.log(err);
+  try {
+    let abonament = await Abonament.findOne({ _id: req.body.id });
+    await User.updateOne(
+      { _id: req.user.userId },
+      {
+        $push: {
+          activeSubscriptions: {
+            id: req.body.id,
+            subscriptionName: req.body.subscriptionName,
+            priceTotal: req.body.priceTotal,
+            pricePaid: req.body.pricePaid,
+            duration: req.body.duration,
+            purchaseDate: req.body.purchaseDate,
+            expiryDate: req.body.expiryDate,
+          }
         }
+      })
+    res.json('order placed, subscription given');
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 router.post("/ziGratis", async (req, res) => {
@@ -102,6 +89,40 @@ router.post("/ziGratis", async (req, res) => {
     res.status(200).json({ message: "success" });
   } else {
     res.status(404).json({ message: "user already exists" });
+  }
+});
+
+router.delete('/eliminaAbonament', protect, async (req, res) => {
+  try{
+    await User.updateOne(
+      {_id: req.user.userId},
+      { $pull: { activeSubscriptions: { id: req.body.id, expiryDate: { $lt: new Date() }} } }
+    )
+    res.status(200).json({message: 'Abonamentul a fost eliminat'})
+  } catch(err) {
+    console.log(err);
+    res.json('A aparut o eroare');
+  }
+})
+
+
+// Admin routes
+router.post("/adaugaAbonament", admin, async (req, res) => {
+  console.log(req.body);
+  try {
+    await Abonament.create({
+      highlighted: req.body.highlighted,
+      reducereAplicabila: req.body.reducereAplicabila,
+      tier: req.body.tier,
+      tierName: req.body.tierName,
+      titlu: req.body.titlu,
+      desc: req.body.desc,
+      preturi: req.body.preturi,
+    });
+    res.json("test");
+  } catch (err) {
+    res.json("an error has occured");
+    console.log(err);
   }
 });
 

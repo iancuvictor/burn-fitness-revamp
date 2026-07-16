@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router";
-import CardAbonament from "../../abonamente/cardAbonament/cardAbonament";
+import CardAbonamentRegular from "../../abonamente/cardAbonament/cardAbonamentRegular";
 import axios from "axios";
 
 const API_URL = import.meta.env.VITE_BACKEND_URL;
@@ -22,7 +22,7 @@ function AbonamenteAcasa() {
     getData();
   }, []);
 
-  let array = data.filter((abonament) => abonament.highlighted === true)
+  let arrayRegular = data.filter((abonament) => abonament.highlighted === true && abonament.tier === 'regular')
   return (
     <div className="relative h-fit pb-10 w-full flex flex-col items-center overflow-hidden gap-10 font-finlandica">
       <div
@@ -69,7 +69,7 @@ function AbonamenteAcasa() {
       <div>
         <div className="flex flex-col items-center gap-5">
           <div className="text-[14px] md:text-[18px] text-white flex flex-col items-center gap-3">
-            <h1 className="text-[25px] font-[600]">Abonamente simple</h1>
+            <h1 className="text-[25px] font-[600]">Abonamentele BURN FITNESS CLUJ-NAPOCA</h1>
             <div className="flex bg-redishPinkDark p-2 rounded-md">
             <span>Vezi preturile:</span>
             <select
@@ -96,35 +96,16 @@ function AbonamenteAcasa() {
               (minim un membru al familiei trebuie să aibă un
                 abonament <span className="text-white underline underline-offset-4">ACTIV</span> pentru reducerea de familie)</span>
           </div>
-          <div className={`flex flex-col gap-10 md:grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-${array.length} md:gap-10`}>
-            {array.map((abonament, index) => {
+          <div className={`flex flex-col gap-10 md:grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-${arrayRegular.length} md:gap-10`}>
+            {arrayRegular.map((abonament, index) => {
                 return (
-                  <CardAbonament
-                    tier={abonament.tier}
-                    titlu={abonament.titlu}
-                    type={abonament.tierName}
-                    desc={abonament.desc}
-                    preturi={abonament.preturi}
+                  <CardAbonamentRegular
+                    data={abonament}
                     key={index}
                     viewPreturi={viewPreturi.viewPreturi}
                   />
                 );
             })}
-            {/* {data.filter((abonament) => abonament.tier === 'regular').map((abonament, index) => {
-              if (abonament.highlighted === true) {
-                return (
-                  <CardAbonament
-                    tier={abonament.tier}
-                    titlu={abonament.titlu}
-                    type={abonament.tierName}
-                    desc={abonament.desc}
-                    preturi={abonament.preturi}
-                    key={index}
-                    viewPreturi={viewPreturi.viewPreturi}
-                  />
-                );
-              }
-            })} */}
           </div>
         </div>
       </div>

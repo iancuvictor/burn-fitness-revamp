@@ -44,18 +44,21 @@ router.post('/createPayment', express.json(), protect, async (req, res) => {
       cancel_url: `${BACKEND_URL}/abonamente`,
       client_reference_id: req.user.userId,
       metadata: {
-        subscriptionId: req.body.id,
+        id: req.body.id,
         duration: req.body.duration,
-        price: req.body.price
+        price: req.body.price,
       },
     });
     res.status(200).json({ url: session.url });
   } else {
-  // console.log(couponName)
     console.log(`User ${user.username} already has this subscription`);
     res.status(409).json({message: 'Subscription already active', error: 'subscriptionAlreadyBought'})
   }
 });
+
+router.post('/renew', express.json(), protect, async (req, res) => {
+  const session = stripe.checkout.sessions.create()
+})
 
 router.post('/webhook', express.raw({ type: 'application/json' }), async (req, res) => {
   let event;
@@ -76,23 +79,20 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
   switch (event.type) {
     case 'checkout.session.completed':
       const session = event.data.object;
-      const abonament = await Abonament.findOne({_id: session.metadata.subscriptionId})
+      const abonament = await Abonament.findOne({_id: session.metadata.id})
       const user = await User.findOne({_id: session.client_reference_id});
 
       const expiry = new Date();
       expiry.setMonth(expiry.getMonth() + +session.metadata.duration);
 
-      console.log(session);
-      console.log(session.amount_total);
-      console.log(session.amount_total / 100);
-
       try{
         await User.updateOne(
           {_id: session.client_reference_id}, 
           {$push: { activeSubscriptions: {
-            subscriptionId: abonament._id, 
+            id: abonament._id, 
             subscriptionName: abonament.titlu,
-            price: +session.amount_total / 100,
+            price: session.metadata.price,
+            pricePaid: +session.amount_total / 100,
             duration: session.metadata.duration,
             purchaseDate: new Date(),
             expiryDate: expiry,
@@ -111,11 +111,8 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
 
 router.post('/checkSession', express.json(), protect, async (req, res) => {
   let session = await stripe.checkout.sessions.retrieve(req.body.sessionId);
-  let user = await User.findOne({'activeSubscriptions.subscriptionId' : session.metadata.subscriptionId});
+  let user = await User.findOne({'activeSubscriptions.id' : session.metadata.id});
 
-  // console.log(session);
-  // console.log(amount_total)
-  // console.log(user);
   if(session.client_reference_id === req.user.userId){
     if(user !== null){
       res.status(200).json({message: 'Abonamentul a fost adăugat cu succes!', toast: 'success'});
