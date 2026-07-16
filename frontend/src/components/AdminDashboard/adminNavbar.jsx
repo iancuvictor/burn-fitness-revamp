@@ -65,8 +65,8 @@ function AdminNavbar() {
       <NavLink to="/admin/abonamente" className={buttonClass}>Abonamente</NavLink>
       <NavLink to="/admin/orar" className={buttonClass}>Orar</NavLink>
       <NavLink to="/admin/clienti" className={buttonClass}>Clienti</NavLink>
-      <NavLink to="/admin/blog" className={buttonClass}>Blog</NavLink>
-      <NavLink to="/admin/galerie" className={buttonClass}>Galerie foto</NavLink>
+      {/* <NavLink to="/admin/blog" className={buttonClass}>Blog</NavLink>
+      <NavLink to="/admin/galerie" className={buttonClass}>Galerie foto</NavLink> */}
       <NavLink to="/admin" end className={buttonClass}>Dashboard</NavLink>
       <button
         onClick={() => setAlert({ ...alert, logOut: true })}

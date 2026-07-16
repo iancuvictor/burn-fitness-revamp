@@ -70,7 +70,7 @@ function CardAbonamentAdmin({ data, getData }) {
   };
 
   return (
-    <div className="flex flex-col gap-5 w-100 font-finlandica p-[20px] shadow-md bg-white rounded-md">
+    <div className="flex flex-col justify-between gap-5 w-100 font-finlandica p-[20px] shadow-md bg-white rounded-md">
       <div
         className={`${alert.duplicate ? "z-4 fixed top-0 left-0" : "hidden"}`}
       >
@@ -81,6 +81,9 @@ function CardAbonamentAdmin({ data, getData }) {
           ifNo={() => setAlert({ ...alert, duplicate: false })}
         />
       </div>
+
+      <div>
+
       <div className={`${alert.update ? "z-4 fixed top-0 left-0" : "hidden"}`}>
         <PopUp
           type="alert"
@@ -99,7 +102,7 @@ function CardAbonamentAdmin({ data, getData }) {
               }
               checked={subscriptionData.highlighted}
               type="checkbox"
-            />
+              />
           </div>
           <div className="flex gap-2">
             <span>Reducere aplicabilă</span>
@@ -115,8 +118,8 @@ function CardAbonamentAdmin({ data, getData }) {
         <button
           onClick={() => deleteAbonament()}
           className="h-fit w-[30px] shadow-md hover:shadow-xl cursor-pointer bg-[#F06E87]
-                hover:bg-[#DE264B] md:hover:text-white pt-[2px] pb-[2px] rounded-md duration-150 ease-out"
-        >
+          hover:bg-[#DE264B] md:hover:text-white pt-[2px] pb-[2px] rounded-md duration-150 ease-out"
+          >
           <FontAwesomeIcon icon={faTrashCan} />
         </button>
       </div>
@@ -128,7 +131,7 @@ function CardAbonamentAdmin({ data, getData }) {
             name=""
             id=""
             value={subscriptionData.tier}
-          >
+            >
             <option value="regular">Regular</option>
             <option value="premium">Premium</option>
           </select>
@@ -139,16 +142,16 @@ function CardAbonamentAdmin({ data, getData }) {
             onChange={(e) => updateSubscriptionData("titlu", e.target.value)}
             type="text"
             value={subscriptionData.titlu}
-          />
+            />
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-col gap-2">
           <span>Descriere:</span>
           <textarea
-            className="h-fit pl-[10px] pr-[10px]"
+            className="h-fit pl-[10px] pr-[10px] w-full"
             onChange={(e) => updateSubscriptionData("desc", e.target.value)}
             type="text"
             value={subscriptionData.desc}
-          />
+            />
         </div>
       </div>
       <div className="flex flex-col gap-2">
@@ -172,7 +175,7 @@ function CardAbonamentAdmin({ data, getData }) {
                     onChange={(e) => updatePret("pret", index, e.target.value)}
                     value={pret.pret}
                     className="w-20 pl-[5px] pr-[5px]"
-                  />
+                    />
                   <span>Lei</span>
                 </div>
                 <div className="flex gap-2">
@@ -184,7 +187,7 @@ function CardAbonamentAdmin({ data, getData }) {
                     }
                     value={pret.duratie}
                     className="w-20 pl-[5px] pr-[10px]"
-                  />
+                    />
                 </div>
               </div>
               <button
@@ -197,12 +200,15 @@ function CardAbonamentAdmin({ data, getData }) {
             </div>
           );
         })}
+        </div>
       </div>
+
+
       <div className="flex justify-between">
         <button
           onClick={() => setAlert({ ...alert, duplicate: true })}
           className="cursor-pointer p-[10px] bg-indigo-500 rounded-md "
-        >
+          >
           <FontAwesomeIcon icon={faClone} />
           Clone
         </button>
@@ -216,8 +222,8 @@ function CardAbonamentAdmin({ data, getData }) {
             data.preturi === subscriptionData.preturi &&
             data.highlighted === subscriptionData.highlighted &&
             data.reducereAplicabila === subscriptionData.reducereAplicabila
-              ? true
-              : false
+            ? true
+            : false
           }
         >
           Update

@@ -239,25 +239,33 @@ router.get('/getSelectors', async (req, res) => {
 })
 
 router.post('/extindeOrarul', admin, async (req, res) => {
+  console.log(req.body);
   let newDates = [];
   for (let data of req.body) {
     newDates.push(new Date(new Date(data).setDate(new Date(data).getDate() + 7)));
   }
   let classes = await Orar.find({ data: { $in: req.body } });
+  console.log(classes);
   let checkEmpty = await Orar.find({ data: { $in: newDates } })
+  // console.log(checkEmpty);
   if (checkEmpty.length === 0) {
     for (let clasa of classes) {
-      await Orar.create({
-        locatie: clasa.locatie,
-        zi: clasa.zi,
-        ora: clasa.ora,
-        data: new Date(new Date(clasa.data).setDate(new Date(clasa.data).getDate() + 7)),
-        denumire: clasa.denumire,
-        antrenor: clasa.antrenor,
-        capacitate: clasa.capacitate,
-        expiryDate: new Date(new Date(clasa.expiryDate).setDate(new Date(clasa.expiryDate).getDate() + 7))
-      })
+      try{
+        console.log('created instance');
+        await Orar.create({
+          locatie: clasa.locatie,
+          zi: clasa.zi,
+          data: new Date(new Date(clasa.data).setDate(new Date(clasa.data).getDate() + 7)),
+          denumire: clasa.denumire,
+          antrenor: clasa.antrenor,
+          capacitate: clasa.capacitate,
+          expiryDate: new Date(new Date(clasa.expiryDate).setDate(new Date(clasa.expiryDate).getDate() + 7))
+        })
+      } catch(err) {
+        console.log(err);
+      }
     }
+    console.log('Orar extins');
     res.status(201).json({ message: 'orarul a fost extins/timetable has been extended' });
   } else {
     console.log(`Clase deja exista in aceasta perioada/Classes already exist in this timestamp`)

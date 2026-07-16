@@ -12,10 +12,11 @@ const API_URL = import.meta.env.VITE_BACKEND_URL
 function Orar({ locatie, dataOrar, getOrar }) {
   const [dataCalendar, setDataCalendar] = useState(setDateOrar());
 
+
   const extindeOrar = async () => {
     let dateArr = []
-    for (let date of dataCalendar) {
-      dateArr.push(date.toISOString().split('T')[0])
+    for(let clasa of dataOrar){
+    dateArr.push(clasa.data);
     }
     try{
       let response = await axios.post(`${API_URL}/classes/extindeOrarul`, dateArr, { withCredentials: true });
@@ -41,7 +42,7 @@ function Orar({ locatie, dataOrar, getOrar }) {
           <button onClick={() => changeCalendarWeek('add', dataCalendar, setDataCalendar)} className="cursor-pointer"><FontAwesomeIcon icon={faSquareCaretRight} /></button>
         </div>
       </div>
-      <div className="relative w-full grid grid-cols-4 p-[20px] gap-4 w-full">
+      <div className="relative w-full grid md:grid-cols-3 xl:grid-cols-4 p-[20px] gap-4 w-full">
         <Zi zi="Luni" locatie={locatie} ziOrar={dataCalendar[0].toLocaleDateString()} dataOrar={dataOrar} getOrar={getOrar} />
         <Zi zi="Marți" locatie={locatie} ziOrar={dataCalendar[1].toLocaleDateString()} dataOrar={dataOrar} getOrar={getOrar} />
         <Zi zi="Miercuri" locatie={locatie} ziOrar={dataCalendar[2].toLocaleDateString()} dataOrar={dataOrar} getOrar={getOrar} />
