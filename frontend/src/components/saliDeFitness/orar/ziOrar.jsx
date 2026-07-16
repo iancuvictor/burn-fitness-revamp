@@ -31,7 +31,7 @@ if(finalFilter.length !== 0)
       <h1 className="text-[24px] font-[700]">{zi} <span className="font-[500] text-[16px]">[{data}]</span></h1>
       <div className="flex flex-col gap-2">
         {finalFilter.length > 0 ? (finalFilter.length > 0 ?
-          finalFilter.map((clasa, index) => {
+          finalFilter.sort((a, b) => new Date(a.data) - new Date(b.data)).map((clasa, index) => {
             if (finalFilter.length > 0) {
               return <CardClasaOrar key={index} clasa={clasa} getOrar={getOrar} data={data} calendarDate={calendarDate} filtre={filtre}/>
             }

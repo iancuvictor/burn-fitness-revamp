@@ -33,7 +33,8 @@ function WrapperAbonamente(){
     checkSessionForToast();
     }, [])
 
-    let availableClasses = user.activeClasses?.filter((clasa) => new Date(clasa.date).setHours(...clasa.ora.split(':')) > new Date().getTime())
+    let availableClasses = user.activeClasses?.filter((clasa) => new Date(clasa.date) > new Date())
+    console.log(availableClasses);
 
     return <div className="w-full min-h-[calc(100vh-5rem)] flex flex-col gap-5 pt-5 pb-30 pr-5 pl-5">
         <div className="w-full flex flex-col gap-2">

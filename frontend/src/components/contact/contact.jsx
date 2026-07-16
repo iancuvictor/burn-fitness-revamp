@@ -1,106 +1,13 @@
-import { useState } from "react";
 import BlockContact from "./blockContact/blockContact";
-import axios from "axios";
-import { toast } from "sonner";
-
-const API_URL = import.meta.env.VITE_BACKEND_URL;
-const inputStyle = `ring-2 ring-gray-300 rounded-xs p-2 outline-none`
+import ContactForm from "./contactForm";
 
 function Contact() {
-  const obj = {
-    nume: "",
-    email: "",
-    telefon: "",
-    mesaj: "",
-  };
-  const [formContent, setFormContent] = useState(obj);
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const phoneRegex = /^\+?[0-9]{1,4}?[-.\s]?\(?[0-9]{1,3}?\)?[-.\s]?[0-9]{1,4}[-.\s]?[0-9]{1,4}[-.\s]?[0-9]{1,9}$/;
-
-  const setFormData = (field, data) => {
-    setFormContent({ ...formContent, [field]: data });
-  };
-
-  const sendEmail = async () => {
-    if(emailRegex.test(formContent.email) && phoneRegex.test(formContent.telefon) && formContent.mesaj.length >= 50){
-      try{
-        await axios.post(`${API_URL}/publicPages/contact`, formContent)
-        toast.success(`Emailul a fost trimis!`)
-        setFormContent(obj);
-      } catch(err) {
-        toast.error(`A intervenit o eroare. Ne pare rău!`)
-      }
-    } else {
-      if(!emailRegex.test(formContent.email)){
-        toast.error(`Email invalid!`);
-      } else if(!phoneRegex.test(formContent.telefon)){
-        toast.error(`Telefon invalid!`);
-      } else if(formContent.mesaj.length < 50){
-        toast.error(`Mesajul trebuie să fie mai lung de 50 de caractere.`)
-      }
-    } 
-  };
 
   return (
-    <div className=" flex flex-col items-center pl-[20px] pr-[20px] border-box pb-10 font-finlandica">
-      <h1 className="mt-[25px] mb-[25px] text-[35px] font-[700] text-white">Contact</h1>
+    <div className=" flex flex-col items-center pt-5 pl-5 pr-5 border-box pb-10 font-finlandica">
+      {/* <h1 className="mt-[25px] mb-[25px] text-[35px] font-[700] text-white">Contact</h1> */}
       <div className="flex flex-col gap-5 md:flex md:flex-row">
-        <div
-          id="sendEmail"
-          className="flex flex-col shadow-xl overflow-hidden h-fit md:w-150 bg-white content-box rounded-xl gap-2"
-        >
-          <h1 className="font-[500] pl-[20px] pt-[20px] pb-[20px]">
-            Trimite un email{" "}
-            <span className="font-[700]">(burnclujfake@gmail.com)</span>
-          </h1>
-          <form
-            action=""
-            className="flex flex-col gap-2 pl-[20px] pr-[20px] pb-[20px]"
-          >
-            <span>Nume:</span>
-            <input
-              onChange={(e) => setFormData("nume", e.target.value)}
-              type="text"
-              name="nume"
-              required
-              value={formContent.nume}
-              className={inputStyle}
-            />
-            <span>Email:</span>
-            <input
-              onChange={(e) => setFormData("email", e.target.value)}
-              type="text"
-              name="email"
-              required
-              value={formContent.email}
-              className={inputStyle}
-            />
-            <span>Telefon:</span>
-            <input
-              onChange={(e) => setFormData("telefon", e.target.value)}
-              type="text"
-              name="telefon"
-              required
-              value={formContent.telefon}
-              className={inputStyle}
-            />
-            <span>Mesajul:</span>
-            <textarea
-              onChange={(e) => setFormData("mesaj", e.target.value)}
-              name="mesaj"
-              required
-              value={formContent.mesaj}
-              className={`${inputStyle} min-h-30`}
-            ></textarea>
-          </form>
-          <button
-            type="button"
-            onClick={() => sendEmail()}
-            className="cursor-pointer active:bg-[#DE264B] active:text-white hover:bg-[#DE264B] hover:text-white duration-150 ease-out rounded-md p-[10px]"
-          >
-            Trimite Email
-          </button>
-        </div>
+        <ContactForm/>
         <div className="md:w-[70%] md:overflow-y-auto md:h-[420px] flex flex-col gap-5">
           <div className="flex flex-col gap-10 justify-center items-baseline md:flex-row md:flex-wrap p-2">
             <div>

@@ -29,7 +29,7 @@ function CardListaAbonamente({ dataAbonament }) {
                   </h1>
                 </div>
                 <span className="text-[16px]">
-                  {zileRamase === 0 ? (
+                  {zileRamase <= 0 ? (
                     <span className="text-red-500 font-[600]">EXPIRAT</span>
                   ) : (
                     <span>
@@ -58,11 +58,11 @@ function CardListaAbonamente({ dataAbonament }) {
                 <span>Expiră în: {new Date(dataAbonament.expiryDate).toLocaleDateString()}</span>
               </div>
               <div className="flex gap-2 text-[16px]">
-                <button
-                  className={`${zileRamase === 0 ? "block" : "hidden"} bg-rose-500 rounded-md text-white p-2`}
+                {/* <button
+                  className={`${zileRamase <= 0 ? "block" : "hidden"} bg-rose-500 rounded-md text-white p-2`}
                 >
                   Reînnoiește abonamentul
-                </button>
+                </button> */}
               </div>
             </div>
 }

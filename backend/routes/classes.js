@@ -25,12 +25,6 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-// might add cron scheduler sometimes in the future
-
-// cron.schedule('0 0 1 * * ', () => {
-//   console.log('');
-// });
-
 router.post("/orarClase", admin, async (req, res) => {
   let checkAvailability = null;
   if (checkAvailability === null) {
@@ -38,12 +32,11 @@ router.post("/orarClase", admin, async (req, res) => {
       await Orar.create({
         locatie: req.body.locatie,
         zi: req.body.zi,
-        ora: req.body.ora,
         data: req.body.data,
+        expiryDate: new Date(new Date(req.body.data).getTime() + 7 * 24 * 60 * 60 * 1000),
         denumire: req.body.denumire,
         antrenor: req.body.antrenor,
-        capacitate: req.body.capacitate,
-        expiryDate: new Date(new Date(req.body.data).getTime() + 7 * 24 * 60 * 60 * 1000)
+        capacitate: req.body.capacitate
       });
       res.json("clasă adăugată la orar");
     } catch (err) {
@@ -111,11 +104,10 @@ router.post("/signUpClasa", protect, async (req, res) => {
                 activeClasses: {
                   classId: clasa._id,
                   className: clasa.denumire,
-                  date: clasa.data.toLocaleDateString(),
+                  date: clasa.data,
                   antrenor: clasa.antrenor,
                   locatie: clasa.locatie,
                   zi: clasa.zi,
-                  ora: clasa.ora,
                 },
               },
             },
@@ -271,6 +263,16 @@ router.post('/extindeOrarul', admin, async (req, res) => {
     console.log(`Clase deja exista in aceasta perioada/Classes already exist in this timestamp`)
     res.status(409).json({message: 'Clase deja exista in aceasta perioada/Classes already exist in this timestamp'})
   }
+});
+
+
+// Cron jobs
+
+cron.schedule('0 0 * * *', async () => {
+  await User.updateMany(
+    {},
+    { $pull: { activeClasses: { date: { $lt: new Date() } } } }
+  );
 });
 
 export default router;

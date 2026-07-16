@@ -6,7 +6,7 @@ function ListaClaseProfil({data}){
   return <div className="flex flex-col md:flex-row gap-5">
       {data.length > 0 ? (
         data.map((clasa, index) => {
-          if(new Date(clasa.date).setHours(...clasa.ora.split(':')) > new Date().getTime()){
+          if(new Date(clasa.date) > new Date()){
             return <CardListaClase key={index} clasa={clasa}/>  
           }
       })
