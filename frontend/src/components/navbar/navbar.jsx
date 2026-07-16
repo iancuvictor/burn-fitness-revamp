@@ -154,6 +154,7 @@ function Navbar({ menuState, setMenuState }) {
                 {/* <NavLink to="/blog" className={buttonClass} onClick={() => setMenuState(!menuState)}>Blog</NavLink> */}
                 {/* <NavLink to="/galerie" className={buttonClass} onClick={() => setMenuState(!menuState)}>Galerie foto</NavLink> */}
                 <NavLink to="/contact" className={buttonClass} onClick={() => closeMenu(setMenuState)}>Contact</NavLink>
+                <NavLink to="/profile" className={buttonClass} onClick={() => closeMenu(setMenuState)}>Cont</NavLink>
                 {/* <NavLink to="/profile" className={buttonClass} onClick={() => closeMenu(setMenuState)}>Cont</NavLink> */}
                 <div className='pt-2'>
                     <a href="https://www.instagram.com/burnfitnesscluj/" target='_blank'><FontAwesomeIcon icon={faInstagramSquare} className='text-[#E06397] hover:text-[#DB2777] duration-150 text-4xl' /></a>

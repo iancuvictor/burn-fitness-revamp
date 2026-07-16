@@ -68,7 +68,7 @@ function SalaFitnessZorilor() {
           Sala fitness ZORILOR
         </h1>
       </div>
-      <div className="flex flex-col md:flex-row gap-5 pl-10 pr-10">
+      <div className="flex flex-col justify-center md:flex-row gap-5 pl-5 pr-5 w-full">
         <div className="flex flex-col gap-3 text-white w-full md:w-xl">
           <h1 className="text-[24px] font-[700]">Ce oferim la Burn Fitness Zorilor?</h1>{isAdmin && <button onClick={() => updatePage()}
             className="cursor-pointer text-white text-[14px] bg-rose-500 p-2">Salvează modificările</button>}
@@ -77,7 +77,7 @@ function SalaFitnessZorilor() {
             onChange={(value) => setDataSala({ ...dataSala, descriere: value })}
             height={400}
           />
-            : <div className="text-justify [&_p]:mb-4 w-md">
+            : <div className="text-justify [&_p]:mb-4 w-full md:w-md">
               <Markdown>{dataSala?.descriere}</Markdown>
             </div>}
         </div>
@@ -91,14 +91,12 @@ function SalaFitnessZorilor() {
           programDuminica="10:00 - 17:00"
         />
       </div>
-      <div className="pl-1 pr-1">
-        <ZonaAntrenori locatie='ZORILOR' />
-      </div>
       <div id='orar' className="w-full md:pl-10 md:pr-10">
+        <ZonaAntrenori locatie='ZORILOR' />
         <CalendarOrar locatie='zorilor' />
       </div>
-      <div id='reviewuri' className="flex flex-col items-center gap-10">
-        <h1 className="text-white text-[30px] font-[700]">Părerea clienților noștrii!</h1>
+      <div id='reviewuri' className="flex flex-col items-center gap-10 pl-5 pr-5">
+        <h1 className="text-white text-[26px] md:text-[30px] font-[700]">Părerea clienților noștrii!</h1>
         <div className="flex flex-col md:flex-row gap-10">
 
           {reviews?.filter((review) => review.sala === 'zorilor').map((review, index) => {
