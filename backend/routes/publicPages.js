@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import { admin } from './auth.js';
 import AntrenorSala from '../schemas/publicSchemas/anternoriSali.js';
 import PaginaSala from '../schemas/publicSchemas/paginaSala.js';
+import Review from '../schemas/publicSchemas/review.js';
 import nodemailer from 'nodemailer';
 import multer from 'multer';
 const router = express.Router()
@@ -102,8 +103,20 @@ router.get('/paginaSala', async (req, res) => {
 // Reviews
 router.post('/reviews', admin, async (req, res) => {
     console.log(req.body);
+    await Review.create({
+        sala: req.body.sala,
+        nume: req.body.nume,
+        comentariu: req.body.comentariu,
+        stele: +req.body.nrStele,
+    })
+    console.log(req.body);
     res.status(201).json({message: 'Review adaugat'})
 });
+
+router.get(`/reviews`, async (req, res) => {
+    let reviews = await Review.find()
+    res.json(reviews);
+})
 
 
 // contact form

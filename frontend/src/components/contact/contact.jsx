@@ -108,7 +108,7 @@ function Contact() {
                 locatie="Zorilor"
                 nrTel="0771 511 431"
                 adresa="Louis Pasteur 58, Cluj-Napoca"
-                linkAdresa='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10933.941538443678!2d23.557627201080333!3d46.75532824825045!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47490e78b14ef555%3A0x82da4b4e100cf036!2sBurn%20Cluj!5e0!3m2!1sen!2sro!4v1780302279546!5m2!1sen!2sro"'
+                linkAdresa='https://maps.app.goo.gl/omhVE5AFo7XVtFRK8'
                 programLuniVineri="06:00 - 23:00"
                 programSambata="9:00 - 18:00"
                 programDuminica="10:00 - 17:00"

@@ -50,8 +50,6 @@ export default function PaginaClase() {
         getData();
     }, [clasa])
 
-    const normalize = (str) => str.replace(/\r\n/g, '\n');
-
     if (isAdmin) {
         return <div className="flex flex-col items-center min-h-[calc(100vh-5rem)] bg-white font-finlandica pt-10">
             <div className="flex justify-center flex-row gap-20 w-full">
@@ -96,13 +94,14 @@ export default function PaginaClase() {
                         <img src={`${API_URL}/uploads/POZECLASE/${clasa?.imagine}?t=${Date.now()}`} alt="imagine clasa"
                             className="h-full w-full rounded-md object-cover object-center" />
                     </div>
-                    <div>
+                    <div className="relative pb-10">
                         <h1 className="text-[30px] font-[700]">Clase disponibile:</h1>
                         <div className="flex flex-col gap-2 p-1 w-100 max-h-120 overflow-y-scroll [scrollbar-gutter:stable_both-edges]">
-                            {dataClase.length > 0 ? dataClase.sort((a, b) => a.data > b.data).map((clasa, index) => {
+                            {dataClase.length > 0 ? dataClase.sort((a, b) => new Date(a.data) - new Date(b.data)).map((clasa, index) => {
                                 return <CardClasaOrar clasa={clasa} getOrar={getData} key={index} filtre={selectors} />
                             }) : <span>Nu există clase de {clasa?.nume} programate</span>}
                         </div>
+                        {/* <div className="z-1 absolute inset-0 bg-gradient-to-t from-white from-0% via-transparent via-20% to-transparent"></div> */}
                     </div>
                 </div>
             </div>
