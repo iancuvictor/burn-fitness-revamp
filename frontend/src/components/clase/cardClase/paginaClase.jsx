@@ -82,21 +82,20 @@ export default function PaginaClase() {
             </div>
         </div>
     } else {
-        return <div className="flex flex-col items-center min-h-[calc(100vh-5rem)] bg-white font-finlandica pt-10 pb-10">
-            <div className="flex justify-center flex-row gap-20 w-full">
-                <div className="flex flex-col gap-5 w-xl">
+        return <div className="flex flex-col items-center min-h-[calc(100vh-5rem)] w-full bg-white font-finlandica p-10">
+            <div className="flex justify-center flex-col md:flex-row gap-10 md:gap-20 w-full">
+                <div className="flex flex-col gap-5 w-full md:w-xl">
                     <h1 className="text-[30px] font-[700]">{clasa?.nume}</h1>
                     <Markdown classname='w-full'>{clasa?.descriere}</Markdown>
                 </div>
                 <div className="flex flex-col gap-5">
-
-                    <div className="h-100 w-100">
+                    <div className="w-full md:h-100 md:w-100">
                         <img src={`${API_URL}/uploads/POZECLASE/${clasa?.imagine}?t=${Date.now()}`} alt="imagine clasa"
                             className="h-full w-full rounded-md object-cover object-center" />
                     </div>
-                    <div className="relative pb-10">
+                    <div className="w-full relative pb-10">
                         <h1 className="text-[30px] font-[700]">Clase disponibile:</h1>
-                        <div className="flex flex-col gap-2 p-1 w-100 max-h-120 overflow-y-scroll [scrollbar-gutter:stable_both-edges]">
+                        <div className="flex flex-col gap-2 p-1 w-full md:w-100 max-h-120 overflow-y-scroll [scrollbar-gutter:stable_both-edges]">
                             {dataClase.length > 0 ? dataClase.sort((a, b) => new Date(a.data) - new Date(b.data)).map((clasa, index) => {
                                 return <CardClasaOrar clasa={clasa} getOrar={getData} key={index} filtre={selectors} />
                             }) : <span>Nu există clase de {clasa?.nume} programate</span>}

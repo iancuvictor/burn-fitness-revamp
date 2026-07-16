@@ -13,7 +13,7 @@ function Footer() {
   if(location.pathname.includes('/profile') && loggedIn === true){
     return null
   } else {
-  return <div className={`${isAdmin ? 'hidden' : 'flex' } bottom-0 h-fit w-full flex-col items-center p-[20px] border-box bg-black gap-2`}>
+  return <div className={`${isAdmin ? 'hidden' : 'flex' } bottom-0 h-fit w-full flex-col items-center p-5 border-box bg-black gap-5`}>
       <h1 className="block md:hidden text-white font-finlandica font-bold text-[24px]">
         Descarcă aplicația Burn
       </h1>

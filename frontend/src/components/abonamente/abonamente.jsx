@@ -21,7 +21,7 @@ function Abonamente() {
   }, [])
 
   return (
-    <div className="flex flex-col items-center min-h-screen w-full font-finlandica pt-5 gap-5">
+    <div className="flex flex-col items-center min-h-screen w-full font-finlandica pt-5 gap-5 pb-10">
       <h1 className="text-[20px] text-white md:text-[35px] font-[700] text-center">
         ABONAMENTELE BURN FITNESS CLUJ-NAPOCA
       </h1>
@@ -56,17 +56,6 @@ function Abonamente() {
         id="listaAbonamente"
         className="relative w-full flex flex-col flex-wrap items-center content-box justify-center gap-5"
       >
-        <div id="abonamentePremium" className="relative w-full flex flex-row flex-wrap items-center justify-center gap-5">
-          {/* {data.map((abonament, index) => {
-            if(abonament.tier === 'premium'){
-              return <CardAbonamentPremium
-              data={abonament}
-              key={index}
-              viewPreturi={viewPreturi.viewPreturi}
-              />
-            }
-          })} */}
-        </div>
         <div id="abonamenteRegular" className={`relative w-full flex flex-row
         justify-center flex-wrap gap-5 
         md:flex md:gap-10 md:flex-row md:flex-wrap md:justify-center 
