@@ -144,7 +144,7 @@ router.put("/renuntaLaClasa", protect, async (req, res) => {
       { _id: req.body._id },
       { $pull: { inscrisi: { idClient: req.user.userId } } },
     );
-    res.json("test");
+  res.status(200).json({message: 'Utilizatorul a renuntat cu succes la clasa'});
     console.log("removed it");
   } catch (err) {
     console.log(err);

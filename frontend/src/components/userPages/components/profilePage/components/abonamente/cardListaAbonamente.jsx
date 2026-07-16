@@ -80,7 +80,7 @@ function CardListaAbonamente({ dataAbonament }) {
       >
         {detalii === false ? 'Vezi mai multe detalii' : 'Vezi mai puține detalii'}
       </button>
-      <div className={`${detalii === true ? 'opacity-100 h-fit' : 'opacity-0 h-0'} flex flex-col justify-between text-[15px] pt-2`}>
+      <div className={`${detalii === true ? 'opacity-100 h-fit' : 'opacity-0 h-0'} overflow-hidden flex flex-col justify-between text-[15px] pt-2`}>
         <span>Durație: {dataAbonament.duration} {dataAbonament.duration > 1 ? 'Luni' : 'Lună'}</span>
         <span>Preț: {dataAbonament.price} lei</span>
         <span>Plătit: {dataAbonament.pricePaid} lei</span>

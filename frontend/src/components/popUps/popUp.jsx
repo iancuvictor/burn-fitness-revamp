@@ -4,7 +4,8 @@ function PopUp({ type, message, ifYes, ifNo }) {
   };
 
   return (
-    <div className="z-4 p-0 m-0 fixed bg-[#050505]/90 min-h-screen min-w-screen flex items-center justify-center font-finlandica">
+    <div className="z-4 p-0 m-0 fixed top-0 left-0 bg-[#050505]/90 min-h-screen min-w-screen 
+    flex items-center justify-center font-finlandica">
       <div className={`${styleObj[type]} p-[25px] flex flex-col gap-5 rounded-md`}>
         <span>{message}</span>
         <div className="flex justify-evenly">

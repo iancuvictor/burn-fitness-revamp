@@ -15,7 +15,7 @@ function ListaClaseProfil({data}){
           Nu ai nici o clasă programată.{" "}
           <NavLink
             to="/clase/orar"
-            className="text-[#3454E3] md:hover:text-[#3454E3]"
+            className="cursor-pointer text-[#3454E3] md:hover:text-[#3454E3]"
           >
             Înscrie-te aici.
           </NavLink>
