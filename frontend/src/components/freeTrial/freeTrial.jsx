@@ -30,8 +30,9 @@ function FreeTrial(){
     }
 
     return <div className="flex flex-col gap-2 justify-center items-center
-    h-160 w-full bg-black font-finlandica text-white p-5">
-        <div  className={`${error.status === 200 ? 'hidden' : 'flex'} flex flex-col shadow-xl p-5 shadow-redishPinkDark/40 ring-white ring-1 rounded-md gap-5`}>
+    min-h-[calc(100vh-8.8rem)] w-full bg-black font-finlandica text-white p-5">
+        <div  className={`${error.status === 200 ? 'hidden' : 'flex'} 
+        flex flex-col shadow-xl p-5 shadow-redishPinkDark/40 ring-white ring-1 rounded-md gap-5 w-full md:w-100`}>
             <div className='relative w-full'>
             <h1 className='font-[600] text-[30px] text-center'>ȘEDINȚA <span className='italic'>GRATUITĂ</span></h1>
             <div className='p-1'>

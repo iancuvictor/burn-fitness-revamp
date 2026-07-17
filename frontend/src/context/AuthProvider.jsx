@@ -56,13 +56,11 @@ function AuthProvider({ children }) {
                     }
                 } else {
                     setLoggedIn(false);
-                    setUser(null);
                     setIsAdmin(false);
                 }
             } catch (err) {
                 console.log('Error');
                 setLoggedIn(false);
-                setUser(null);
                 setIsAdmin(false);
             } finally {
                 setLoading(false);
