@@ -102,7 +102,7 @@ function Navbar({ menuState, setMenuState }) {
                     rounded-md p-2 outline-none`}>
                     {user && <span className='text-white text-[16px]'>Conectat: {user.username}</span>}
                     {user ? <div className='relative h-10 w-10 '>
-                        {user.profilePhoto !== undefined ? <img className='rounded-full h-full w-full object-cover object-center' src={`${API_URL}/uploads/POZEPROFIL/${user.profilePhoto}?t=${Date.now()}`} alt="" />
+                        {user.profilePhoto !== undefined ? <img className='rounded-full h-full w-full object-cover object-center' src={`${user.profilePhoto}?t=${Date.now()}`} alt="" />
                         : <img className='rounded-full h-full w-full object-cover object-center' src={defaultImage} alt="" />}
                     </div>
                         : <NavLink to='/profile' className={profileCheck}><FontAwesomeIcon icon={faCircleUser} /></NavLink>}
@@ -133,7 +133,7 @@ function Navbar({ menuState, setMenuState }) {
             <div className='flex justify-center items-center gap-3'>
                 {user !== undefined ? <NavLink to='/profile'
                     className={({ isActive }) => `relative h-8 w-8 rounded-full ${isActive ? 'ring-2 ring-white' : ''}`}>
-                    <img className='rounded-full h-full w-full object-cover object-center' src={`${API_URL}/uploads/POZEPROFIL/${user.profilePhoto}?t=${Date.now()}`} alt="Profile Picture" />
+                    <img className='rounded-full h-full w-full object-cover object-center' src={`${user.profilePhoto}?t=${Date.now()}`} alt="Profile Picture" />
                 </NavLink>
                     : <NavLink to='/profile' className={profileCheck}><FontAwesomeIcon icon={faCircleUser} /></NavLink>}
                 <button

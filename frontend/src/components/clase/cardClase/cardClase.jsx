@@ -11,7 +11,7 @@ export default function CardClase({ data }) {
       <div className=" z-1 absolute top-0 w-full h-full md:opacity-15 md:bg-black hover:opacity-0 duration-400"></div>
       <div className="relative flex flex-col justify-baseline items-center overflow-hidden h-full w-full">
         <img
-          src={`${API_URL}/uploads/POZECLASE/${data.imagine}?t=${Date.now()}`}
+          src={`${data.imagine}?t=${Date.now()}`}
           alt=""
           className="w-full h-full md:group-hover:scale-120 duration-150 ease-out object-cover object-center select-none"
         />

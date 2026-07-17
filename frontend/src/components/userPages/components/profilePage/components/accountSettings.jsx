@@ -94,7 +94,7 @@ function AccountSettings() {
               <div className="flex flex-col gap-3 items-center justify-center ">
                 <div className="relative flex items-center w-30 h-30 md:h-40 md:w-40">
                   <img
-                    src={user.profilePhoto ? `${API_URL}/uploads/POZEPROFIL/${user.profilePhoto}?t=${Date.now()}` : defaultImage}
+                    src={user.profilePhoto ? `${user.profilePhoto}?t=${Date.now()}` : defaultImage}
                     alt="poza profil"
                     className=" cursor-pointer object-cover object-center w-full h-full rounded-full ring-1 active:shadow-md/50"
                     onClick={() => uploadImage.current.click()}

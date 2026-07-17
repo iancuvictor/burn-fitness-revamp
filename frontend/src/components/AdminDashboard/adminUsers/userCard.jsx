@@ -15,7 +15,7 @@ export default function UserCard({ user }) {
         <div className="flex gap-2 items-center">
             <span className="w-15 h-15">
                 <img className="object-cover object-center w-full h-full rounded-full"
-                    src={`${API_URL}/uploads/POZEPROFIL/${user.profilePhoto}?t=${Date.now()}`} alt="" />
+                    src={`${user.profilePhoto}?t=${Date.now()}`} alt="" />
             </span>
             <div className="flex flex-col text-[14px] font-[600]">
                 <span className="flex gap-1">{user.username}</span>

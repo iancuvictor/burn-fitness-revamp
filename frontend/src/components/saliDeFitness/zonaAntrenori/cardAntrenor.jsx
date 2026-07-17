@@ -57,7 +57,7 @@ export default function CardAntrenor({ antrenor, display, setDisplay, filteredAr
             <div className='bg-black text-white p-2 md:p-5 
             flex flex-col items-center justify-center rounded-md w-fit h-100'>
                 <div className="w-50 h-50 md:w-80 md:h-90">
-                    <img onClick={() => uploadImage.current.click()} src={`${API_URL}/uploads/POZEPROFIL/ANTRENORI/${form.pozaProfil}`} 
+                    <img onClick={() => uploadImage.current.click()} src={`${form.pozaProfil}`} 
                     alt="" className='h-full w-full object-cover rounded-md' />
                     <input ref={uploadImage} onChange={(e) => updateForm('pozaProfil', e.target.files[0])} type="file" 
                     className="opacity-0 h-0" />
@@ -117,7 +117,7 @@ export default function CardAntrenor({ antrenor, display, setDisplay, filteredAr
             <div className='bg-black text-white p-2 md:p-5 
             flex flex-col items-center justify-center rounded-md w-fit'>
                 <div className="w-50 h-50 md:w-80 md:h-90">
-                    <img src={`${API_URL}/uploads/POZEPROFIL/ANTRENORI/${antrenor.pozaProfil}`} alt=""
+                    <img src={`${antrenor.pozaProfil}`} alt=""
                         className='h-full w-full object-cover rounded-md' />
                 </div>
             </div>

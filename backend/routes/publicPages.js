@@ -5,23 +5,27 @@ import AntrenorSala from '../schemas/publicSchemas/anternoriSali.js';
 import PaginaSala from '../schemas/publicSchemas/paginaSala.js';
 import Review from '../schemas/publicSchemas/review.js';
 import nodemailer from 'nodemailer';
-import multer from 'multer';
+
+import { v2 as cloudinary } from 'cloudinary';
+import { CloudinaryStorage } from 'multer-storage-cloudinary';
+
 const router = express.Router()
 
-const UPLOAD_PATH = process.env.FOLDER_UPLOADS;
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        if(file.fieldname  === 'pozaProfil'){
-            cb(null, `${UPLOAD_PATH}/POZEPROFIL/ANTRENORI`);
-        }
-    },
-    filename: (req, file, cb) => {
-        const parts = file.originalname.split('.');
-        const ext = parts[parts.length - 1];
-        cb(null, req.body.nume + '_' + file.fieldname  + '.' + ext);
-    }
-})
-const upload = multer({storage});
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'burnFitness/pozeProfil',
+    public_id: (req, file) => req.user.userId + '_pozaProfil',
+  },
+});
+
+const upload = multer({ storage });
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -40,7 +44,7 @@ router.post('/antrenori/adaugaAntrenor', admin, upload.single('pozaProfil'), asy
             functii: JSON.parse(req.body.functii),
             calificari: JSON.parse(req.body.calificari),
             descriere: req.body.descriere,
-            pozaProfil: req.file.filename,
+            pozaProfil: req.file.path,
         }) 
         console.log(`Trainer with name: ${req.body.nume} was created.`);
         res.status(201).json(`Trainer with name: ${req.body.nume} was created.`);
@@ -68,7 +72,7 @@ router.put('/antrenori/updateAntrenor', admin, upload.single('pozaProfil'), asyn
             descriere: req.body.descriere,
     }
     if(req.file !== undefined){
-        updateData.pozaProfil = req.file.filename
+        updateData.pozaProfil = req.file.path
     }
     
     try{

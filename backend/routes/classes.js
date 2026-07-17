@@ -9,19 +9,22 @@ import Clasa from "../schemas/listaClaseAdmin.js";
 import cron from 'node-cron';
 const router = express.Router();
 
-import multer from 'multer';
-const CLASE_UPLOAD_PATH = process.env.FOLDER_UPLOADS_CLASE;
+import { v2 as cloudinary } from 'cloudinary';
+import { CloudinaryStorage } from 'multer-storage-cloudinary';
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, CLASE_UPLOAD_PATH);
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'burnFitness/pozeProfil',
+    public_id: (req, file) => req.user.userId + '_pozaProfil',
   },
-  filename: (req, file, cb) => {
-    const parts = file.originalname.split('.');
-    const ext = parts[parts.length - 1];
-    cb(null, req.body.nume + '_pozaClasa.' + ext);
-  }
-})
+});
 
 const upload = multer({ storage });
 
@@ -178,7 +181,7 @@ router.post('/clasa', admin, upload.single('imagine'), async (req, res) => {
     await Clasa.create({
       nume: req.body.nume,
       descriere: req.body.descriere || '',
-      imagine: req.file.filename || ''
+      imagine: req.file.path || ''
     })
     res.status(201).json('Clasa adaugata')
   } catch (err) {
@@ -193,7 +196,7 @@ router.put('/clasa', admin, upload.single('imagine'), async (req, res) => {
     id: req.body.id,
     nume: req.body.nume,
     descriere: req.body.descriere,
-    imagine: req.file?.filename || req.body.imagine
+    imagine: req.file?.path || req.body.imagine
   }
   try {
     await Clasa.updateOne({ _id: data.id }, { $set: data });

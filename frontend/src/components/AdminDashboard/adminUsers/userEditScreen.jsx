@@ -19,7 +19,7 @@ export default function UserEditScreen({ user, editScreen, setEditScreen }) {
                 <div className="flex gap-10 items-center h-50">
                     <span className="h-50 w-50">
                         <img className="object-cover object-center w-full h-full rounded-full"
-                            src={`${API_URL}/uploads/POZEPROFIL/${formData.profilePhoto}?t=${Date.now()}`} alt="" />
+                            src={`${formData.profilePhoto}?t=${Date.now()}`} alt="" />
                     </span>
                     <div className="flex flex-col justify-between gap-2 text-[14px] font-[600] h-full">
                         <span className="flex gap-1">

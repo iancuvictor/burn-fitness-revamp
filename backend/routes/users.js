@@ -5,10 +5,29 @@ import jwt from "jsonwebtoken";
 import { protect, admin } from "./auth.js";
 import QRCode from 'qrcode';
 import nodemailer from 'nodemailer';
-const router = express.Router();
 
-import multer from 'multer';
+import { v2 as cloudinary } from 'cloudinary';
+import { CloudinaryStorage } from 'multer-storage-cloudinary';
+
+const router = express.Router();
 const UPLOAD_PATH = process.env.FOLDER_UPLOADS_POZEPROFIL;
+
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'burnFitness/pozeProfil',
+    public_id: (req, file) => req.user.userId + '_pozaProfil',
+  },
+});
+
+const upload = multer({ storage });
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -17,18 +36,6 @@ const transporter = nodemailer.createTransport({
     pass: process.env.MAIL_PASS,
   }
 });
-
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, UPLOAD_PATH);
-  },
-  filename: (req, file, cb) => {
-    const parts = file.originalname.split('.');
-    const ext = parts[parts.length - 1];
-    cb(null, req.user.userId + '_pozaProfil.' + ext);
-  }
-})
-const upload = multer({ storage });
 
 router.post("/register", async (req, res) => {
   const checkUsername = await User.findOne({ username: req.body.username });
