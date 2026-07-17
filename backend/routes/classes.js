@@ -10,6 +10,7 @@ import cron from 'node-cron';
 const router = express.Router();
 
 import { v2 as cloudinary } from 'cloudinary';
+import multer from 'multer';
 import { CloudinaryStorage } from 'multer-storage-cloudinary';
 
 cloudinary.config({

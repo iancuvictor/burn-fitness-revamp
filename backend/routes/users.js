@@ -7,11 +7,10 @@ import QRCode from 'qrcode';
 import nodemailer from 'nodemailer';
 
 import { v2 as cloudinary } from 'cloudinary';
+import multer from 'multer';
 import { CloudinaryStorage } from 'multer-storage-cloudinary';
 
 const router = express.Router();
-const UPLOAD_PATH = process.env.FOLDER_UPLOADS_POZEPROFIL;
-
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -104,8 +103,9 @@ router.post("/register", async (req, res) => {
       case checkPhone !== null:
         res.status(409).json({ message: 'Phone already exists', error: 'phone' });
         break;
+    }
   }
-}});
+});
 
 router.post('/activate', async (req, res) => {
   let decoded = jwt.verify(req.body.token, process.env.SIGN_KEY);
@@ -145,7 +145,7 @@ router.post("/updateProfile", protect, upload.single('pozaProfil'), async (req, 
   }
 
   if (req.file) {
-    updateData.profilePhoto = req.file.filename;
+    updateData.profilePhoto = req.file.path;
   }
 
   const checkUsername = await User.findOne({ username: req.body.username, _id: { $ne: req.user.userId } });

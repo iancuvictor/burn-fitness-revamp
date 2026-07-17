@@ -7,6 +7,7 @@ import Review from '../schemas/publicSchemas/review.js';
 import nodemailer from 'nodemailer';
 
 import { v2 as cloudinary } from 'cloudinary';
+import multer from 'multer';
 import { CloudinaryStorage } from 'multer-storage-cloudinary';
 
 const router = express.Router()
