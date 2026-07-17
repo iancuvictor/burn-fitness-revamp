@@ -8,22 +8,22 @@ const router = express.Router();
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 const endpointWebhook = process.env.STRIPE_WEBHOOK;
-const BACKEND_URL = process.env.BACKEND_URL;
+const FRONTEND_URL = process.env.FRONTEND_URL;
 
 router.post('/createPayment', express.json(), protect, async (req, res) => {
-  let userCheck = await User.findOne({_id: req.user.userId, "activeSubscriptions.subscriptionName" : req.body.subscriptionName});
-  let user = await User.findOne({_id: req.user.userId });
-  let subscriptionCheck = await Abonament.findOne({_id: req.body.id, reducereAplicabila: true})
+  let userCheck = await User.findOne({ _id: req.user.userId, "activeSubscriptions.subscriptionName": req.body.subscriptionName });
+  let user = await User.findOne({ _id: req.user.userId });
+  let subscriptionCheck = await Abonament.findOne({ _id: req.body.id, reducereAplicabila: true })
   //discounts
   let couponName;
   let discountParams;
-  if(user.dataAbsolvireStudent !== undefined && subscriptionCheck !== null){
+  if (user.dataAbsolvireStudent !== undefined && subscriptionCheck !== null) {
     couponName = 'RfLpN0nA';
     discountParams = [{
-          coupon: couponName
-      }]
+      coupon: couponName
+    }]
   }
-  if(userCheck === null){
+  if (userCheck === null) {
     const session = await stripe.checkout.sessions.create({
       line_items: [
         {
@@ -40,8 +40,8 @@ router.post('/createPayment', express.json(), protect, async (req, res) => {
       ],
       mode: 'payment',
       discounts: discountParams,
-      success_url: `${BACKEND_URL}/profile?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${BACKEND_URL}/abonamente`,
+      success_url: `${FRONTEND_URL}/profile?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${FRONTEND_URL}/abonamente`,
       client_reference_id: req.user.userId,
       metadata: {
         id: req.body.id,
@@ -51,14 +51,9 @@ router.post('/createPayment', express.json(), protect, async (req, res) => {
     });
     res.status(200).json({ url: session.url });
   } else {
-    console.log(`User ${user.username} already has this subscription`);
-    res.status(409).json({message: 'Subscription already active', error: 'subscriptionAlreadyBought'})
+    res.status(409).json({ message: 'Subscription already active', error: 'subscriptionAlreadyBought' })
   }
 });
-
-router.post('/renew', express.json(), protect, async (req, res) => {
-  const session = stripe.checkout.sessions.create()
-})
 
 router.post('/webhook', express.raw({ type: 'application/json' }), async (req, res) => {
   let event;
@@ -71,7 +66,6 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
         endpointWebhook
       );
     } catch (err) {
-      console.log(`⚠️ Webhook signature verification failed.`, err.message);
       return res.sendStatus(400);
     }
   }
@@ -79,48 +73,59 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
   switch (event.type) {
     case 'checkout.session.completed':
       const session = event.data.object;
-      const abonament = await Abonament.findOne({_id: session.metadata.id})
-      const user = await User.findOne({_id: session.client_reference_id});
+      const abonament = await Abonament.findOne({ _id: session.metadata.id })
+      const user = await User.findOne({ _id: session.client_reference_id });
 
       const expiry = new Date();
       expiry.setMonth(expiry.getMonth() + +session.metadata.duration);
 
-      try{
-        await User.updateOne(
-          {_id: session.client_reference_id}, 
-          {$push: { activeSubscriptions: {
-            id: abonament._id, 
-            subscriptionName: abonament.titlu,
-            price: session.metadata.price,
-            pricePaid: +session.amount_total / 100,
-            duration: session.metadata.duration,
-            purchaseDate: new Date(),
-            expiryDate: expiry,
-          }}})
-          res.status(201).json({message: 'order placed, subscription given',  received: true});
-          console.log('Subscription given to user');
-        } catch(err) {
-          console.log(err);
-          res.status(401).json({message: 'Error occured'});
+      const alreadyProcessed = await User.findOne({
+        _id: session.client_reference_id,
+        'activeSubscriptions.id': abonament._id
+      });
+
+      if(alreadyProcessed) {
+        return res.status(200).json({message: 'Already processed'})
+      } else {
+        try {
+          await User.updateOne(
+            { _id: session.client_reference_id },
+            {
+              $push: {
+                activeSubscriptions: {
+                  id: abonament._id,
+                  subscriptionName: abonament.titlu,
+                  price: session.metadata.price,
+                  pricePaid: +session.amount_total / 100,
+                  duration: session.metadata.duration,
+                  purchaseDate: new Date(),
+                expiryDate: expiry,
+              }
+            }
+          })
+          res.status(201).json({ message: 'order placed, subscription given', received: true });
+        } catch (err) {
+          res.status(401).json({ message: 'Error occured' });
         }
-      break;
-    default:
-      console.log(`Unhandled event type ${event.type}`);
+        break;
+      }
+        default:
+          res.json({ message: 'Unhandled event' })
   }
 })
 
 router.post('/checkSession', express.json(), protect, async (req, res) => {
   let session = await stripe.checkout.sessions.retrieve(req.body.sessionId);
-  let user = await User.findOne({'activeSubscriptions.id' : session.metadata.id});
+  let user = await User.findOne({ _id: req.user.userId, 'activeSubscriptions.id': session.metadata.id });
 
-  if(session.client_reference_id === req.user.userId){
-    if(user !== null){
-      res.status(200).json({message: 'Abonamentul a fost adăugat cu succes!', toast: 'success'});
+  if (session.client_reference_id === req.user.userId) {
+    if (user !== null) {
+      res.status(200).json({ message: 'Abonamentul a fost adăugat cu succes!', toast: 'success' });
     } else {
-      res.status(200).json({message: 'Abonamentul nu a fost adăugat.', toast: 'error'})
+      res.status(200).json({ message: 'Abonamentul nu a fost adăugat.', toast: 'error' })
     }
   } else {
-    res.status(401).json({message: 'The checkout session does not correspond to this user'});
+    res.status(401).json({ message: 'The checkout session does not correspond to this user' });
   }
 })
 

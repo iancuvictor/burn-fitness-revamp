@@ -18,11 +18,15 @@ export const protect = (req, res, next) => {
 
 export const admin = async (req, res, next) => {
   let cookie = req.cookies.userToken;
-  req.user = jwt.verify(cookie, process.env.SIGN_KEY);
-  let adminUser = await User.findOne({_id: req.user.userId});
-  if(adminUser.isAdmin === true){
-    next();
+  if(cookie !== undefined){
+    req.user = jwt.verify(cookie, process.env.SIGN_KEY);
+    let adminUser = await User.findOne({_id: req.user.userId});
+    if(adminUser.isAdmin === true){
+      next();
+    } else {
+      res.json('Unauthorised');
+    }
   } else {
-    res.json('Unauthorised');
+    res.status(401).json({status: "unauthorized"});
   }
 };

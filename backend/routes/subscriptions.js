@@ -21,33 +21,6 @@ router.get("/", async (req, res) => {
   res.json(data);
 });
 
-
-//Buying subscriptions
-
-router.post('/cumparaAbonament', protect, async (req, res) => {
-  try {
-    let abonament = await Abonament.findOne({ _id: req.body.id });
-    await User.updateOne(
-      { _id: req.user.userId },
-      {
-        $push: {
-          activeSubscriptions: {
-            id: req.body.id,
-            subscriptionName: req.body.subscriptionName,
-            priceTotal: req.body.priceTotal,
-            pricePaid: req.body.pricePaid,
-            duration: req.body.duration,
-            purchaseDate: req.body.purchaseDate,
-            expiryDate: req.body.expiryDate,
-          }
-        }
-      })
-    res.json('order placed, subscription given');
-  } catch (err) {
-    console.log(err);
-  }
-});
-
 router.post("/ziGratis", async (req, res) => {
   let checkAvailability = await User.findOne({ email: req.body.email });
   if (checkAvailability === null) {
@@ -85,7 +58,6 @@ router.post("/ziGratis", async (req, res) => {
   </tr>
 </table>`,
     });
-    console.log(`email sent to ${req.body.email}`)
     res.status(200).json({ message: "success" });
   } else {
     res.status(404).json({ message: "user already exists" });
@@ -100,7 +72,6 @@ router.delete('/eliminaAbonament', protect, async (req, res) => {
     )
     res.status(200).json({message: 'Abonamentul a fost eliminat'})
   } catch(err) {
-    console.log(err);
     res.json('A aparut o eroare');
   }
 })
@@ -108,7 +79,6 @@ router.delete('/eliminaAbonament', protect, async (req, res) => {
 
 // Admin routes
 router.post("/adaugaAbonament", admin, async (req, res) => {
-  console.log(req.body);
   try {
     await Abonament.create({
       highlighted: req.body.highlighted,
@@ -122,12 +92,10 @@ router.post("/adaugaAbonament", admin, async (req, res) => {
     res.json("test");
   } catch (err) {
     res.json("an error has occured");
-    console.log(err);
   }
 });
 
 router.put("/updateAbonament", admin, async (req, res) => {
-  console.log(req.body);
   await Abonament.updateOne({ _id: req.body._id }, { $set: req.body });
   res.json("Abonament actualizat");
 });
@@ -135,7 +103,6 @@ router.put("/updateAbonament", admin, async (req, res) => {
 router.delete("/stergeAbonament", admin, async (req, res) => {
   await Abonament.deleteOne({ _id: req.body._id });
   res.json("Abonament sters");
-  console.log("abonament sters");
 });
 
 export default router;

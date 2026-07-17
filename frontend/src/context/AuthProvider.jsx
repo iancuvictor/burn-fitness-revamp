@@ -6,14 +6,14 @@ import { toast } from "sonner";
 
 const API_URL = import.meta.env.VITE_BACKEND_URL;
 
-function AuthProvider({children}){
+function AuthProvider({ children }) {
     const [user, setUser] = useState();
     const [loggedIn, setLoggedIn] = useState(false);
     const [isAdmin, setIsAdmin] = useState(false);
     const [loading, setLoading] = useState(true);
     const [selectors, setSelectors] = useState({
-    antrenori: [],
-    clase: []
+        antrenori: [],
+        clase: []
     })
 
     const refreshUser = async () => {
@@ -23,38 +23,48 @@ function AuthProvider({children}){
     }
 
     const getSelectors = async () => {
-      let response = await axios.get(`${API_URL}/classes/getSelectors`, {withCredentials: true});
-      setSelectors({...selectors, antrenori: response.data.antrenori, clase: response.data.clase})
+        let response = await axios.get(`${API_URL}/classes/getSelectors`, { withCredentials: true });
+        setSelectors({ ...selectors, antrenori: response.data.antrenori, clase: response.data.clase })
     }
 
     const logOut = async (alert, setAlert) => {
-    await axios.post(`${API_URL}/users/logout`, {withCredentials: true});
-    setLoggedIn(false);
-    setUser();
-    toast.success(`Te-ai deconectat cu succes`)
-    if(alert && setAlert){
-        setAlert({ ...alert, logOut: false })
-    }
+        await axios.post(`${API_URL}/users/logout`, { withCredentials: true });
+        setLoggedIn(false);
+        setUser();
+        toast.success(`Te-ai deconectat cu succes`)
+        if (alert && setAlert) {
+            setAlert({ ...alert, logOut: false })
+        }
     };
 
     useEffect(() => {
-    getSelectors();
-        async function checkCookie(){
+        getSelectors();
+        async function checkCookie() {
             try {
                 let response = await axios.get(`${API_URL}/users/profile`, { withCredentials: true });
                 let userData = response.data.userData;
                 let resStatus = response.data.message;
-                if(resStatus === 'authorised' && userData.isAdmin === false){
+
+                if (resStatus === 'authorised') {
                     setLoggedIn(true);
                     setUser(userData);
-                } else if(resStatus === 'authorised' && userData.isAdmin === true){
-                    setLoggedIn(true);
-                    setUser(userData);
-                    setIsAdmin(true);
+
+                    if (userData.isAdmin) {
+                        setIsAdmin(true)
+                    } else {
+                        setIsAdmin(false)
+                    }
+                } else {
+                    setLoggedIn(false);
+                    setUser(null);
+                    setIsAdmin(false);
                 }
-                setLoading(false);
-            } catch(err) {
+            } catch (err) {
                 console.log('Error');
+                setLoggedIn(false);
+                setUser(null);
+                setIsAdmin(false);
+            } finally {
                 setLoading(false);
             }
         }
@@ -62,8 +72,10 @@ function AuthProvider({children}){
     }, []);
 
     return (
-        <AuthContext.Provider value={{loggedIn, setLoggedIn, user, setUser, isAdmin, setIsAdmin, 
-        loading, setLoading, refreshUser, selectors, getSelectors, logOut}}>
+        <AuthContext.Provider value={{
+            loggedIn, setLoggedIn, user, setUser, isAdmin, setIsAdmin,
+            loading, setLoading, refreshUser, selectors, getSelectors, logOut
+        }}>
             {children}
         </AuthContext.Provider>
     )

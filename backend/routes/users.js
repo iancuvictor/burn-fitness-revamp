@@ -35,14 +35,20 @@ router.post("/register", async (req, res) => {
   if (userCheck === null) {
     let hashedPass = await bcrypt.hash(req.body.password, 10);
     try {
-      try {
-        let jwtToken = jwt.sign({ userEmail: req.body.email }, process.env.SIGN_KEY, { expiresIn: "30min" })
-        console.log(jwtToken);
-        await transporter.sendMail({
-          from: "burnclujfake@gmail.com",
-          to: req.body.email,
-          subject: "Bine ai venit la Burn Fitness Cluj-Napoca!",
-          html: `<table width="100%" cellpadding="0" cellspacing="0" border="0">
+      let jwtToken = jwt.sign({ userEmail: req.body.email }, process.env.SIGN_KEY, { expiresIn: "30min" })
+      await User.create({
+        username: req.body.username,
+        displayName: req.body.username,
+        email: req.body.email,
+        phone: req.body.nrTel,
+        password: hashedPass,
+        active: false,
+      });
+      await transporter.sendMail({
+        from: "burnclujfake@gmail.com",
+        to: req.body.email,
+        subject: "Bine ai venit la Burn Fitness Cluj-Napoca!",
+        html: `<table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td align="center">
             <table width="300" cellpadding="0" cellspacing="0" border="0" style="background: #000; border-radius: 10px; padding: 15px 15px 40px 15px;">
@@ -70,31 +76,14 @@ router.post("/register", async (req, res) => {
           </td>
         </tr>
                 </table>`,
-        });
-        console.log(`email sent to ${req.body.email}`)
-        res.status(200).json({ message: "success" });
-      } catch {
-        res.status(500).json({ message: "Error has occured" });
-      }
-      await User.create({
-        username: req.body.username,
-        displayName: req.body.username,
-        email: req.body.email,
-        phone: req.body.nrTel,
-        password: hashedPass,
-        active: false,
       });
-      console.log(
-        `User with username: ${req.body.username} has registered now.`,
-      );
-    } catch (err) {
+      res.status(201).json({ message: "User created, email sent" });
+    } catch(err) {
       console.log(err);
-      res.status(500).json({ message: "error creating user" });
+      res.status(500).json({ message: "Error has occured" });
     }
-    res.status(201).json({ message: "user created" });
   } else {
     res.status(409).json({ message: "User already exists." });
-    console.log("user already exists");
   }
 });
 
@@ -107,11 +96,9 @@ router.post('/activate', async (req, res) => {
         active: true
       }
     })
-    console.log('User is now active');
-    res.status(200).json({message: 'User is now active'});
+    res.status(200).json({ message: 'User is now active' });
   } else {
-    console.log('User does not exist');
-    res.status(404).json({message: 'User does not exist'});
+    res.status(404).json({ message: 'User does not exist' });
   }
   // let user = User.findOne({})
 })
@@ -150,16 +137,14 @@ router.post('/updatePassword', protect, async (req, res) => {
   let user = await User.findOne({ _id: req.user.userId });
   let hashedPass = await bcrypt.hash(req.body.password, 10)
 
-  let check = await bcrypt.compare(req.body.password, user.password);
+  let check = await bcrypt.compare(hashedPass, user.password);
 
   if (check) {
     res.json({ message: 'passwordIsSame' });
-    console.log('password is same');
   } else {
     await User.updateOne({ _id: req.user.userId }, {
       password: hashedPass
     })
-    console.log('password changed');
     res.json('password changed');
   }
 })
@@ -177,7 +162,6 @@ router.post("/login", async (req, res) => {
           process.env.SIGN_KEY,
           { expiresIn: "30d" },
         );
-        console.log("setting cookie");
         res.cookie("userToken", signature, {
           httpOnly: true,
           secure: false,
@@ -186,11 +170,9 @@ router.post("/login", async (req, res) => {
         });
         res.json({ message: "login successful" });
       } else {
-        console.log("Wrong password");
         res.json({ message: "wrongPass" });
       }
     } else if (userFound === null) {
-      console.log("no user with this name or email is associated");
       res.status(401).json({ status: "userNotFound" });
     }
   } catch (err) {

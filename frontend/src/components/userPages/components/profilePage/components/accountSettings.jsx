@@ -86,9 +86,9 @@ function AccountSettings() {
     <div className="min-h-screen flex flex-col items-center gap-2 pt-5 pb-20 pr-5 pl-5 w-full ">
       <div className="w-full md:w-150 flex flex-col items-center justify-center gap-5">
         <div className="flex flex-col gap-5 w-full">
-          <h1 className="font-[700] text-[16px] md:text-[20px]">Setări cont ({user.username}) 
-            [<span className="text-green-500">{user.dataAbsolvireStudent !== undefined 
-            && new Date(user.dataAbsolvireStudent) > new Date() ? 'STUDENT ACTIV' : ''}</span>]</h1>
+          <h1 className="font-[700] text-[16px] md:text-[20px]">Setări cont ({user.username})
+            [<span className="text-green-500">{user.dataAbsolvireStudent !== undefined
+              && new Date(user.dataAbsolvireStudent) > new Date() ? 'STUDENT ACTIV' : ''}</span>]</h1>
           <div className="flex flex-col gap-2">
             <div className="flex gap-5 md:flex-row">
               <div className="flex flex-col gap-3 items-center justify-center ">
@@ -213,15 +213,15 @@ function AccountSettings() {
                 icon={viewPassword.confirmPassword ? faEye : faEyeSlash} className="cursor-pointer text-[18px]" />
             </span>
           </div>
-        <button
-          onClick={() => changePassword()}
-          className="cursor-pointer bg-rose-500 text-white p-2 rounded-xs"
-        >
-          SCHIMBĂ PAROLA
-        </button>
+          <button
+            onClick={() => changePassword()}
+            className="cursor-pointer bg-rose-500 text-white p-2 rounded-xs"
+          >
+            SCHIMBĂ PAROLA
+          </button>
         </div>
       </div>
-      </div>
+    </div>
   );
 }
 
