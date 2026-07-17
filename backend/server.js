@@ -13,7 +13,12 @@ import cookieParser from "cookie-parser";
 
 const server = express();
 let port = process.env.PORT;
-server.use(cors({ origin: ['http://localhost:5173', 'http://192.168.0.220:5173', 'http://192.168.0.220:3000'], credentials: true }))
+let localDevArr = ['http://localhost:5173', 'http://192.168.0.220:5173', 'http://192.168.0.220:3000'];
+const prodOrigin = 'https://burn-fitness-revamp.vercel.app';
+server.use(cors({
+  origin: process.env.NODE_ENV === "production" ? prodOrigin : localDevArr,
+  credentials: true
+}))
 
 server.use(cookieParser())
 server.use('/api/payments', payments);
