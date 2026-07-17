@@ -6,6 +6,7 @@ import { faFacebookSquare, faInstagramSquare } from '@fortawesome/free-brands-sv
 import { AuthContext } from "../../context/AuthContext";
 import { useContext, useState, useRef, useEffect } from 'react';
 import PopUp from '../popUps/popUp';
+import defaultImage from '../../media/default-avatar.jpg'
 
 const buttonClass = ({ isActive }) => `${isActive ? 'z-1 text-white underline underline-offset-5' :
     'hover:text-white hover:underline underline-offset-5 duration-150'} 
@@ -101,7 +102,8 @@ function Navbar({ menuState, setMenuState }) {
                     rounded-md p-2 outline-none`}>
                     {user && <span className='text-white text-[16px]'>Conectat: {user.username}</span>}
                     {user ? <div className='relative h-10 w-10 '>
-                        <img className='rounded-full h-full w-full object-cover object-center' src={`${API_URL}/uploads/POZEPROFIL/${user.profilePhoto}?t=${Date.now()}`} alt="" />
+                        {user.profilePhoto !== undefined ? <img className='rounded-full h-full w-full object-cover object-center' src={`${API_URL}/uploads/POZEPROFIL/${user.profilePhoto}?t=${Date.now()}`} alt="" />
+                        : <img className='rounded-full h-full w-full object-cover object-center' src={defaultImage} alt="" />}
                     </div>
                         : <NavLink to='/profile' className={profileCheck}><FontAwesomeIcon icon={faCircleUser} /></NavLink>}
                 </button>

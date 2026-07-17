@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { toast } from "sonner";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import defaultImage from '../../../../../media/default-avatar.jpg'
 
 const inputWrapper =
   "text-black text-[14px] border rounded-md box-content pt-2 pb-2 pl-3 pr-3 md:pl-5 md:pr-5";
@@ -61,7 +62,7 @@ function AccountSettings() {
         toast.error("A intervenit o eroare");
       }
     } else {
-      console.log("wrong");
+      toast.error(`Parolele nu sunt identice`)
     }
   };
 
@@ -80,21 +81,20 @@ function AccountSettings() {
     updateData();
   }, [formData.pozaProfil]);
 
-  console.log(user);
-
   return (
     <div className="min-h-screen flex flex-col items-center gap-2 pt-5 pb-20 pr-5 pl-5 w-full ">
       <div className="w-full md:w-150 flex flex-col items-center justify-center gap-5">
         <div className="flex flex-col gap-5 w-full">
           <h1 className="font-[700] text-[16px] md:text-[20px]">Setări cont ({user.username})
-            [<span className="text-green-500">{user.dataAbsolvireStudent !== undefined
-              && new Date(user.dataAbsolvireStudent) > new Date() ? 'STUDENT ACTIV' : ''}</span>]</h1>
+            [<span className={`${user.dataAbsolvireStudent !== undefined
+              && new Date(user.dataAbsolvireStudent) ? 'text-green-500' : 'text-rose-500' }`}>{user.dataAbsolvireStudent !== undefined
+              && new Date(user.dataAbsolvireStudent) > new Date() ? 'STUDENT ACTIV' : 'NU este student'}</span>]</h1>
           <div className="flex flex-col gap-2">
             <div className="flex gap-5 md:flex-row">
               <div className="flex flex-col gap-3 items-center justify-center ">
                 <div className="relative flex items-center w-30 h-30 md:h-40 md:w-40">
                   <img
-                    src={`${API_URL}/uploads/POZEPROFIL/${user.profilePhoto}?t=${Date.now()}`}
+                    src={user.profilePhoto ? `${API_URL}/uploads/POZEPROFIL/${user.profilePhoto}?t=${Date.now()}` : defaultImage}
                     alt="poza profil"
                     className=" cursor-pointer object-cover object-center w-full h-full rounded-full ring-1 active:shadow-md/50"
                     onClick={() => uploadImage.current.click()}

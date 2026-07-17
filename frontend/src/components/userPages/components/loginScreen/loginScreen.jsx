@@ -9,6 +9,7 @@ import {
 import InputLogin from "./input";
 import { useContext } from "react";
 import { AuthContext } from "../../../../context/AuthContext";
+import { toast } from "sonner";
 
 const API_URL = import.meta.env.VITE_BACKEND_URL
 
@@ -67,9 +68,21 @@ function LoginScreen() {
     e.preventDefault();
     try {
       if(signUpForm.password === signUpForm.passwordConfirm){
-        await axios.post(`${API_URL}/users/register`, signUpForm)
-        await axios.post(`${API_URL}/users/login`, {username: signUpForm.username, password: signUpForm.password});
-        window.location.reload();
+        try{
+          await axios.post(`${API_URL}/users/register`, signUpForm)
+          await axios.post(`${API_URL}/users/login`, {username: signUpForm.username, password: signUpForm.password});
+          window.location.reload();
+          toast.success(`Emailul de confirmare a fost trimis! Verifică folderul de SPAM în cazul în care nu îl găsești`)
+        } catch(err){
+          let errorCode = err.response.data.error;
+          if(errorCode === 'username'){
+            toast.error(`Există deja un utilizator cu acest nume`)
+          } else if(errorCode === 'email'){
+            toast.error(`Există deja un utilizator cu acest email`)
+          } else if(errorCode === 'phone'){
+            toast.error(`Există deja un utilizator cu acest număr de telefon`)
+          }
+        }
       } else {
         setError({...error, passwordConfirm: true});
       }

@@ -31,8 +31,11 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 router.post("/register", async (req, res) => {
-  let userCheck = await User.findOne({ username: req.body.username });
-  if (userCheck === null) {
+  const checkUsername = await User.findOne({ username: req.body.username });
+  const checkEmail = await User.findOne({ email: req.body.email });
+  const checkPhone = await User.findOne({ phone: req.body.nrTel });
+
+  if (checkUsername === null && checkEmail === null && checkPhone === null) {
     let hashedPass = await bcrypt.hash(req.body.password, 10);
     try {
       let jwtToken = jwt.sign({ userEmail: req.body.email }, process.env.SIGN_KEY, { expiresIn: "30min" })
@@ -78,14 +81,24 @@ router.post("/register", async (req, res) => {
                 </table>`,
       });
       res.status(201).json({ message: "User created, email sent" });
-    } catch(err) {
+    } catch (err) {
       console.log(err);
       res.status(500).json({ message: "Error has occured" });
     }
   } else {
-    res.status(409).json({ message: "User already exists." });
+    console.log('hit the switch');
+    switch (true) {
+      case checkUsername !== null:
+        res.status(409).json({ message: 'Username already exists', error: 'username' });
+        break;
+      case checkEmail !== null:
+        res.status(409).json({ message: 'Email already exists', error: 'email' });
+        break;
+      case checkPhone !== null:
+        res.status(409).json({ message: 'Phone already exists', error: 'phone' });
+        break;
   }
-});
+}});
 
 router.post('/activate', async (req, res) => {
   let decoded = jwt.verify(req.body.token, process.env.SIGN_KEY);
@@ -115,6 +128,7 @@ router.get("/profile", protect, async (req, res) => {
 });
 
 router.post("/updateProfile", protect, upload.single('pozaProfil'), async (req, res) => {
+
   const updateData = {
     username: req.body.username,
     displayName: req.body.displayName,
@@ -127,10 +141,28 @@ router.post("/updateProfile", protect, upload.single('pozaProfil'), async (req, 
     updateData.profilePhoto = req.file.filename;
   }
 
-  await User.updateOne({ _id: req.user.userId }, {
-    $set: updateData
-  })
-  res.json('got it');
+  const checkUsername = await User.findOne({ username: req.body.username, _id: { $ne: req.user.userId } });
+  const checkEmail = await User.findOne({ email: req.body.email, _id: { $ne: req.user.userId } });
+  const checkPhone = await User.findOne({ phone: req.body.nrTelefon, _id: { $ne: req.user.userId } });
+
+  if (checkUsername === null && checkEmail === null && checkPhone === null) {
+    await User.updateOne({ _id: req.user.userId }, {
+      $set: updateData
+    })
+    res.status(200).json('Profile updated');
+  } else {
+    switch (true) {
+      case checkUsername !== null:
+        res.status(409).json({ message: 'Username already exists', error: 'userName' });
+        break;
+      case checkEmail !== null:
+        res.status(409).json({ message: 'Email already exists', error: 'email' });
+        break;
+      case checkPhone !== null:
+        res.status(409).json({ message: 'Phone already exists', error: 'phone' });
+        break;
+    }
+  }
 });
 
 router.post('/updatePassword', protect, async (req, res) => {
@@ -164,9 +196,8 @@ router.post("/login", async (req, res) => {
         );
         res.cookie("userToken", signature, {
           httpOnly: true,
-          secure: false,
-          //   secure: process.env.NODE_ENV === "production",
-          sameSite: "lax",
+          secure: process.env.NODE_ENV === "production",
+          sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
         });
         res.json({ message: "login successful" });
       } else {
