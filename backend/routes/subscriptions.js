@@ -5,10 +5,10 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { protect, admin } from "./auth.js";
 import nodemailer from "nodemailer";
+import SibApiV3Sdk from '@sendinblue/client'
 
 const router = express.Router();
 
-const SibApiV3Sdk = require('@sendinblue/client');
 const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
 
 
