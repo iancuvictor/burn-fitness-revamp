@@ -29,12 +29,17 @@ const storage = new CloudinaryStorage({
 const upload = multer({ storage });
 
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
+  host: 'smtp.gmail.com',
+  port: 587,
+  secure: false,
+  requireTLS: true,
   auth: {
     user: "burnclujfake@gmail.com",
     pass: process.env.MAIL_PASS,
   },
-  family: 4
+  connectionTimeout: 10000,
+  greetingTimeout: 10000,
+  socketTimeout: 15000,
 });
 
 router.post("/register", async (req, res) => {
