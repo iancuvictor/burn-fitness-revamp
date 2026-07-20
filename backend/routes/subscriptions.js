@@ -9,11 +9,16 @@ import nodemailer from "nodemailer";
 const router = express.Router();
 
 const transporter = nodemailer.createTransport({
-  service: "gmail",
+  host: "smtp-relay.brevo.com",
+  port: 587,
+  secure: false,
   auth: {
-    user: "burnclujfake@gmail.com",
-    pass: process.env.MAIL_PASS,
+    user: process.env.BREVO_EMAIL,
+    pass: process.env.BREVO_SMTP_KEY,
   },
+  family: 4,
+  logger: true,
+  debug: true
 });
 
 router.get("/", async (req, res) => {
@@ -25,7 +30,8 @@ router.post("/ziGratis", async (req, res) => {
   let checkAvailability = await User.findOne({ email: req.body.email });
   if (checkAvailability === null) {
     await transporter.sendMail({
-      from: "burnclujfake@gmail.com",
+      from: `"Burn Fitness Cluj" <burnclujfake@gmail.com>`,
+      replyTo: "burnclujfake@gmail.com",
       to: req.body.email,
       subject: "Zi gratuită la Burn Fitness Cluj-Napoca",
       html: `<table width="100%" cellpadding="0" cellspacing="0" border="0">

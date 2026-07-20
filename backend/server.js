@@ -39,6 +39,13 @@ server.use('/api/classes', classesRoutes);
 server.use('/api/abonamente', abonamenteRoutes);
 server.use('/api/publicPages', publicRoutes);
 
+server.get('/my-ip', (req, res) => {
+  res.json({
+    ip: req.ip,
+    message: "This is your Render server IP"
+  });
+});
+
 server.listen(port, () => {
       console.log(`Server up and running on ${port}`);
     });

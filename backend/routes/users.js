@@ -29,18 +29,16 @@ const storage = new CloudinaryStorage({
 const upload = multer({ storage });
 
 const transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
-  family: 4,
+  host: "smtp-relay.brevo.com",
   port: 587,
   secure: false,
-  requireTLS: true,
   auth: {
-    user: "burnclujfake@gmail.com",
-    pass: process.env.MAIL_PASS,
+    user: process.env.BREVO_EMAIL,
+    pass: process.env.BREVO_SMTP_KEY,
   },
-  connectionTimeout: 10000,
-  greetingTimeout: 10000,
-  socketTimeout: 15000,
+  family: 4,
+  logger: true,
+  debug: true
 });
 
 router.post("/register", async (req, res) => {
@@ -56,13 +54,14 @@ router.post("/register", async (req, res) => {
         username: req.body.username,
         displayName: req.body.username,
         email: req.body.email,
-        phone: req.body.nrTel,
+        // phone: req.body.nrTel,
         password: hashedPass,
         active: false,
       });
       try{
       await transporter.sendMail({
-        from: "burnclujfake@gmail.com",
+        from: `"Burn Fitness Cluj" <burnclujfake@gmail.com>`,
+        replyTo: "burnclujfake@gmail.com",
         to: req.body.email,
         subject: "Bine ai venit la Burn Fitness Cluj-Napoca!",
         html: `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#000;">
