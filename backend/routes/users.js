@@ -53,46 +53,63 @@ router.post("/register", async (req, res) => {
         password: hashedPass,
         active: false,
       });
+      try{
       await transporter.sendMail({
         from: "burnclujfake@gmail.com",
         to: req.body.email,
         subject: "Bine ai venit la Burn Fitness Cluj-Napoca!",
-        html: `<table width="100%" cellpadding="0" cellspacing="0" border="0">
+        html: `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#000;">
+  <tr>
+    <td align="center">
+      <table width="300" cellpadding="0" cellspacing="0" border="0" style="background:#000; border-radius:10px; overflow:hidden;">
         <tr>
-          <td align="center">
-            <table width="300" cellpadding="0" cellspacing="0" border="0" style="background: #000; border-radius: 10px; padding: 15px 15px 40px 15px;">
-              <tr>
-                <td align="center" style="padding-bottom: 20px;">
-                  <h1 style="font-family: Arial; font-size: 24px; color: white; text-align: center; margin: 0;">Activează-ți contul!</h1>
-                </td>
-              </tr>
-              <tr>
-                <td style="font-family: Arial; font-size: 18px; color: white; text-align: justify; padding-bottom: 20px;">
-                  Deschide link-ul de mai jos în browser pentru a-ți activa contul! Dacă nu ai solicitat crearea unui cont, ignoră emailul!
-                </td>
-              </tr>
-              <tr>
-          <td align="center">
-            <a style="font-family: Arial; font-size: 18px;" href='http://localhost:5173/activate/?token=${jwtToken}'>Activează contul</a>
+          <td align="center" bgcolor="#000000" style="background-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, #000000 100%), url('https://i.imgur.com/YOUR_HEADER_IMAGE.jpg'); background-size: cover; background-position: center; height: 160px;">
+            <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:300px;height:160px;">
+              <v:fill type="frame" src="https://www.burncluj.ro/wp-content/uploads/2023/02/bc3.jpeg" color="#000000" />
+              <v:textbox inset="0,0,0,0"></v:textbox>
+            </v:rect>
           </td>
         </tr>
-              <tr>
-                <td align="center">
-                  <img src="https://i.imgur.com/h3SN8vo.png" width="270" style="border-radius: 6px; display: block;"/>
-                </td>
-              </tr>
-            </table>
+        <tr>
+          <td align="center" style="padding: 25px 15px 10px 15px;">
+            <h1 style="font-family: Arial; font-size: 24px; color: white; text-align: center; margin: 0;">Activează-ți contul!</h1>
           </td>
         </tr>
-                </table>`,
+        <tr>
+          <td style="font-family: Arial; font-size: 16px; color: white; text-align: justify; padding: 0 20px 25px 20px;">
+            Deschide link-ul de mai jos în browser pentru a-ți activa contul! Dacă nu ai solicitat crearea unui cont, ignoră emailul!
+          </td>
+        </tr>
+        <tr>
+          <td align="center" style="padding-bottom: 30px;">
+            <a href="${process.env.FRONTEND_URL}/activate/?token=${jwtToken}" 
+               style="font-family: Arial; font-size: 16px; font-weight: bold; color: #fff; background-color: #E11D48; text-decoration: none; padding: 12px 28px; border-radius: 6px; display: inline-block;">
+              Activează contul
+            </a>
+          </td>
+        </tr>
+        <tr>
+          <td align="center" style="padding-bottom: 20px;">
+            <img src="https://i.imgur.com/h3SN8vo.png" width="150" style="display:block;" />
+          </td>
+        </tr>
+
+      </table>
+    </td>
+  </tr>
+</table>`,
       });
+      console.log('email sent')
       res.status(201).json({ message: "User created, email sent" });
+    } catch(err) {
+      res.json({message: 'Error'});
+      console.log(err);
+    }
     } catch (err) {
       console.log(err);
-      res.status(500).json({ message: "Error has occured" });
+      res.json({ message: "Error has occured" });
     }
   } else {
-    console.log('hit the switch');
     switch (true) {
       case checkUsername !== null:
         res.status(409).json({ message: 'Username already exists', error: 'username' });

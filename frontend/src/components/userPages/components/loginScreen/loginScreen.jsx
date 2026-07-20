@@ -66,7 +66,6 @@ function LoginScreen() {
 
   const signUp = async (e) => {
     e.preventDefault();
-    try {
       if(signUpForm.password === signUpForm.passwordConfirm){
         try{
           await axios.post(`${API_URL}/users/register`, signUpForm)
@@ -86,9 +85,6 @@ function LoginScreen() {
       } else {
         setError({...error, passwordConfirm: true});
       }
-    } catch (err) {
-      console.log(err);
-    }
   };
 
   return (
