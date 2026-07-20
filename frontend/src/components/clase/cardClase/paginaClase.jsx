@@ -4,8 +4,6 @@ import { AuthContext } from "../../../context/AuthContext";
 import axios from "axios";
 import CardClasaOrar from "../../saliDeFitness/orar/cardClasaOrar";
 import Markdown from 'react-markdown';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye } from "@fortawesome/free-solid-svg-icons";
 import MDEditor from '@uiw/react-md-editor';
 import { toast } from "sonner";
 
@@ -41,14 +39,14 @@ export default function PaginaClase() {
             `${API_URL}/classes/orarClase?clasa=${clasa.nume}`,
         );
         setDataClase(response.data);
-        console.log(clasa);
-        console.log(data);
     }
 
     useEffect(() => {
         if (!clasa) return;
         getData();
     }, [clasa])
+
+    console.log(`${clasa.imagine}?t=${Date.now()}`);
 
     if (isAdmin) {
         return <div className="flex flex-col items-center min-h-[calc(100vh-5rem)] bg-white font-finlandica pt-10">
@@ -74,7 +72,7 @@ export default function PaginaClase() {
                     </div>
                 </div>
                 <div className="h-100 w-100">
-                    <img onClick={() => uploadImage.current.click()} src={`${API_URL}/uploads/POZECLASE/${data?.imagine}?t=${Date.now()}`} alt="imagine clasa"
+                    <img onClick={() => uploadImage.current.click()} src={`${clasa.imagine}?t=${Date.now()}`} alt="imagine clasa"
                         className="cursor-pointer h-full w-full rounded-md object-cover object-center" />
                     <input ref={uploadImage} type="file" onChange={(e) => setData({ ...data, imagine: e.target.files[0] })}
                         className="hidden" />
@@ -90,7 +88,7 @@ export default function PaginaClase() {
                 </div>
                 <div className="flex flex-col gap-5">
                     <div className="w-full md:h-100 md:w-100">
-                        <img src={`${API_URL}/uploads/POZECLASE/${clasa?.imagine}?t=${Date.now()}`} alt="imagine clasa"
+                        <img src={`${clasa.imagine}?t=${Date.now()}`} alt="imagine clasa"
                             className="h-full w-full rounded-md object-cover object-center" />
                     </div>
                     <div className="w-full relative pb-10">

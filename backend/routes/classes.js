@@ -227,6 +227,7 @@ router.get('/getSelectors', async (req, res) => {
 
 router.post('/extindeOrarul', admin, async (req, res) => {
   let newDates = [];
+  console.log(req.body);
   for (let data of req.body) {
     newDates.push(new Date(new Date(data).setDate(new Date(data).getDate() + 7)));
   }

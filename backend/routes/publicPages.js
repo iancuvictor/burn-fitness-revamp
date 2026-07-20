@@ -93,11 +93,17 @@ router.put('/paginaSala', admin, async (req, res) => {
 })
 
 router.post('/paginaSala/create', admin, async (req, res) => {
-    await PaginaSala.create({
-        sala: req.body.sala
-    });
-    console.log('creat');
-    res.json({message: 'Pagina a fost actualizată'});
+    try{
+        await PaginaSala.create({
+            sala: req.body.sala,
+            descriere: req.body.descriere
+        });
+        console.log('worked');
+        res.json({message: 'Pagina a fost actualizată'});
+    } catch(err) {
+        console.log(err);
+        res.json({message: 'A intervenit o eroare'});
+    } 
 })
 
 router.get('/paginaSala', async (req, res) => {

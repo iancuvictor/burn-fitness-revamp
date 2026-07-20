@@ -15,16 +15,19 @@ function Orar({ locatie, dataOrar, getOrar }) {
 
   const extindeOrar = async () => {
     let dateArr = []
-    for(let clasa of dataOrar){
-    dateArr.push(clasa.data);
+    for (let clasa of dataOrar) {
+      if (new Date(clasa.data) >= new Date(new Date(dataCalendar[0]).setHours('00', '00'))
+        && new Date(clasa.data) <= new Date(new Date(dataCalendar[6]).setHours('00', '00'))){
+        dateArr.push(clasa.data);
+      }
     }
-    try{
+    try {
       let response = await axios.post(`${API_URL}/classes/extindeOrarul`, dateArr, { withCredentials: true });
       getOrar();
       toast.success(`Orarul a fost extins cu succes! (1 săptămână)`)
       changeCalendarWeek('add', dataCalendar, setDataCalendar)
-    } catch(err) {
-      if(err.response.status === 409){
+    } catch (err) {
+      if (err.response.status === 409) {
         toast.error(`Orarul are deja clase alocate săptămâna viitoare`)
       }
     }
@@ -36,7 +39,7 @@ function Orar({ locatie, dataOrar, getOrar }) {
         <span>{dataCalendar[0].toLocaleDateString()} - {dataCalendar[6].toLocaleDateString()}</span>
         <div className="flex justify-center items-center gap-3">
           <button onClick={() => extindeOrar()}
-            className="cursor-pointer bg-rose-500 p-2 rounded-md text-white text-[14px]"><FontAwesomeIcon icon={faCopy}/> Clonează orarul (1 săptămână)</button>
+            className="cursor-pointer bg-rose-500 p-2 rounded-md text-white text-[14px]"><FontAwesomeIcon icon={faCopy} /> Clonează orarul (1 săptămână)</button>
           <button onClick={() => changeCalendarWeek('substract', dataCalendar, setDataCalendar)} className="cursor-pointer"><FontAwesomeIcon icon={faSquareCaretLeft} /></button>
           <h2 className="text-[16px] md:text-[20px] font-[700]">ORAR-CLASE</h2>
           <button onClick={() => changeCalendarWeek('add', dataCalendar, setDataCalendar)} className="cursor-pointer"><FontAwesomeIcon icon={faSquareCaretRight} /></button>

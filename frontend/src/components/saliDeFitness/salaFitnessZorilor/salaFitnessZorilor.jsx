@@ -26,13 +26,16 @@ function SalaFitnessZorilor() {
   const [dataSala, setDataSala] = useState();
 
   const updatePage = async () => {
-    try {
-      await axios.put(`${API_URL}/publicPages/paginaSala?locatie=zorilor`, dataSala, { withCredentials: true })
-      toast.success(`Pagina a fost actualizată`);
-    } catch (err) {
-      toast.success(`A apărut o eroare`);
+    if(dataSala !== null){
+      try {
+        await axios.put(`${API_URL}/publicPages/paginaSala?locatie=zorilor`, dataSala, { withCredentials: true })
+        toast.success(`Pagina a fost actualizată`);
+      } catch (err) {
+        toast.success(`A apărut o eroare`);
+      }
+    } else {
+      await axios.post(`${API_URL}/publicPages/paginaSala/create`, {sala: 'zorilor', descriere: 'default'}, {withCredentials: true})
     }
-    // await axios.post(`${API_URL}/publicPages/paginaSala?locatie=${locatieSala}`, dataSala, {withCredentials: true})
   }
 
   useEffect(() => {
@@ -49,6 +52,7 @@ function SalaFitnessZorilor() {
 
     getDateSala()
   }, [])
+  console.log(dataSala);
 
 
   return (
