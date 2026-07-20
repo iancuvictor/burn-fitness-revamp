@@ -33,7 +33,8 @@ const transporter = nodemailer.createTransport({
   auth: {
     user: "burnclujfake@gmail.com",
     pass: process.env.MAIL_PASS,
-  }
+  },
+  family: 4
 });
 
 router.post("/register", async (req, res) => {
