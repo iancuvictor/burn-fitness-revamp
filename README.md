@@ -10,6 +10,7 @@ This project is a revamp of the Burn Fitness Cluj-Napoca website. It is not mean
   (The functionality is there. Account activation works fine, free trial as well, the only issue is the fact you can't actually receive the email)
 
 ### List of features
+- Fully responsive design (mobile, desktop)
 - Stripe payments
 - User registration/authentication
 - Admin dashboard with all the needed capabilities to mentain and update the website
