@@ -28,6 +28,8 @@ router.get("/", async (req, res) => {
 
 router.post("/ziGratis", async (req, res) => {
   let checkAvailability = await User.findOne({ email: req.body.email });
+  console.log("Request from IP:", req.ip);
+console.log("X-Forwarded-For:", req.headers['x-forwarded-for']);
   if (checkAvailability === null) {
     await transporter.sendMail({
       from: `"Burn Fitness Cluj" <burnclujfake@gmail.com>`,
