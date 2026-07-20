@@ -20,9 +20,16 @@ cloudinary.config({
 
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
-  params: {
-    folder: 'burnFitness/pozeProfil',
-    public_id: (req, file) => req.user.userId + '_pozaProfil',
+  params: (req, file) => {
+    let folder;
+    if (req.baseUrl.includes('clasa' || 'clase')) folder = 'burnFitness/pozeClase';
+    else if (req.baseUrl.includes('antrenor')) folder = 'burnFitness/pozeAntrenori';
+    else folder = 'burnFitness/pozePublice';
+
+    return {
+      folder,
+      public_id: req.user.userId + '_poza' + Date.now(),
+    };
   },
 });
 
