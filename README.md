@@ -35,3 +35,4 @@ This project is a revamp of the Burn Fitness Cluj-Napoca website. It is not mean
 - Switching from hardcoded data to fully dynamic data (no page besides the landing page will exist because it was HARDCODED. Everything will be dynamically added by the admin through the admin dashboard)
 - Overall structural changes, more conectivity between the mongodb Models (removing unnecessary models and or polishing schemas so they contain less lines)
 - Switching to Typescript (this is more for learning purposes)
+- Switching every variable to english (right now routes, variables, etc, are written in both Romanian and English. The website is functional, but it's quite annoying)
