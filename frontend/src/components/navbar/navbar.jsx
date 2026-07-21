@@ -133,7 +133,7 @@ function Navbar({ menuState, setMenuState }) {
             <div className='flex justify-center items-center gap-3'>
                 {user !== undefined ? <NavLink to='/profile'
                     className={({ isActive }) => `relative h-8 w-8 rounded-full ${isActive ? 'ring-2 ring-white' : ''}`}>
-                    <img className='rounded-full h-full w-full object-cover object-center' src={`${user.profilePhoto}?t=${Date.now()}`} alt="Profile Picture" />
+                    <img className='rounded-full h-full w-full object-cover object-center' src={user.profilePhoto ? `${user.profilePhoto}?t=${Date.now()}` : defaultImage} alt="Profile Picture" />
                 </NavLink>
                     : <NavLink to='/profile' className={profileCheck}><FontAwesomeIcon icon={faCircleUser} /></NavLink>}
                 <button
@@ -162,6 +162,9 @@ function Navbar({ menuState, setMenuState }) {
                     <a href="https://www.instagram.com/burnfitnesscluj/" target='_blank'><FontAwesomeIcon icon={faInstagramSquare} className='text-[#E06397] hover:text-[#DB2777] duration-150 text-4xl' /></a>
                     <a href="https://www.facebook.com/BurnFitnessCluj" target='_blank'><FontAwesomeIcon icon={faFacebookSquare} className='text-[#6096D6] hover:text-[#1877F2] duration-150 text-4xl' /></a>
                 </div>
+                <button onClick={() => {
+                    logOut()
+                    closeMenu(setMenuState)}} className='cursor-pointer bg-rose-500 text-white p-1 text-[18px] rounded-xs'>Log out</button>
             </div>
         </div>
     </>

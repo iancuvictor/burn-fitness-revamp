@@ -52,7 +52,7 @@ function SalaFitnessZorilor() {
             behavior: 'smooth'
           });
         }
-      }, 150);
+      }, 200);
     }
 
     async function getDateSala() {
@@ -62,7 +62,6 @@ function SalaFitnessZorilor() {
 
     getDateSala()
   }, [])
-  console.log(dataSala);
 
 
   return (
