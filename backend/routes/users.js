@@ -58,13 +58,13 @@ router.post("/register", async (req, res) => {
         password: hashedPass,
         active: false,
       });
-      try{
-      await transporter.sendMail({
-        from: `"Burn Fitness Cluj" <burnclujfake@gmail.com>`,
-        replyTo: "burnclujfake@gmail.com",
-        to: req.body.email,
-        subject: "Bine ai venit la Burn Fitness Cluj-Napoca!",
-        html: `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#000;">
+      try {
+        await transporter.sendMail({
+          from: `"Burn Fitness Cluj" <burnclujfake@gmail.com>`,
+          replyTo: "burnclujfake@gmail.com",
+          to: req.body.email,
+          subject: "Bine ai venit la Burn Fitness Cluj-Napoca!",
+          html: `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#000;">
   <tr>
     <td align="center">
       <table width="300" cellpadding="0" cellspacing="0" border="0" style="background:#000; border-radius:10px; overflow:hidden;">
@@ -104,13 +104,13 @@ router.post("/register", async (req, res) => {
     </td>
   </tr>
 </table>`,
-      });
-      console.log('email sent')
-      res.status(201).json({ message: "User created, email sent" });
-    } catch(err) {
-      res.json({message: 'Error'});
-      console.log(err);
-    }
+        });
+        console.log('email sent')
+        res.status(201).json({ message: "User created, email sent" });
+      } catch (err) {
+        res.json({ message: 'Error' });
+        console.log(err);
+      }
     } catch (err) {
       console.log(err);
       res.json({ message: "Error has occured" });
@@ -255,5 +255,33 @@ router.get('/profile/qrCode', protect, async (req, res) => {
   const qrCodeReply = await QRCode.toDataURL(req.user.userId, { width: 500 });
   res.status(200).json({ imageUrl: qrCodeReply });
 })
+
+router.put('/updateUser', admin, upload.single('profilePhoto'), async (req, res) => {
+
+  let data = {
+    displayName: req.body.displayName,
+    username: req.body.username,
+    email: req.body.email,
+    phone: req.body.phone,
+    dataNasterii: req.body.dataNasterii,
+    dataAbsolvireStudent: req.body.dataAbsolvireStudent,
+  }
+
+  if(req.file){
+    data.profilePhoto = req.file.path;
+  }
+
+  console.log(data);
+
+  try{
+    await User.updateOne({_id: req.body._id},
+      {$set: data}
+    )
+    res.status(200).json({message: 'User updated'});
+  } catch(err) {
+    res.json({message: 'Error'});
+    console.log(err);
+  }
+});
 
 export default router;

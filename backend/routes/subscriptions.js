@@ -27,6 +27,7 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/ziGratis", async (req, res) => {
+  console.log('firing');
   let checkAvailability = await User.findOne({ email: req.body.email });
   if (checkAvailability === null) {
     await transporter.sendMail({

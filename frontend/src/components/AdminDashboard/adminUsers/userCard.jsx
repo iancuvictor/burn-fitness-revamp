@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import UserEditScreen from "./userEditScreen";
+import defaultImage from '../../../media/default-avatar.jpg';
 
 
 const API_URL = import.meta.env.VITE_BACKEND_URL
@@ -15,7 +16,7 @@ export default function UserCard({ user }) {
         <div className="flex gap-2 items-center">
             <span className="w-15 h-15">
                 <img className="object-cover object-center w-full h-full rounded-full"
-                    src={`${user.profilePhoto}?t=${Date.now()}`} alt="" />
+                    src={user.profilePhoto ? `${user.profilePhoto}?t=${Date.now()}` : defaultImage} alt="" />
             </span>
             <div className="flex flex-col text-[14px] font-[600]">
                 <span className="flex gap-1">{user.username}</span>
