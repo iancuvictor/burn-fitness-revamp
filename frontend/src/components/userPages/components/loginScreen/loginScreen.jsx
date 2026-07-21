@@ -11,7 +11,8 @@ import { useContext } from "react";
 import { AuthContext } from "../../../../context/AuthContext";
 import { toast } from "sonner";
 
-const API_URL = import.meta.env.VITE_BACKEND_URL
+const API_URL = import.meta.env.VITE_BACKEND_URL;
+const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
 
 function LoginScreen() {
   const {setLoggedIn} = useContext(AuthContext)
@@ -66,12 +67,14 @@ function LoginScreen() {
 
   const signUp = async (e) => {
     e.preventDefault();
+    if(emailRegex.test(signUpForm.email)){
+
       if(signUpForm.password === signUpForm.passwordConfirm){
         try{
           await axios.post(`${API_URL}/users/register`, signUpForm)
-          await axios.post(`${API_URL}/users/login`, {username: signUpForm.username, password: signUpForm.password});
-          window.location.reload();
           toast.success(`Emailul de confirmare a fost trimis! Verifică folderul de SPAM în cazul în care nu îl găsești`)
+          // await axios.post(`${API_URL}/users/login`, {username: signUpForm.username, password: signUpForm.password});
+          window.location.reload();
         } catch(err){
           let errorCode = err.response.data.error;
           if(errorCode === 'username'){
@@ -80,14 +83,19 @@ function LoginScreen() {
             toast.error(`Există deja un utilizator cu acest email`)
           } else if(errorCode === 'phone'){
             toast.error(`Există deja un utilizator cu acest număr de telefon`)
+          } else {
+            toast.error(`Emailul nu a putut fi trimis. Roagă un angajat BURN să îți activeze contul manual!`)
           }
         }
       } else {
         setError({...error, passwordConfirm: true});
       }
-  };
-
-  return (
+    } else {
+      toast.error(`Email invalid`);
+    }
+    };
+    
+    return (
     <div className="relative min-h-[calc(100vh-5rem)] flex justify-center items-center gap-10 font-finlandica">
       <div
         className={`${userExists ? "flex" : "hidden"} h-full w-full md:w-fit shadow-xl flex flex-col gap-6 bg-white 

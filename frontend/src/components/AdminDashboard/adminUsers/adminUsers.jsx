@@ -33,18 +33,26 @@ function AdminUsers() {
         }
     }
 
-    return <div className="relative flex flex-col h-screen items-start w-full h-full bg-white p-5 gap-5">
+    return <div className="relative flex flex-col min-h-[calc(100vh-5rem)] items-start w-full h-full bg-white p-5 gap-5">
         <div className="sticky top-0 flex flex-row gap-1 items-center">
             <FontAwesomeIcon icon={faMagnifyingGlass} />
             <input onChange={(e) => setFilters({...filters, filterBar: e.target.value})} type="text"
             className="w-80 rounded-xs ring-1 ring-gray-500 outline-none border-none pl-2 pr-2 pt-1 pb-1"
-            placeholder="Introdu numele abonatului"/>
+            value={filters.filterBar} placeholder="Introdu datele abonatului"/>
             <button onClick={() => fetchUsers()} className="cursor-pointer bg-rose-500 text-white p-2 rounded-md w-fit">Refresh</button>
         </div>
-            <div className="grid grid-cols-4 gap-4 p-4 overflow-y-scroll inset-shadow-sm inset-shadow-gray-300 rounded-md w-full">
-                {userList.map((user) => {
+            <div className="grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 wrap gap-4 p-4 overflow-y-scroll inset-shadow-sm inset-shadow-gray-300 rounded-md w-full">
+                {userList.filter((user) => {
+                    const searchTerm = filters.filterBar.toLowerCase().trim().split(' ').join('');
+                    console.log(userList);
+
+                    return user.username.toLowerCase().includes(searchTerm) ||
+                           user.displayName.toLowerCase().includes(searchTerm) ||
+                           user.email.toLowerCase().includes(searchTerm) ||
+                           String(user.phone).includes(searchTerm)
+                }).map((user, index) => {
                     if (user.isAdmin === false) {
-                        return <UserCard user={user}/>
+                        return <UserCard user={user} key={index}/>
                     }
                 })}
             </div>

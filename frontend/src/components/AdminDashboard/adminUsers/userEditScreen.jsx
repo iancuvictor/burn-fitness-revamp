@@ -18,6 +18,7 @@ export default function UserEditScreen({ user, editScreen, setEditScreen }) {
     const updateUser = async () => {
         let data = new FormData();
         data.append('_id', formData._id);
+        data.append('active', formData.active);
         data.append('displayName', formData.displayName);
         data.append('username', formData.username);
         data.append('email', formData.email);
@@ -29,6 +30,7 @@ export default function UserEditScreen({ user, editScreen, setEditScreen }) {
             let response = await axios.put(`${API_URL}/users/updateUser`, data, { withCredentials: true });
             if(response.status === 200){
                 toast.success(`Utilizatorul a fost actualizat!`);
+                setEditScreen(false);
             }
         } catch(err) {
             console.log(err);
@@ -75,6 +77,9 @@ export default function UserEditScreen({ user, editScreen, setEditScreen }) {
                         </span>
                         <span className="font-[600]">Nr. Telefon: <input onChange={(e) => setFormData({ ...formData, nrTel: e.target.value })}
                             value={formData.phone} /></span>
+                            <span className="font-[600]">Cont activat: <input type='checkbox' 
+                            onChange={(e) => setFormData({ ...formData, active: e.target.checked })}
+                            checked={formData.active} /></span>
                         <span className="font-[600]">Data nașterii: <input type='date'
                             onChange={(e) => setFormData({ ...formData, dataNasterii: e.target.value })}
                             value={formData.dataNasterii?.split("T")[0]} /></span>

@@ -6,7 +6,7 @@ export default function CardClase({ data }) {
   return (
     <NavLink to={`/clasa/${data._id}`}
       className="cursor-pointer group bg-black relative flex flex-col justify-baseline items-center 
-      w-fit aspect-square md:w-80 font-finlandica rounded-xl overflow-hidden"
+      w-fit aspect-square md:w-80 font-finlandica rounded-xl overflow-hidden animate-fade-in"
     >
       <div className=" z-1 absolute top-0 w-full h-full md:opacity-15 md:bg-black hover:opacity-0 duration-400"></div>
       <div className="relative flex flex-col justify-baseline items-center overflow-hidden h-full w-full">

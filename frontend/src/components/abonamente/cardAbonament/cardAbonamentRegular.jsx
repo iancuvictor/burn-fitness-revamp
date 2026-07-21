@@ -51,7 +51,7 @@ export default function CardAbonamentRegular({ data, viewPreturi }) {
           window.location.href = response.data.url;
         } catch(err) {
           if(err.response.data.error === 'subscriptionAlreadyBought'){
-            toast.error(`Deja ai un abonament activ`);
+            toast.error(`Deja ai un abonament ${data.titlu} activ`);
           }
         }
       } else {
@@ -64,7 +64,7 @@ export default function CardAbonamentRegular({ data, viewPreturi }) {
     return (
       <div ref={cardRef} className={`${buying === false ? 'max-h-70' : 'max-h-200'} p-3
       ring-1 ring-rose-500 shadow-md shadow-rose-500 hover:shadow-lg w-xs md:w-xs rounded-xl overflow-hidden 
-      relative font-finlandica flex flex-col justify-between items-center bg-black text-white transition-all duration-75 ease-out`}>
+      relative font-finlandica flex flex-col justify-between items-center bg-black text-white animate-fade-in duration-75 ease-out`}>
         <div className={`${buying === false ? 'gap-0' : 'gap-1'} h-fit flex flex-col justify-evenly items-center duration-75 ease-out
         w-full pl-5 pr-5`}>
           <h1 className={`font-[700] text-[22px] md:text-[24px] text-white text-center`}>

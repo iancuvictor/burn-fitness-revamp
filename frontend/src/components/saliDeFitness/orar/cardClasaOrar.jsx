@@ -75,7 +75,7 @@ function CardClasaOrar({ clasa, getOrar, calendarDate }) {
   }, [calendarDate]);
 
   return (
-    <div className="relative font-finlandica flex flex-col justify-between gap-1 min-h-16
+    <div className="relative font-finlandica flex flex-col justify-between gap-1 h-fit
     text-[12px] md:text-[14px] ring-1 p-2 rounded-xs w-full">
       <div className={`${errors.expired ? 'flex' : 'hidden'} absolute top-0 left-0 w-full h-full bg-black/80 z-1 
       text-rose-500 font-[700]

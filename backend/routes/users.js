@@ -258,20 +258,29 @@ router.get('/profile/qrCode', protect, async (req, res) => {
 
 router.put('/updateUser', admin, upload.single('profilePhoto'), async (req, res) => {
 
-  let data = {
-    displayName: req.body.displayName,
-    username: req.body.username,
-    email: req.body.email,
-    phone: req.body.phone,
-    dataNasterii: req.body.dataNasterii,
-    dataAbsolvireStudent: req.body.dataAbsolvireStudent,
-  }
+  let fields = [
+    'displayName',
+    'active',
+    'username',
+    'email',
+    'phone',
+    'dataNasterii',
+    'dataAbsolvireStudent'
+  ]
 
+  let data = {};
+
+  for(let keys of fields){
+    if(req.body[keys] !== undefined && req.body[keys] !== 'undefined' && req.body[keys] !== null && req.body[keys] !== 'null'){
+      data[keys] = req.body[keys];
+    }
+  }
+  console.log(data);
+  
   if(req.file){
     data.profilePhoto = req.file.path;
   }
 
-  console.log(data);
 
   try{
     await User.updateOne({_id: req.body._id},
@@ -283,5 +292,15 @@ router.put('/updateUser', admin, upload.single('profilePhoto'), async (req, res)
     console.log(err);
   }
 });
+
+router.delete('/deleteUser', admin, async (req, res) => {
+  try{
+    await User.deleteOne({_id: req.query.id})
+    res.status(200).json({message: 'User deleted!'})
+  } catch(err) {
+    res.json({message: 'Error occured'});
+  }
+  // console.log(req.query.id);
+})
 
 export default router;

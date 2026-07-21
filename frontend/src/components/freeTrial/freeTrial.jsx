@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Input from './input.jsx';
 import axios from 'axios';
 import { NavLink } from 'react-router';
+import { toast } from 'sonner';
 
 const API_URL = import.meta.env.VITE_BACKEND_URL;
 const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
@@ -17,12 +18,13 @@ function FreeTrial(){
 
     const submitForm = async (data) => {
         if(emailRegex.test(data.email)){
-
             try{
                 let response = await axios.post(`${API_URL}/abonamente/ziGratis`, form);
                 setError({...error, status: response.status});
+                toast.success(`Emailul a fost trimis cu succes!`)
             } catch(err) {
                 setError({...error, status: err.response.status});
+                toast.error(`Emailul nu a putut fi trimis`)
             }
         } else {
             setError({...error, notAnEmail: true})
