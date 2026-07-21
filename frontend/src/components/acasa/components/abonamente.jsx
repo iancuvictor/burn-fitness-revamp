@@ -24,7 +24,7 @@ function AbonamenteAcasa() {
 
   let arrayRegular = data.filter((abonament) => abonament.highlighted === true && abonament.tier === 'regular')
   return (
-    <div className="relative h-fit pb-10 w-full flex flex-col items-center overflow-hidden gap-10 font-finlandica">
+    <div className="relative min-h-screen pb-10 w-full flex flex-col items-center overflow-hidden gap-10 font-finlandica">
       <div
         className="flex w-full justify-around gap-4
             animate-[infoBar_8s_linear_infinite_reverse]
@@ -69,7 +69,7 @@ function AbonamenteAcasa() {
       <div>
         <div className="flex flex-col items-center gap-5">
           <div className="text-[14px] md:text-[18px] text-white flex flex-col items-center gap-3">
-            <h1 className="text-[25px] font-[600]">Abonamentele BURN FITNESS CLUJ-NAPOCA</h1>
+            <h1 className="text-[20px] md:text-[25px] font-[600] text-center">Abonamentele BURN FITNESS CLUJ-NAPOCA</h1>
             <div className="flex bg-redishPinkDark p-2 rounded-md">
             <span>Vezi preturile:</span>
             <select

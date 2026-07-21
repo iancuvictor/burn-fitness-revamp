@@ -12,11 +12,11 @@ function Banner() {
   const [display, setDisplay] = useState(true);
   return (
     <div
-      className="relative flex flex-col h-140 w-full justify-center items-center
+      className="relative flex flex-col min-h-[calc(100vh-5rem)] w-full justify-center items-center
   md:justify-center font-finlandica"
     >
       <div className={`${display ? 'p-3 md:p-4 h-15' : 'opacity-0 h-0'}
-      relative z-1 flex justify-center items-center w-full bg-rose-500 gap-2
+      absolute top-0 z-1 flex justify-center items-center w-full bg-rose-500 gap-2
       text-[12px] md:text-[15px] font-[600] duration-500 ease-out`}>
             <FontAwesomeIcon
               icon={faPercent}

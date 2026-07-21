@@ -3,7 +3,7 @@ import CardListaClase from "./cardListaClase";
 
 function ListaClaseProfil({data}){
 
-  return <div className="flex flex-col md:flex-row gap-5">
+  return <div className="flex flex-col md:flex-row flex-wrap gap-5">
       {data.length > 0 ? (
         data.map((clasa, index) => {
           if(new Date(clasa.date) > new Date()){

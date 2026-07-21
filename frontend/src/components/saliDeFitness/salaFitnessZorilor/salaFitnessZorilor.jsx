@@ -26,7 +26,7 @@ function SalaFitnessZorilor() {
   const [dataSala, setDataSala] = useState();
 
   const updatePage = async () => {
-    if(dataSala !== null){
+    if (dataSala !== null) {
       try {
         await axios.put(`${API_URL}/publicPages/paginaSala?locatie=zorilor`, dataSala, { withCredentials: true })
         toast.success(`Pagina a fost actualizată`);
@@ -34,15 +34,25 @@ function SalaFitnessZorilor() {
         toast.success(`A apărut o eroare`);
       }
     } else {
-      await axios.post(`${API_URL}/publicPages/paginaSala/create`, {sala: 'zorilor', descriere: 'default'}, {withCredentials: true})
+      await axios.post(`${API_URL}/publicPages/paginaSala/create`, { sala: 'zorilor', descriere: 'default' }, { withCredentials: true })
     }
   }
 
   useEffect(() => {
     if (location.hash !== '') {
       setTimeout(() => {
-        document.querySelector(location.hash).scrollIntoView({ behavior: 'smooth' })
-      }, 50);
+        const element = document.querySelector(location.hash);
+        if (element) {
+          const headerOffset = 80;
+          const elementPosition = element.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.scrollY - headerOffset;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+        }
+      }, 150);
     }
 
     async function getDateSala() {
@@ -95,9 +105,11 @@ function SalaFitnessZorilor() {
           programDuminica="10:00 - 17:00"
         />
       </div>
-      <div id='orar' className="w-full md:pl-10 md:pr-10">
+      <div className="w-full md:pl-10 md:pr-10">
         <ZonaAntrenori locatie='ZORILOR' />
-        <CalendarOrar locatie='zorilor' />
+        <div id='orar' className="w-full">
+          <CalendarOrar locatie='zorilor' />
+        </div>
       </div>
       <div id='reviewuri' className="flex flex-col items-center gap-10 pl-5 pr-5">
         <h1 className="text-white text-[26px] md:text-[30px] font-[700]">Părerea clienților noștrii!</h1>

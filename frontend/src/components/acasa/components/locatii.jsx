@@ -164,7 +164,7 @@ function Locatii() {
               <h1>Sală fitness ZORILOR</h1>
             </Popup>
           </Marker>
-          <Marker eventHandlers={{
+          {/* <Marker eventHandlers={{
             click: () => setViewLocatie('sigma'),
           }} position={markerSigma}>
             <Popup>
@@ -191,7 +191,7 @@ function Locatii() {
             <Popup>
               <h1>Sală fitness MĂRĂȘTI</h1>
             </Popup>
-          </Marker>
+          </Marker> */}
         </MapContainer>
       </div>
     </div>

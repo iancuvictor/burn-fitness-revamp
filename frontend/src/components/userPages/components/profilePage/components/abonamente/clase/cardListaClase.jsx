@@ -31,7 +31,7 @@ function CardListaClase({clasa}) {
   const ora = `${hh}:${mm}`
   
   return <div
-    className="relative flex flex-col gap-2 w-full md:w-fit
+    className="relative flex flex-col gap-2 w-full md:max-w-70
     shadow-md p-3 rounded-md font-finlandica ring-2"
   >
     <button onClick={() => setPopUpRenuntaClasa(true)} 

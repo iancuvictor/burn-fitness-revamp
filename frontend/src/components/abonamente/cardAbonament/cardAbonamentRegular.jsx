@@ -1,4 +1,4 @@
-import { faCartShopping, faCircleCheck as CircleCheckSolid } from "@fortawesome/free-solid-svg-icons";
+import { faCartShopping, faCircleCheck as CircleCheckSolid, faTag } from "@fortawesome/free-solid-svg-icons";
 import { faCircleCheck as CircleCheckRegular } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AuthContext } from "../../../context/AuthContext";
@@ -67,6 +67,7 @@ export default function CardAbonamentRegular({ data, viewPreturi }) {
       relative font-finlandica flex flex-col justify-between items-center bg-black text-white animate-fade-in duration-75 ease-out`}>
         <div className={`${buying === false ? 'gap-0' : 'gap-1'} h-fit flex flex-col justify-evenly items-center duration-75 ease-out
         w-full pl-5 pr-5`}>
+          {data.reducereAplicabila ? <span className="text-rose-500"><FontAwesomeIcon icon={faTag}/> Reducere aplicabilă!</span> : ''}
           <h1 className={`font-[700] text-[22px] md:text-[24px] text-white text-center`}>
             {data.titlu}
           </h1>
