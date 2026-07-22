@@ -9,6 +9,8 @@ This project is a revamp of the Burn Fitness Cluj-Napoca website. It is not mean
 - username: lorena
 - password: 2
 
+#### Stripe's test card number: 4242 4242 4242 4242
+
 ## As of now, the page only contains minimal content, just enough to prove the website works.
 - In order to use the website to it's full potential, allow the Render backend to load first (could take up to a minute), so that all the resources load (subscriptions, account auth, etc)
 - I have removed anything that is not yet filled with content, so the only thing remaining is the information for the Zorilor Gym.
@@ -30,9 +32,18 @@ This project is a revamp of the Burn Fitness Cluj-Napoca website. It is not mean
 ### List of things that still need to be done:
 - Fixing email bugs
 - Polishing frontend (right now it contains only the minimal content needed for proof of concept)
+- Adding terms and regulations, cookie acceptance, etc.
 - Polishing backend (eg. adding status codes to each response; proper error handling; etc)
 - Polishing admin dashboard (unfinished, but usable enough to create, update, delete, and modify the website)
 - Switching from hardcoded data to fully dynamic data (no page besides the landing page will exist because it was HARDCODED. Everything will be dynamically added by the admin through the admin dashboard)
 - Overall structural changes, more conectivity between the mongodb Models (removing unnecessary models and or polishing schemas so they contain less lines)
 - Switching to Typescript (this is more for learning purposes)
 - Switching every variable to english (right now routes, variables, etc, are written in both Romanian and English. The website is functional, but it's quite annoying)
+- Fixing keys for mapped objects (from key={index} to a proper unique identifier)
+
+## MEDIA PREVIEW FOR ADMIN PANEL (WIP UI/UX/FUNCTIONALITY)
+<img width="800" alt="image" src="https://github.com/user-attachments/assets/ff29ab27-a07f-4e1f-8ec7-04b7db11e9f0" />
+<img width="800" alt="image" src="https://github.com/user-attachments/assets/8c583a13-f75c-4ebc-8d65-7f66a3399982" />
+<img width="800" alt="image" src="https://github.com/user-attachments/assets/cdb4ea88-f814-465c-82a5-375537471269" />
+<img width="800" alt="image" src="https://github.com/user-attachments/assets/e282c6c7-659c-47b2-b9d7-6bac956a7bb4" />
+<img width="800" alt="image" src="https://github.com/user-attachments/assets/0c655fee-f4e3-45c3-9871-94998488f9f2" />
