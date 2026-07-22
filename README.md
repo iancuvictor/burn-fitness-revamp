@@ -42,6 +42,7 @@ This project is a revamp of the Burn Fitness Cluj-Napoca website. It is not mean
 
 ## MEDIA PREVIEW FOR ADMIN PANEL (WIP UI/UX/FUNCTIONALITY)
 <img width="800" alt="image" src="https://github.com/user-attachments/assets/ff29ab27-a07f-4e1f-8ec7-04b7db11e9f0" />
+<img width="800" alt="image" src="https://github.com/user-attachments/assets/8c583a13-f75c-4ebc-8d65-7f66a3399982" />
 <img width="800" alt="image" src="https://github.com/user-attachments/assets/cdb4ea88-f814-465c-82a5-375537471269" />
 <img width="800" alt="image" src="https://github.com/user-attachments/assets/e282c6c7-659c-47b2-b9d7-6bac956a7bb4" />
 <img width="800" alt="image" src="https://github.com/user-attachments/assets/0c655fee-f4e3-45c3-9871-94998488f9f2" />
