@@ -97,11 +97,11 @@ function AbonamenteAcasa() {
                 abonament <span className="text-white underline underline-offset-4">ACTIV</span> pentru reducerea de familie)</span>
           </div>
           <div className={`flex flex-col gap-10 md:grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-${arrayRegular.length} md:gap-10`}>
-            {arrayRegular.map((abonament, index) => {
+            {arrayRegular.map((abonament) => {
                 return (
                   <CardAbonamentRegular
                     data={abonament}
-                    key={index}
+                    key={abonament._id}
                     viewPreturi={viewPreturi.viewPreturi}
                   />
                 );

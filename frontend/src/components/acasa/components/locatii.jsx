@@ -164,34 +164,6 @@ function Locatii() {
               <h1>Sală fitness ZORILOR</h1>
             </Popup>
           </Marker>
-          {/* <Marker eventHandlers={{
-            click: () => setViewLocatie('sigma'),
-          }} position={markerSigma}>
-            <Popup>
-              <h1>Sală fitness SIGMA</h1>
-            </Popup>
-          </Marker>
-          <Marker eventHandlers={{
-            click: () => setViewLocatie('manastur'),
-          }} position={markerManastur}>
-            <Popup>
-              <h1>Sală fitness MĂNĂȘTUR</h1>
-            </Popup>
-          </Marker>
-          <Marker eventHandlers={{
-            click: () => setViewLocatie('flora'),
-          }} position={markerFlora}>
-            <Popup>
-              <h1>Sală fitness FLORA</h1>
-            </Popup>
-          </Marker>
-          <Marker eventHandlers={{
-            click: () => setViewLocatie('marasti'),
-          }} position={markerMarasti}>
-            <Popup>
-              <h1>Sală fitness MĂRĂȘTI</h1>
-            </Popup>
-          </Marker> */}
         </MapContainer>
       </div>
     </div>

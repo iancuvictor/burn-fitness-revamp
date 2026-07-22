@@ -35,8 +35,6 @@ export default function Filtre({ filtre, setFiltre }) {
         }
     }, [])
 
-    console.log(filtre);
-
     return <div className={`fixed z-4 flex fixed top-0 left-0 h-full w-full items-center justify-center bg-black/40
                             pt-5 pb-5 pl-2 pr-2`}>
 

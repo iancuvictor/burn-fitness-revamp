@@ -99,7 +99,7 @@ export default function UserEditScreen({ user, editScreen, setEditScreen }) {
                     </div>
                     <div className="flex flex-col gap-2">
                         <span className="text-[18px] font-[600]">Clase active:</span>
-                        <div className="flex flex-row gap-2">
+                        <div className="flex flex-row gap-2 flex-wrap">
                             {formData.activeClasses.map((clasa, index) => {
                                 return <CardListaClase clasa={clasa} key={index} />
                             })}

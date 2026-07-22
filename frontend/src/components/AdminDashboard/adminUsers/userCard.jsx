@@ -45,7 +45,7 @@ export default function UserCard({ user }) {
             </div>
         </div>
         <div className="text-[14px] flex flex-col">
-            <span className="font-[600]">Nr. Telefon: {user.phone ? user.phone : 'Nu are setat nr. de telefon'}</span>
+            <span className="font-[600]">Nr. Telefon: {user.phone !== 'undefined' || undefined ? user.phone : 'Nu are setat nr. de telefon'}</span>
             <span className="font-[600]">Data nașterii: {" "}
                 {new Date(user.dataNasterii).toLocaleDateString('ro-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
             <span className="font-[600]">Data absolvire <span className="font-[400]">[Pentru reducerea de student]:</span></span>

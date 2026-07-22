@@ -50,9 +50,9 @@ function AdminUsers() {
                            user.displayName.toLowerCase().includes(searchTerm) ||
                            user.email.toLowerCase().includes(searchTerm) ||
                            String(user.phone).includes(searchTerm)
-                }).map((user, index) => {
+                }).map((user) => {
                     if (user.isAdmin === false) {
-                        return <UserCard user={user} key={index}/>
+                        return <UserCard user={user} key={user._id}/>
                     }
                 })}
             </div>
