@@ -39,6 +39,7 @@ This project is a revamp of the Burn Fitness Cluj-Napoca website. It is not mean
 - Overall structural changes, more conectivity between the mongodb Models (removing unnecessary models and or polishing schemas so they contain less lines)
 - Switching to Typescript (this is more for learning purposes)
 - Switching every variable to english (right now routes, variables, etc, are written in both Romanian and English. The website is functional, but it's quite annoying)
+- Fixing keys for mapped objects (from key={index} to a proper unique identifier)
 
 ## MEDIA PREVIEW FOR ADMIN PANEL (WIP UI/UX/FUNCTIONALITY)
 <img width="800" alt="image" src="https://github.com/user-attachments/assets/ff29ab27-a07f-4e1f-8ec7-04b7db11e9f0" />
