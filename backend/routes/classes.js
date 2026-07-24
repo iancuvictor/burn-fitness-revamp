@@ -22,8 +22,8 @@ cloudinary.config({
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
-    folder: 'burnFitness/pozeProfil',
-    public_id: (req, file) => req.user.userId + '_pozaProfil',
+    folder: 'burnFitness/pozeClase',
+    public_id: (req, file) => req.body.nume + '_pozaProfil' + Date.now(),
   },
 });
 

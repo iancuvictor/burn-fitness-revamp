@@ -33,6 +33,7 @@ export default function CalendarOrar({locatie}) {
       console.log(err);
     }
   }
+  
   useEffect(() => {
     if (user !== undefined) {
       if (
