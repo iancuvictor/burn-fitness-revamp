@@ -14,44 +14,65 @@ router.post('/createPayment', express.json(), protect, async (req, res) => {
   let userCheck = await User.findOne({ _id: req.user.userId, "activeSubscriptions.subscriptionName": req.body.subscriptionName });
   let user = await User.findOne({ _id: req.user.userId });
   let subscriptionCheck = await Abonament.findOne({ _id: req.body.id, reducereAplicabila: true })
-  //discounts
-  let couponName;
-  let discountParams;
-  if (user.dataAbsolvireStudent !== undefined && subscriptionCheck !== null) {
-    couponName = 'RfLpN0nA';
-    discountParams = [{
-      coupon: couponName
-    }]
+
+  //
+  let price = 0;
+  let duration = 0;
+  let priceData = await Abonament.findOne({ _id: req.body.id }, { preturi: 1 });
+
+  if (!priceData) {
+    return res.status(400).json({ message: 'Invalid subscription id' });
   }
-  if (userCheck === null) {
-    const session = await stripe.checkout.sessions.create({
-      line_items: [
-        {
-          price_data: {
-            currency: 'ron',
-            product_data: {
-              name: `${req.body.subscriptionName} || Duration: ${req.body.duration} ${req.body.duration > 1 ? 'Months' : 'Month'}`,
-              description: `${req.body.desc || 'no description available'}`,
+  for (let pret of priceData.preturi) {
+    if (req.body.price === pret.pret && req.body.duration === pret.duratie) {
+      price = pret.pret;
+      duration = pret.duratie;
+    }
+  }
+
+  if (price !== 0 && duration !== 0) {
+
+    //discounts
+    let couponName;
+    let discountParams;
+    if (user.dataAbsolvireStudent !== undefined && subscriptionCheck !== null) {
+      couponName = 'RfLpN0nA';
+      discountParams = [{
+        coupon: couponName
+      }]
+    }
+    if (userCheck === null) {
+      const session = await stripe.checkout.sessions.create({
+        line_items: [
+          {
+            price_data: {
+              currency: 'ron',
+              product_data: {
+                name: `${req.body.subscriptionName} || Duration: ${duration} ${duration > 1 ? 'Months' : 'Month'}`,
+                description: `${req.body.desc || 'no description available'}`,
+              },
+              unit_amount: price * 100,
             },
-            unit_amount: req.body.price * 100,
+            quantity: 1,
           },
-          quantity: 1,
+        ],
+        mode: 'payment',
+        discounts: discountParams,
+        success_url: `${FRONTEND_URL}/profile?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${FRONTEND_URL}/abonamente`,
+        client_reference_id: req.user.userId,
+        metadata: {
+          id: req.body.id,
+          duration: duration,
+          price: price,
         },
-      ],
-      mode: 'payment',
-      discounts: discountParams,
-      success_url: `${FRONTEND_URL}/profile?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${FRONTEND_URL}/abonamente`,
-      client_reference_id: req.user.userId,
-      metadata: {
-        id: req.body.id,
-        duration: req.body.duration,
-        price: req.body.price,
-      },
-    });
-    res.status(200).json({ url: session.url });
+      });
+      res.status(200).json({ url: session.url });
+    } else {
+      res.status(409).json({ message: 'Subscription already active', error: 'subscriptionAlreadyBought' })
+    }
   } else {
-    res.status(409).json({ message: 'Subscription already active', error: 'subscriptionAlreadyBought' })
+    res.status(400).json({ message: 'Malformed data, payment denied' });
   }
 });
 
@@ -85,8 +106,8 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
         'activeSubscriptions.id': abonament._id
       });
 
-      if(alreadyProcessed) {
-        return res.status(200).json({message: 'Already processed'})
+      if (alreadyProcessed) {
+        return res.status(200).json({ message: 'Already processed' })
       } else {
         try {
           await User.updateOne(
@@ -100,18 +121,18 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
                   pricePaid: +session.amount_total / 100,
                   duration: session.metadata.duration,
                   purchaseDate: new Date(),
-                expiryDate: expiry,
+                  expiryDate: expiry,
+                }
               }
-            }
-          })
+            })
           res.status(201).json({ message: 'order placed, subscription given', received: true });
         } catch (err) {
           res.status(401).json({ message: 'Error occured' });
         }
         break;
       }
-        default:
-          res.json({ message: 'Unhandled event' })
+    default:
+      res.json({ message: 'Unhandled event' })
   }
 })
 
