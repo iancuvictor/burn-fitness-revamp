@@ -1,5 +1,9 @@
 # FULL-STACK PROJECT BUILT IN REACT.JS, MONGO.DB, EXPRESS.JS AND TAILWIND.CSS
 
+## Please open both to make sure the page loads properly.
+https://burn-fitness-revamp.onrender.com/ (Backend)
+https://burn-fitness-revamp.vercel.app/ (Frontend)
+
 This project is a revamp of the Burn Fitness Cluj-Napoca website. It is not meant in any way shape or form to be used for the actual business. This came as a learning experience mostly.
 
 #### trial account (1) (student, so auto-discount is applied at checkout):
